@@ -5,8 +5,7 @@ from . import views # para importar las funciones que definimos
 
 urlpatterns = [
     path('', views.home, name='home'),
-   # path('quienes_somos/', views.quienes_somos, name='quienes_somos'),
-
+    path('pacientes/', views.home_pac, name='home_pac'),
    
     
 ]

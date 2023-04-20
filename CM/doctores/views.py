@@ -5,6 +5,9 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'home.html')
 
+def home_doc(request):
+    return render(request, "doctores/home_doc.html")
+
 def login_medico():
     documento = """<html><body><h1>Login Medico</h1></body></html>"""
     return HttpResponse(documento)

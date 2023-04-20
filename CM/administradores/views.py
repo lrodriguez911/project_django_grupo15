@@ -5,6 +5,9 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'home.html')
 
+def home_adm(request):
+    return render(request, 'administradores/home_adm.html')
+
 def admin_login():
     documento = """<html><body><h1>Admin Login</h1></body></html>"""
     return HttpResponse(documento)

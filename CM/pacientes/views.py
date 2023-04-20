@@ -3,7 +3,10 @@ from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    return render(request, "pacientes/home.html")
+    return render(request, "./pacientes/home.html")
+
+def home_pac(request):
+    return render(request, "./pacientes/home_pac.html")
 
 def login_paciente():
     documento = """<html><body><h1>Login Paciente</h1></body></html>"""
