@@ -1,9 +1,28 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from pacientes.forms import PacienteForm
+from datetime import datetime
+from django.contrib import messages
+
 
 # Create your views here.
 def home(request):
-    return render(request, "./pacientes/home.html")
+    if(request.method=='POST'):
+        contacto_form = ContactoForm(request.POST)    
+        # mensaje='Hemos recibido tus datos'
+        # acción para tomar los datos del formulario
+        if(contacto_form.is_valid()):  
+            messages.success(request,'consulta generada correctamente')          
+        # acción para tomar los datos del formulario
+        else:
+            messages.warning(request,'Por favor revisa los errores en el formulario')
+    else:
+        paciente_form = PacienteForm()
+    context = {                             
+                'paciente_form':paciente_form,
+            }
+    return render(request, "./pacientes/home.html",context)
 
 def home_pac(request):
     return render(request, "./pacientes/home_pac.html")

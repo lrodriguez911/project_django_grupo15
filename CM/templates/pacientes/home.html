@@ -9,7 +9,27 @@
           <br>
           <h3>Centro Medico Gr15</h3>
           <br>
-          <br>
+          <div class="row">
+            {% for campo in paciente_form %}
+                <!--Grid column-->
+                <div class="col-md-12">
+                    <div class="md-form flex pt-2">
+                        <label for="name" class="form-label">{{ campo.label }}</label>
+                        {{campo}}
+                        {% comment %} 
+                        {% if campo.field.widget.input_type == 'checkbox' %}
+                            {{campo}} 
+                            <label for="name" class="">{{ campo.label }}</label>
+                        {% else %}
+                            <label for="name" class="">{{ campo.label }}</label>
+                            {{campo}}
+                        {% endif %} {% endcomment %}
+                  </div>
+                    <div >{{campo.errors}}</div>
+                </div>
+                <!--Grid column-->
+            {% endfor %}
+          </div>
           <br>
       </section>
     </main>
