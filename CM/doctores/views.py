@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Project
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    consultas = Project.objects.all()
 
 def home_doc(request):
     return render(request, "doctores/home_doc.html")
