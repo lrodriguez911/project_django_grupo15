@@ -4,7 +4,7 @@ from django.db import models
 class Consultas(models.Model):
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
-    id = models.IntegerField(_(""))
+    id = models.IntegerField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
     datecompleted = models.DateTimeField(null=True, blank=True)
     vip = models.BooleanField(default=False)

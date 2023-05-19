@@ -21,7 +21,6 @@ from django.urls.conf import include   #importamos el include para poder incluir
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('administradores/',include('administradores.urls')),#incluimos todo lo que está en urls de administradores
     path('doctores/',include('doctores.urls')),#incluimos todo lo que está en urls de doctores
     path('pacientes/',include('pacientes.urls')),#incluimos todo lo que está en urls de pacientes
 ]
