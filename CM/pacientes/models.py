@@ -4,7 +4,7 @@ from doctores.models import Doctor
 # Create your models here.
 
 class Paciente(models.Model):
-    dni = models.IntegerField(primary_key=True, on_delete=models.CASCADE)
+    dni = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
     lastname = models.CharField(max_length=50)
     sex = models.CharField(max_length=10)
@@ -22,8 +22,8 @@ class Paciente(models.Model):
     
 class Consulta(models.Model):
     id_consulta = models.AutoField(primary_key=True)
-    dni_paciente = models.ForeignKey(Paciente)
-    license_doctor = models.ForeignKey(Doctor)
+    dni_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    license_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     date = models.DateField()
     time_start = models.TimeField()
     created = models.DateTimeField(auto_now_add=True)

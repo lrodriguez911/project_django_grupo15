@@ -12,7 +12,7 @@ class Doctor(models.Model):
     birthdate = models.DateField()
     email = models.EmailField()
     phone_number = PhoneNumberField(blank=True)
-    especiality = models.ForeignKey('Especiality')
+    especiality = models.ForeignKey('Especiality', on_delete=models.CASCADE)
     password = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
@@ -32,7 +32,7 @@ class Especiality(models.Model):
     
 class Calendar(models.Model):
     id_calendar = models.AutoField(primary_key=True)
-    doctor = models.ForeignKey('Doctor')
+    doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE)
     day = models.DateField()
     hour = models.TimeField()
     available = models.BooleanField(default=True)
