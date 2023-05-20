@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+  <main>
+    <section class="card card-body">
+        <h2 class="display-1 text-center">Contactenos</h2>
+        <h4>Dejanos tu consulta</h4>
+    </section>
+
+    <form id="contact-form" name="contact-form" action="{% url 'contacto' %}" method="POST">
+        {% csrf_token %} 
+        {{ contacto_form }}
+    </form>    
+  </main>
+
+{% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from pacientes.forms import PacienteForm
+from pacientes.forms import ContactoForm
 from datetime import datetime
 from django.contrib import messages
 
@@ -46,3 +47,17 @@ def agendar_turno():
 def ver_perfil():
     documento = """<html><body><h1>Ver mi ficha medica</h1></body></html>"""
     return HttpResponse(documento)
+
+def contacto(request):
+    contacto_form = ContactoForm(request.POST)    
+        # mensaje='Hemos recibido tus datos'
+        # acción para tomar los datos del formulario
+    if(contacto_form.is_valid()):  
+            messages.success(request,'consulta generada correctamente')          
+        # acción para tomar los datos del formulario
+    else:
+            messages.warning(request,'Por favor revisa los errores en el formulario')
+    context = {                             
+                'contacto_form':contacto_form,
+            }        
+    return render(request, "./pacientes/contacto.html",context)
