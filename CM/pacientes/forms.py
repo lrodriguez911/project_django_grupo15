@@ -81,9 +81,9 @@ class PacienteForm(forms.Form):
 class ContactoForm(forms.Form):
     TIPO_CONSULTA = (
         ("", "-Seleccione-"),
-        (1, "Inscripciones"),
-        (2, "Soporte Aula Virtual"),
-        (3, "Ser docente"),
+        (1, "Turnos"),
+        (2, "Cartilla"),
+        (3, "Horarios"),
     )
     nombre = forms.CharField(
         label="Nombre",
