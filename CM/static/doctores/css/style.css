@@ -1,6 +1,7 @@
+/*
 .banner{
-    /* background-image: url('https://www.buenosaires.gob.ar/sites/gcaba/files/codo_a_codo4.jpg');
-    background-size: cover; */
+    background-image: url('https://www.buenosaires.gob.ar/sites/gcaba/files/codo_a_codo4.jpg');
+    background-size: cover; 
     background: #1d1c1a;
 }
 
@@ -81,6 +82,7 @@ ul.lista-institucional {
     margin-left: 1em;
     line-height: 1.5em;
 }
+*/
 #calendar {
     display: flex;
     text-align: center;
