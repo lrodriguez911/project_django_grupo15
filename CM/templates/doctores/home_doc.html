@@ -1,11 +1,18 @@
-{% extends "pacientes/base.html" %}
+{% extends "doctores/base.html" %}
 
 {% block content %}
 <main class="container">
-    <section class="card card-body">
-        <h2 class="display-1 text-center">Doctor  NOMBRE DOCTOR </h2>
-        <h3>Especialidad</h3>
+    <section class="card card-body mt-2">
+        <h2 class="display-1 text-center">Bienvenido Doctor ...</h2>
+        <h3>Especialidad </h3>
+        {% comment %} Aqui va los datos traidos de la base de datos {% endcomment %}
     </section>
+    <h3 class="text-center mt-2 fs-1">Seleccione la fecha para ver sus turnos agendados</h3>
+    <div class="container mt-5">
+      <div class="row" id="calendar">
+      </div>
+    </div>
+    
    {% comment %}  <form
             action="{% url 'create_task' %}"
             method="post"

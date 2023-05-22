@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from pacientes import views
+from doctores import views
 from django.urls.conf import include   #importamos el include para poder incluir las views de las apps
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('',include('pacientes.urls')),#incluimos todo lo que está en urls de pacientes
     path('doctores/',include('doctores.urls')),#incluimos todo lo que está en urls de doctores
-    path('pacientes/',include('pacientes.urls')),#incluimos todo lo que está en urls de pacientes
 ]
 
 

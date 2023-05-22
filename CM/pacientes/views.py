@@ -23,7 +23,7 @@ def home(request):
     context = {                             
                 'paciente_form':paciente_form,
             }
-    return render(request, "./pacientes/home.html",context)
+    return render(request, "./home.html",context)
 
 def home_pac(request):
     return render(request, "./pacientes/home_pac.html")

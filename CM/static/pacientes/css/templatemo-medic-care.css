@@ -39,7 +39,7 @@ body {
     background: var(--white-color);
     font-family: var(--body-font-family);    
     position: relative;
-    padding-top: 94px;
+    /* padding-top: 94px;  */
 }
 
 /*---------------------------------------
@@ -117,8 +117,8 @@ a:hover {
 }
 
 .section-padding {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 /*---------------------------------------
@@ -174,7 +174,6 @@ strong {
   background-color: transparent;
   color: var(--p-color);
   font-size: var(--p-font-size);
-  padding: 1rem 0;
 }
 
 .list-group-item:first-child {
@@ -307,8 +306,8 @@ strong {
   NAVIGATION              
 -----------------------------------------*/
 .navbar {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .navbar-brand {
@@ -733,6 +732,8 @@ strong {
 -----------------------------------------*/
 .site-footer {
   background: var(--section-bg-color);
+  padding-top: 7rem;
+  padding-bottom: 1rem;
 }
 
 .copyright-text {
@@ -810,8 +811,7 @@ strong {
   }
 
   .section-padding {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-bottom: 1rem;
   }
 
   .navbar {
