@@ -19,8 +19,9 @@ class PacienteForm(forms.Form):
         (1, "Clinico"),
         (2, "Pediatra"),
         (3, "Ginecologo"),
-        (3, "Traumatologo"),
+        (4, "Traumatologo"),
     )
+    
     nombre = forms.CharField(
         label="Nombre",
         max_length=50,
@@ -54,41 +55,20 @@ class PacienteForm(forms.Form):
         widget=forms.CheckboxInput(attrs={"class": "form-check-input pt-2", "value": 1}),)
 
 
-# class ContactoForm(forms.Form):
-#     TIPO_CONSULTA = (
-#         ('','-Seleccione-'),
-#         (1,'Inscripciones'),
-#         (2,'Soporte del Aula Virtual'),
-#         (3,'Ser docente'),
-#     )
-
-#     nombre = forms.CharField(label='Nombre y Apellido',required=False)
-#     email = forms.EmailField(label='Email',max_length=50)
-#     asunto = forms.CharField(label='Asunto')
-#     mensaje = forms.CharField(label='Mensaje')
-#     # dni = forms.IntegerField(label='dni')
-#     tipo_consulta = forms.ChoiceField(
-#         label='Tipo de consulta',
-#         choices=TIPO_CONSULTA,
-#         initial=1
-#     )
-#     suscripcion = forms.BooleanField(
-#         label='Deseo suscribirme a las novedades',
-#         required=False
-#     )
-
 
 class ContactoForm(forms.Form):
     TIPO_CONSULTA = (
-        ("", "-Seleccione-"),
+        ("", "-Seleccione motivo de Consulta-"),
         (1, "Turnos"),
         (2, "Cartilla"),
         (3, "Horarios"),
+        (4, "Otros")
     )
     nombre = forms.CharField(
-        label="Nombre",
-        max_length=50,
+        label="Nombre y Apellido",
+        max_length=100,
         validators=(solo_caracteres,),
+        error_messages={"required": "Campo requerido"},
         widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Solo letras"}
         ),
@@ -96,27 +76,31 @@ class ContactoForm(forms.Form):
     email = forms.EmailField(
         label="Email",
         max_length=100,
-        error_messages={"required": "Por favor completa el campo"},
+        error_messages={"required": "Campo requerido"},
         widget=forms.TextInput(attrs={"class": "form-control", "type": "email"}),
-    )
-    asunto = forms.CharField(
-        label="Asunto",
-        max_length=100,
-        widget=forms.TextInput(attrs={"class": "form-control"}),
-    )
-    mensaje = forms.CharField(
-        label="Mensaje",
-        max_length=500,
-        widget=forms.Textarea(attrs={"rows": 5, "class": "form-control"}),
     )
     tipo_consulta = forms.ChoiceField(
         label="Tipo de consulta",
         choices=TIPO_CONSULTA,
         initial="2",
+        error_messages={"required": "Campo requerido"},
         widget=forms.Select(attrs={"class": "form-control"}),
     )
+    asunto = forms.CharField(
+        label="Asunto",
+        max_length=100,
+        error_messages={"required": "Campo requerido"},
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+    )
+    mensaje = forms.CharField(
+        label="Mensaje",
+        max_length=500,
+        error_messages={"required": "Campo requerido"},
+        widget=forms.Textarea(attrs={"rows": 5, "class": "form-control"}),
+    )
+   
     suscripcion = forms.BooleanField(
-        label="Deseo suscribirme a las novedades de codo a codo",
+        label="Deseo suscribirme a las novedades del Centro Medico",
         required=False,
         widget=forms.CheckboxInput(attrs={"class": "form-check-input", "value": 1}),
     )
