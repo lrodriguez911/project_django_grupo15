@@ -19,14 +19,19 @@ def home(request):
         else:
             messages.warning(request,'Por favor revisa los errores en el formulario')
     else:
-        paciente_form = PacienteForm()
+        PacienteForm = PacienteForm()
     context = {                             
-                'paciente_form':paciente_form,
+                'consulta_form':PacienteForm,
             }
     return render(request, "./home.html",context)
 
 def home_pac(request):
-    return render(request, "./pacientes/home_pac.html")
+    Paciente_Form = PacienteForm()
+    # lista_pacientes = ['lucas', 'fede']
+    context = {                             
+                'paciente_form':Paciente_Form,
+            }
+    return render(request, "./pacientes/home_pac.html", context)
 
 def login_paciente():
     documento = """<html><body><h1>Login Paciente</h1></body></html>"""

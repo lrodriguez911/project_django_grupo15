@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ValidationError
-
-
+from pacientes.models import Paciente, Consulta
+from doctores.models import Especialidad, Doctor
 
 
 def solo_caracteres(value):
@@ -14,15 +14,44 @@ def solo_caracteres(value):
 
 
 class PacienteForm(forms.Form):
-    TYPE_CONSULT = (
-        ("", "-Select-"),
-        (1, "Clinico"),
-        (2, "Pediatra"),
-        (3, "Ginecologo"),
-        (4, "Traumatologo"),
+    dni = forms.IntegerField(
+        label="DNI",
+        widget=forms.TextInput(attrs={"class": "form-control"}),)
+    name = forms.CharField(
+        label="Nombre",
+        widget=forms.TextInput(attrs={"class": "form-control"}),)
+    lastname = forms.CharField(
+        label="Apellido",
+        widget=forms.TextInput(attrs={"class": "form-control"}),)
+    phone = forms.CharField(
+        label="Teléfono",
+        widget=forms.TextInput(attrs={"class": "form-control"}),)
+    address = forms.CharField(
+        label="Dirección",
+        widget=forms.TextInput(attrs={"class": "form-control"}),)
+    vip = forms.BooleanField(
+        label="Paciente afiliado",
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        required=False,)
+    password = forms.CharField(
+        label="Contraseña",
+        widget=forms.PasswordInput(attrs={"class": "form-control"}),)
+    active = forms.BooleanField(
+        label="Activo",
+        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),)
+    class Meta:
+        model = Paciente
+        fields = ['dni','name', 'last_name', 'phone', 'address', 'vip', 'password']
+
+
+class ConsultaForm(forms.Form):
+    ESPECIALITY = (
+        Especialidad.objects.all().values_list("id_especiality", "name_especiality"),)
+    DOCTORES = (
+        Doctor.objects.all().values_list("license", "name"),
     )
     
-    nombre = forms.CharField(
+    nombre_paciente = forms.CharField(
         label="Nombre",
         max_length=50,
         validators=(solo_caracteres,),
@@ -30,7 +59,7 @@ class PacienteForm(forms.Form):
             attrs={"class": "form-control", "placeholder": "Luis Miguel"}
         ),
     )
-    apellido = forms.CharField(
+    apellido_paciente = forms.CharField(
         label="Apellido",
         max_length=50,
         validators=(solo_caracteres,),
@@ -46,16 +75,16 @@ class PacienteForm(forms.Form):
     )
     especialidad = forms.ChoiceField(
         label="Especialidad", 
-        choices=TYPE_CONSULT, 
-        initial=1, 
+        choices=ESPECIALITY, 
+        initial=0, 
         widget=forms.Select(attrs={"class": "form-select"})
     )
-    subscribe = forms.BooleanField(label="Paciente afiliado",
+    vip = forms.BooleanField(label="Paciente afiliado",
         required=False,
         widget=forms.CheckboxInput(attrs={"class": "form-check-input pt-2", "value": 1}),)
 
 
-
+consulta_form = ConsultaForm()
 class ContactoForm(forms.Form):
     TIPO_CONSULTA = (
         ("", "-Seleccione motivo de Consulta-"),
