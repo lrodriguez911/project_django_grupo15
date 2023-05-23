@@ -1,5 +1,6 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from pacientes.models import Consulta
 # Create your models here.
 
     
@@ -17,20 +18,44 @@ class Doctor(models.Model):
     address = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    turnos = models.ManyToManyField(Consulta,through='turnos')
     
     def __str__(self):
         return self.title + '- by ' + self.name
+    
+    class Meta():
+        verbose_name_plural = 'Doctores'
 
-class Especiality(models.Model):
+class Especialidad(models.Model):
+    ESPECIALIDADES = [
+        (1,'Clinico'),
+        (2,'Pediatra'),
+        (3,'Ginecologo'),
+        (4,'Traumatologo'),
+        (5,'Endocrinologo'),
+        (6,'Cardiologo'),
+        (7,'Otorrinolaringologo'),
+        (8,'Reumatologo'),
+        (9,'Gerontologo'),
+        (10,'Neurologo'),
+        (11,'Psicologo'),
+        (12,'Oftalmologo'),
+        (13,'Oncologo'),
+        (14, 'Psiquiatra'),
+    ]
     id_especiality = models.AutoField(primary_key=True)
-    especiality = models.CharField(max_length=50)
+    especiality_uno = models.IntegerField(choices=ESPECIALIDADES)
+    especiality_dos = models.IntegerField(choices=ESPECIALIDADES, default=None)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
    
     def __str__(self):
         return self.especiality
     
-class Calendar(models.Model):
+    class Meta():
+        verbose_name_plural = 'Especialidades'
+    
+class Calendario(models.Model):
     id_calendar = models.AutoField(primary_key=True)
     doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE)
     day = models.DateField()
@@ -41,3 +66,6 @@ class Calendar(models.Model):
     
     def __str__(self):
         return 'Calendar of' + self.doctor
+    
+    class Meta():
+        verbose_name_plural = 'Calendarios'

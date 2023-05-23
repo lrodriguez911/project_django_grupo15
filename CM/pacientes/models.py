@@ -20,6 +20,9 @@ class Paciente(models.Model):
     def __str__(self):
         return self.title + '- by ' + self.name
     
+    class Meta():
+        verbose_name_plural = 'Pacientes'
+    
 class Consulta(models.Model):
     id_consulta = models.AutoField(primary_key=True)
     dni_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
@@ -32,3 +35,6 @@ class Consulta(models.Model):
 
     def __str__(self):
         return self.title + '- by ' + self.name
+    
+    class Meta():
+        verbose_name_plural = 'Consultas'
