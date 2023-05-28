@@ -1,10 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from pacientes.forms import PacienteForm
-from pacientes.forms import ContactoForm
 from datetime import datetime
+
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import render
+from pacientes.forms import ContactoForm, PacienteForm
 
 
 # Create your views here.
@@ -19,7 +19,8 @@ def home(request):
         else:
             messages.warning(request,'Por favor revisa los errores en el formulario')
     else:
-        PacienteForm = PacienteForm()
+        pass
+        # PacienteForm = PacienteForm() 
     context = {                             
                 'consulta_form':PacienteForm,
             }

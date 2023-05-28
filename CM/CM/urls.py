@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pacientes import views
+from django.urls.conf import \
+    include  # importamos el include para poder incluir las views de las apps
 from doctores import views
-from django.urls.conf import include   #importamos el include para poder incluir las views de las apps
+from pacientes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
