@@ -31,7 +31,7 @@ class Command(BaseCommand):
                 end_datetime = start_datetime + duration
 
                 # Crear el turno en la base de datos
-                Calendario.objects.create(doctor=doctor, start_datetime=start_datetime, end_datetime=end_datetime)
+                Calendario.objects.create(doctor=doctor, day=start_datetime, hour=start_datetime,available=True)
 
         self.stdout.write(self.style.SUCCESS('Se han creado los turnos al azar.'))
 
