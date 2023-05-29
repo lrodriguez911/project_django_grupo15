@@ -1,13 +1,20 @@
   const d = new Date();
   const actualYear = d.getFullYear(); // 2023
   const locale = 'es';
-
+  const mesesamostrar = 3;
   const intlForMonths = new Intl.DateTimeFormat(locale, { month: 'long' });
+
+  const onClick = (event) => {
+    document.getElementById("result").innerHTML = ("     "+event.srcElement.innerHTML+" de "+event.srcElement.parentElement.parentElement.querySelector("h2").innerText);
+  }
+  window.addEventListener('click', onClick);
+
+
   /* const months = [...Array(6).keys()] */
   //const months = [3, 4, 5, 6, 7, 8]
   const months = [];
   month = d.getMonth();
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < mesesamostrar; i++) {
     months.push(Number(month)+i);
   }
 
@@ -43,7 +50,9 @@
             `<li ${index === 0 ? firstDayAttributes : ''}>${day + 1}</li>`
         )
         .join('')
-      return `<div class='col-4'><h2>${monthName} ${actualYear}</h2><ol>${htmlDaysName}${htmlDays}</ol></div>`
+      return `<div class='col-4' id='hache2'><h2>${monthName} ${actualYear}</h2><ol style="cursor: pointer;">
+      ${htmlDaysName}${htmlDays}</ol></div></h2>`
+
     })
     .join('')
 
