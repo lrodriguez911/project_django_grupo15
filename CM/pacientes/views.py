@@ -1,14 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
 from pacientes.forms import PacienteForm
 from pacientes.forms import ContactoForm
+from datetime import datetime
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from pacientes.forms import ContactoForm, PacienteForm
 
 from pacientes.models import Paciente
-
-from datetime import datetime
-from django.contrib import messages
 
 from django.core.mail import send_mail
 from django.conf import settings
@@ -27,8 +30,7 @@ def home(request):
         else:
             messages.warning(request,'Por favor revisa los errores en el formulario')
     else:
-        ContactForm = ContactoForm()
-        
+        PacienteForm = PacienteForm()
     context = {                             
                 'consulta_form':PacienteForm,
             }
