@@ -1,0 +1,32 @@
+{% extends "pacientes/base.html" %} {% block content %} {% load static %}
+<main class="container">
+  <section class="card card-body">
+    <h2 class="display-1 text-center">BIENVENIDOS!!</h2>
+    <br />
+    <br />
+    <br />
+    <br />
+    
+    <br />
+  </section>
+  <div class="row">
+    {% for campo in paciente_form %} {% csrf_token %}
+    <!--Grid column-->
+    <div class="col-md-12">
+      <div class="md-form flex pt-2">
+        <label for="name" class="form-label">{{ campo.label }}</label>
+         {{campo}}
+        {% comment %}
+         {% if campo.field.widget.input_type == 'checkbox' %} {{campo}}
+        <label for="name" class="">{{ campo.label }}</label>
+        {% else %}
+        <label for="name" class="">{{ campo.label }}</label>
+        {{campo}} {% endif %} {% endcomment %}
+      </div>
+      <div>{{campo.errors}}</div>
+    </div>
+    <!--Grid column-->
+    {% endfor %}
+  </div>
+</main>
+{% endblock %}

@@ -23,6 +23,14 @@ class Paciente(models.Model):
 
     def __str__(self):
         return self.name + self.lastname
+    
+    def soft_delete(self):
+        self.active=True
+        super().save()
+    
+    def restore(self):
+        self.active=False
+        super().save()
 
     class Meta:
         verbose_name_plural = "Pacientes"

@@ -85,6 +85,7 @@ class ConsultaForm(forms.Form):
 
 
 consulta_form = ConsultaForm()
+
 class ContactoForm(forms.Form):
     TIPO_CONSULTA = (
         ("", "-Seleccione motivo de Consulta-"),
@@ -118,8 +119,9 @@ class ContactoForm(forms.Form):
     asunto = forms.CharField(
         label="Asunto",
         max_length=100,
-        error_messages={"required": "Campo requerido"},
-        widget=forms.TextInput(attrs={"class": "form-control"}),
+        required=False,
+       # error_messages={"required": "Campo requerido"},
+        widget=forms.TextInput(attrs={"class": "form-control" }),
     )
     mensaje = forms.CharField(
         label="Mensaje",
@@ -145,6 +147,4 @@ class ContactoForm(forms.Form):
         asunto = cleaned_data.get("asunto")
         suscripcion = cleaned_data.get("suscripcion")
 
-        if suscripcion and asunto and "suscripcion" not in asunto:
-            msg = "Debe agregar la palabara 'suscripcion' al asunto."
-            self.add_error("asunto", msg)
+

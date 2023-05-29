@@ -3,16 +3,44 @@
 {% block content %}
 {% load static %}
   <main>
-   
-      <section class="card card-body">
-          <h2 class="display-1 text-center">Contactenos</h2>
-          <h4>Dejenos su consulta y lo contactaremos a la brevedad</h4>
-      </section>
+    <section class="mb-4 container">
+        <!--Section heading-->
+        <h2 class="h1-responsive font-weight-bold text-center my-4">Contactenos</h2>
+        <!--Section description-->
+        <p class="text-center w-responsive mx-auto mb-5">¿Tiene alguna consulta? Por favor, no dude en contactarnos
+              directamente. Nuestro equipo le responderá a la brevedad.</p>
 
-      <form id="contact-form" name="contact-form" action="{% url 'contacto' %}" method="POST">
-          {% csrf_token %} 
-          {{ contacto_form }}
-      </form>  
+        <div class="row">
+            <div class="col-md-6 mb-md-0 mb-6">
+    
+                <form id="contact-form" name="contact-form" action="{% url 'contacto' %}" method="POST">
+                    {% csrf_token %} 
+                     <!--con widgets-->
+                     <div class="row">
+                        {% for campo in contacto_form %}
+                            <!--Grid column-->
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <label for="name" class="form-label">{{ campo.label }}</label>
+                                    {{campo}}
+                                  
+                                </div>
+                                <div >{{campo.errors}}</div>
+                            </div>
+                            <!--Grid column-->
+                        {% endfor %}
+                    </div>
+                      
+                    
+
+                    <!--boton enviar-->
+                    <br>
+                    <button class="btn btn-dark" type="submit">Enviar</button>
+                    <br>
+                </form>  
+            </div>
+        </div>
+    </section>
  
   </main>
 
