@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.test import TestCase
-from doctores.models import Doctor, Calendario
+from doctores.models import Calendario, Doctor
 
 
 class Command(BaseCommand):
