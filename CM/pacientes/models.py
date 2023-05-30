@@ -40,7 +40,7 @@ class Consulta(models.Model):
     id_consulta = models.AutoField(primary_key=True)
     dni_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     license_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    id_calendario = models.ForeignKey(Calendario, on_delete=models.CASCADE)
+    id_calendario = models.ForeignKey(Calendario, on_delete=models.CASCADE,default=1)
     # date = models.DateField()
     # time_start = models.TimeField()
     created = models.DateTimeField(auto_now_add=True)

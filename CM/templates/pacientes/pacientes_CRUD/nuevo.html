@@ -1,8 +1,8 @@
-{% extends '../base_administracion.html' %}
+{% extends '../base.html' %}
 
 {% block titulo %}Nuevo Curso{% endblock%}
 
-{% block contenido %}
+{% block content %}
 <h1 class="mt-4">Cursos</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
@@ -15,8 +15,8 @@
     <div class="card-body">
         <form action="" method="post"  enctype="multipart/form-data">
             {% csrf_token %}
-            {% include 'administracion/cursos/form.html' %}
+            {% include './form.html' %}
         </form>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
