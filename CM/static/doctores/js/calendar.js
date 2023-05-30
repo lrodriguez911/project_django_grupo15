@@ -3,9 +3,53 @@
   const locale = 'es';
   const mesesamostrar = 3;
   const intlForMonths = new Intl.DateTimeFormat(locale, { month: 'long' });
-
+  
   const onClick = (event) => {
-    document.getElementById("result").innerHTML = ("     "+event.srcElement.innerHTML+" de "+event.srcElement.parentElement.parentElement.querySelector("h2").innerText);
+    // Obtener el elemento contenedor
+    if (event.srcElement.localName == "li"){
+    
+      var contenedor = document.getElementById('result');
+      var valoranterior = document.getElementById('texto');
+      var valoranterior2 = document.getElementById('boton');
+      
+      if (valoranterior){
+        var cont = valoranterior.parentNode;
+        var cont2 = valoranterior2.parentNode; 
+        cont.removeChild(valoranterior);
+        cont2.removeChild(valoranterior2);
+      } else {}
+
+      // document.getElementById("result").innerHTML = ("     "+event.srcElement.innerHTML+" de "+event.srcElement.parentElement.parentElement.querySelector("h2").innerText);
+      // Crear elementos
+      // var textbox = document.getElementById("result").createElement ("     "+event.srcElement.innerHTML+" de "+event.srcElement.parentElement.parentElement.querySelector("h2").innerText); //.createElement('input');
+      var textbox = document.createElement('input');
+      textbox.setAttribute('type', 'text');
+      textbox.setAttribute('id', 'texto'); // Asignar ID al cuadro de texto
+
+      textbox.value = event.srcElement.innerHTML+" de "+event.srcElement.parentElement.parentElement.querySelector("h2").innerText
+      // document.createElement('input') = event.srcElement.innerHTML+" de "+event.srcElement.parentElement.parentElement.querySelector("h2").innerText;
+      // textbox.textContent = event.srcElement.innerHTML+" de "+event.srcElement.parentElement.parentElement.querySelector("h2").innerText
+
+      var button = document.createElement('button');
+      button.setAttribute('id','boton')
+      button.textContent =  'Confirmar';
+
+      // Agregar elementos al documento
+        contenedor.appendChild(textbox);
+        contenedor.appendChild(button);
+
+        // Función de envío
+      function enviarTexto() {
+        var texto = textbox.value;
+        console.log('Texto ingresado: ' + texto);
+        // Aquí puedes agregar la lógica para enviar el texto a un servidor, mostrarlo en la página, etc.
+      }
+
+      // Asociar función de envío al evento click del botón
+      button.addEventListener('click', enviarTexto);
+    } else {
+
+    }
   }
   window.addEventListener('click', onClick);
 
