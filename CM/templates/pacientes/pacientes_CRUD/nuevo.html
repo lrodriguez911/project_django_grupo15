@@ -1,21 +1,21 @@
 {% extends '../base.html' %}
 
-{% block titulo %}Nuevo Curso{% endblock%}
+{% block titulo %}Ingresar datos de nuevo Paciente{% endblock%}
 
 {% block content %}
-<h1 class="mt-4">Cursos</h1>
+<h1 class="mt-4">Pacientes</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Nuevo Curso</li>
+    <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
+    <li class="breadcrumb-item active">Nuevo Paciente</li>
 </ol>
 
 
 <div class="card">
-    <div class="card-header">Creacion de curso</div>
+    <div class="card-header">Alta de Datos de Paciente</div>
     <div class="card-body">
         <form action="" method="post"  enctype="multipart/form-data">
             {% csrf_token %}
-            {% include './form.html' %}
+            {% include 'pacientes/pacientes_CRUD/form.html' %}
         </form>
     </div>
 </div>

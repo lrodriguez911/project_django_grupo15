@@ -13,22 +13,33 @@ def solo_caracteres(value):
         )
 
 
-class PacienteForm(forms.Form):
+class PacienteForm(forms.ModelForm):
     dni = forms.IntegerField(
         label="DNI",
-        widget=forms.TextInput(attrs={"class": "form-control"}),)
+        widget=forms.TextInput(attrs={"class": "form-control"}),
+        required=True)
     name = forms.CharField(
         label="Nombre",
         widget=forms.TextInput(attrs={"class": "form-control"}),)
     lastname = forms.CharField(
         label="Apellido",
         widget=forms.TextInput(attrs={"class": "form-control"}),)
+    sex = forms.ChoiceField(
+        label="Sexo",
+        widget=forms.Select (attrs={"class": "form-control"}),)
+    birthday = forms.DateField(
+        label= "Fecha de Nacimiento",
+        widget=forms.TextInput(attrs={"class": "form-control" ,}),
+        required=True,)
     phone = forms.CharField(
         label="Teléfono",
         widget=forms.TextInput(attrs={"class": "form-control"}),)
     address = forms.CharField(
         label="Dirección",
         widget=forms.TextInput(attrs={"class": "form-control"}),)
+    email = forms.EmailField(
+        label="Correo Electronico",
+        widget=forms.TextInput(attrs={"class": "form-control", "type": "email"}),)
     vip = forms.BooleanField(
         label="Paciente afiliado",
         widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
@@ -38,10 +49,11 @@ class PacienteForm(forms.Form):
         widget=forms.PasswordInput(attrs={"class": "form-control"}),)
     active = forms.BooleanField(
         label="Activo",
+        initial = True,
         widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),)
     class Meta:
         model = Paciente
-        fields = ['dni','name', 'last_name', 'phone', 'address', 'vip', 'password']
+        fields = ['dni','name', 'lastname', 'sex', 'birthday', 'phone', 'address', 'email', 'vip', 'password']
 
 
 class ConsultaForm(forms.Form):
@@ -100,7 +112,7 @@ class ContactoForm(forms.Form):
         validators=(solo_caracteres,),
         error_messages={"required": "Campo requerido"},
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Solo letras"}
+            attrs={"class": "form-control", }
         ),
     )
     email = forms.EmailField(
@@ -119,8 +131,7 @@ class ContactoForm(forms.Form):
     asunto = forms.CharField(
         label="Asunto",
         max_length=100,
-        required=False,
-       # error_messages={"required": "Campo requerido"},
+        error_messages={"required": "Campo requerido"},
         widget=forms.TextInput(attrs={"class": "form-control" }),
     )
     mensaje = forms.CharField(

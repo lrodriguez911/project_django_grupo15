@@ -6,30 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+
 from pacientes.forms import ContactoForm, PacienteForm
+
 from pacientes.models import Paciente
 
 
 # Create your views here.
 def home(request):
-    """
-    if(request.method=='POST'):
-        contacto_form = ContactoForm(request.POST)    
-        # mensaje='Hemos recibido tus datos'
-        # acción para tomar los datos del formulario
-        if(contacto_form.is_valid()):  
-            messages.success(request,'consulta generada correctamente')          
-        # acción para tomar los datos del formulario
-        else:
-            messages.warning(request,'Por favor revisa los errores en el formulario')
-    else:
-        PacienteForm = PacienteForm()
-    context = {                             
-                'consulta_form':PacienteForm,
-            }
-            
-    return render(request, "./home.html",context)
-    """
     return render(request, "./home.html")
 
 
@@ -65,19 +49,22 @@ def ver_perfil():
     return HttpResponse(documento)
 
 def contacto(request):
-    contacto_form = ContactoForm(request.POST)    
-        # mensaje='Hemos recibido tus datos'
+    if(request.method=='POST'):
+        contacto_form = ContactoForm(request.POST)    
         # acción para tomar los datos del formulario
-    if(contacto_form.is_valid()):  
-            messages.success(request,'Hemos recibido tus datos')
+        if(contacto_form.is_valid()):  
+            messages.success(request,'Su consulta fue generada correctamente') 
+            #return redirect("home") para volver al home luego de la consulta
+        # envio de mail con consulta
+            """
             mensaje=f"De: {contacto_form.cleaned_data['nombre']} <{contacto_form.cleaned_data['email']}>\n Asunto: {contacto_form.cleaned_data['asunto']}\n Mensaje: {contacto_form.cleaned_data['mensaje']}"
-            mensaje_html=f"""
+            mensaje_html=f
                 <p>De: {contacto_form.cleaned_data['nombre']} <a href="mailto:{contacto_form.cleaned_data['email']}">{contacto_form.cleaned_data['email']}</a></p>
                 <p>Asunto:  {contacto_form.cleaned_data['asunto']}</p>
                 <p>Mensaje: {contacto_form.cleaned_data['mensaje']}</p>
-            """
+                        
             asunto="CONSULTA DESDE LA PAGINA - "+contacto_form.cleaned_data['asunto']
-            """ send_mail(
+                send_mail(
                 asunto,
                 mensaje,
                 settings.EMAIL_HOST_USER,
@@ -85,21 +72,22 @@ def contacto(request):
                 fail_silently=False,
                 html_message=mensaje_html
             ) """
-                
-        # acción para tomar los datos del formulario
+        else:
+            
+            messages.warning(request,'Por favor revise los errores en el formulario')
     else:
-            messages.warning(request,'Por favor revisa los errores en el formulario')
+        contacto_form = ContactoForm()
+        
     context = {                             
-                'contacto_form':contacto_form,
-            }        
+                'contacto_form':ContactoForm,
+            } 
     return render(request, "./pacientes/contacto.html",context)
-
 
 """ CRUD DE PACIENTES PARA SU REGISTRACION"""
 
 def pacientes_index(request):
     #queryset
-    pacientes = Paciente.objects.filter(active=False)
+    pacientes = Paciente.objects.filter(active=True)
     return render(request,'pacientes/pacientes_CRUD/index.html',{'pacientes':pacientes})
 
 def pacientes_nuevo(request):
@@ -129,10 +117,10 @@ def pacientes_editar(request,dni):
 
 def pacientes_eliminar(request,dni):
     try:
-        curso = Paciente.objects.get(pk=dni)
+        paciente = Paciente.objects.get(pk=dni)
     except Paciente.DoesNotExist:
         return render(request,'pacientes/404_pac.html')
-    Paciente.soft.delete()
+    paciente.soft_delete()
     messages.success(request,'Se ha dado de baja el paciente correctamente') 
     return redirect('pacientes_index')
 
