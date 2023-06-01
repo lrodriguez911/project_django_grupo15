@@ -40,7 +40,8 @@ def ver_turnos_disponibles():
     documento = """<html><body><h1>Ver turnos disponibles</h1></body></html>"""
     return HttpResponse(documento)
 
-def agendar_turno():
+def agendar_turno(request):
+
     documento = """<html><body><h1>Plantilla para agendar turno y poner datos</h1></body></html>"""
     return HttpResponse(documento)
 
