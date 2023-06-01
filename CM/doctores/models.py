@@ -1,24 +1,26 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
-
-# from pacientes.models import Consulta
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-    
+class Usuario(AbstractUser):
+    dni = models.IntegerField(primary_key=True)
+    pass
+
 class Doctor(models.Model):
-    license = models.IntegerField(primary_key=True)
+    SEXO = [
+        ("M",'Masculino'),
+        ("F",'Femenino'),
+        ("X",'No Binario'),
+    ]
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
+    license = models.IntegerField(null=False, unique=True)
     dni = models.IntegerField(null=False, unique=True)
-    name = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-    sex = models.CharField(max_length=50)
+    sex = models.CharField(max_length= 1,choices=SEXO, default="M", null=True, blank=True)
     birthdate = models.DateField()
-    email = models.EmailField()
-    phone_number = PhoneNumberField(blank=True)
+    phone_number = models.CharField(max_length=22, default=None, null=True, blank=True)
     especiality = models.ForeignKey('Especialidad', on_delete=models.CASCADE)
-    password = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
-    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     # turnos = models.ManyToManyField(Consulta,through='turnos')
     

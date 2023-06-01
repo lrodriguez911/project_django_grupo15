@@ -18,10 +18,10 @@ class PacienteForm(forms.ModelForm):
         label="DNI",
         widget=forms.TextInput(attrs={"class": "form-control"}),
         required=True)
-    name = forms.CharField(
+    first_name = forms.CharField(
         label="Nombre",
         widget=forms.TextInput(attrs={"class": "form-control"}),)
-    lastname = forms.CharField(
+    last_name = forms.CharField(
         label="Apellido",
         widget=forms.TextInput(attrs={"class": "form-control"}),)
     sex = forms.ChoiceField(
@@ -47,23 +47,23 @@ class PacienteForm(forms.ModelForm):
     password = forms.CharField(
         label="Contraseña",
         widget=forms.PasswordInput(attrs={"class": "form-control"}),)
-    active = forms.BooleanField(
+    is_active = forms.BooleanField(
         label="Activo",
         initial = True,
         widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),)
     class Meta:
         model = Paciente
-        fields = ['dni','name', 'lastname', 'sex', 'birthday', 'phone', 'address', 'email', 'vip', 'password']
+        fields = ['dni','first_name', 'last_name', 'sex', 'birthday', 'phone', 'address', 'email', 'vip', 'password']
 
 
 class ConsultaForm(forms.Form):
     ESPECIALITY = (
         Especialidad.objects.all().values_list("id_especiality", "name_especiality"),)
     DOCTORES = (
-        Doctor.objects.all().values_list("license", "name"),
+        Doctor.objects.all().values_list("license", "first_name"),
     )
-    
-    nombre_paciente = forms.CharField(
+    FIRST_NAME = {Paciente.objects.get(dni=consulta.dni).first_name: consulta.dni}
+    """ nombre_paciente = forms.CharField(
         label="Nombre",
         max_length=50,
         validators=(solo_caracteres,),
@@ -76,7 +76,7 @@ class ConsultaForm(forms.Form):
         max_length=50,
         validators=(solo_caracteres,),
         widget=forms.TextInput(attrs={"class": "form-control pt-2", "placeholder": "Perez"}),
-    )
+    ) """
     edad = forms.CharField(label="edad", max_length=3, widget=forms.NumberInput(
             attrs={"class": "form-control pt-2", "placeholder": "18"}
         ))
