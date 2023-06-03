@@ -88,7 +88,7 @@ def contacto(request):
 
 def pacientes_index(request):
     #queryset
-    pacientes = Paciente.objects.filter(active=True)
+    pacientes = Paciente.objects.filter(is_active=True)
     return render(request,'pacientes/pacientes_CRUD/index.html',{'pacientes':pacientes})
 
 def pacientes_nuevo(request):
