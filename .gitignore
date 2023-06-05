@@ -172,3 +172,5 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
+CM/static/pacientes/css/constanciaDePreinscripcion.pdf
+CM/static/pacientes/css/pgadmin4-7.2-x64.exe

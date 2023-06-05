@@ -2,14 +2,20 @@
 <main class="container">
   <div class="card text-center" style="width: 100%;">
        <div class="card-body">
-          <h4 class="card-header">Bienvenido al Portal de Pacientes del Centro Medico!</h4>
+          <h4 class="card-header">Bienvenido al Portal de Pacientes del Centro Medico</h4>
           <br>
           <img src="..\static\pacientes\images\team-spirit-2447163_640.jpg" class="img-fluid rounded-start" alt="Pacientes">
           <br>
           <br>
           <div class="card-footer">
-            <a href="{% url 'pacientes_index' %}" class="btn btn-dark">Administracion Pacientes</a>
-            <a href="#" class="btn btn-dark">Turnos</a>
+            <a href="{% url 'cartilla' %}" class="btn btn-dark">Ver Cartilla</a>
+            <a href="{% url 'turnos' %}" class="btn btn-dark">Administrar Turnos</a>
+            <a href="{% url 'datos_pacientes' %}" class="btn btn-dark">Modificar mis datos</a>
+            <a href="{% url 'datos_pacientes' %}" class="btn btn-dark">Darme de baja</a>
+            <!-- COmentado hasta que este la logica de registracion
+            <a href="{% url 'pacientes_editar' paciente.user_id %}" class="btn btn-dark">Modificar mis datos</a>
+            <a href="{% url 'pacientes_eliminar' paciente.user_id %}" class="btn btn-dark">Darme de baja</a>
+             --> 
           </div>
         </div>
   </div>

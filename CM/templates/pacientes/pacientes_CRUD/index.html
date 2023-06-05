@@ -1,6 +1,6 @@
 {% extends '../base.html' %}
 
-{% block titulo %}Adminisracion de Pacientes{% endblock%}
+{% block titulo %}Administracion de Pacientes{% endblock%}
 
 {% block content %}
 
@@ -77,20 +77,23 @@
             <tbody>
                 {% for paciente in pacientes %}
                     <tr>
-                        <td>{{paciente.dni}}</td>
-                        <td>{{paciente.name}}</td>
-                        <td>{{paciente.lastname}}</td>
+                        <td>{{paciente.dni_pac}}</td>
+                       <!-- 
+                        <td>{{paciente.first_name}}</td>
+                        <td>{{paciente.last_name}}</td>
                         <td>{{paciente.sex}}</td>
                         <td>{{paciente.birthday}}</td>
                         <td>{{paciente.phone}}</td>
                         <td>{{paciente.address}}</td>
                         <td>{{paciente.email}}</td>
                         <td>{{paciente.vip}}</td>
-                                               
+                        -->
+                         <!--                      
                         <td>
-                            <a href="{% url 'pacientes_editar' paciente.dni %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
-                            <a href="{% url 'pacientes_eliminar' paciente.dni %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            <a href="{% url 'pacientes_editar' paciente.dni_pac %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                            <a href="{% url 'pacientes_eliminar' paciente.dni_pac %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                         </td>
+                        -->
                     </tr>
                 {% endfor %}
             </tbody>

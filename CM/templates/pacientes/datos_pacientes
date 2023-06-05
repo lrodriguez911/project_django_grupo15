@@ -1,0 +1,22 @@
+{% extends '../base.html' %}
+
+{% block titulo %}Datos Pacientes{% endblock%}
+
+{% block content %}
+<h1 class="mt-4">Datos de Paciente</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
+    <li class="breadcrumb-item active">Datos de Paciente</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        Datos de Pacientes
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      <p class="card-text">A reemplazar por edicion o baja</p>
+      <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
+    </div>
+</div>
+{% endblock content %}

@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class Usuario(AbstractUser):
-    dni = models.IntegerField(primary_key=True)
     pass
 
 class Doctor(models.Model):
@@ -13,19 +12,21 @@ class Doctor(models.Model):
         ("F",'Femenino'),
         ("X",'No Binario'),
     ]
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
-    license = models.IntegerField(null=False, unique=True)
-    dni = models.IntegerField(null=False, unique=True)
+    #dni = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True, default=1)
+    dni_dr = models.IntegerField(null=False, unique=True, default=1)
+    license = models.IntegerField(null=False, unique=True, default=1)
     sex = models.CharField(max_length= 1,choices=SEXO, default="M", null=True, blank=True)
     birthdate = models.DateField()
     phone_number = models.CharField(max_length=22, default=None, null=True, blank=True)
     especiality = models.ForeignKey('Especialidad', on_delete=models.CASCADE)
     address = models.CharField(max_length=50)
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True)   
+    
     # turnos = models.ManyToManyField(Consulta,through='turnos')
     
     def __str__(self):
-        return ' DR./DRA.' + self.name + self.lastname
+        return 'Usuario Dr./Dra.: ' + self.user +' - DNI: ' +self.dni_dr
     
     class Meta():
         verbose_name_plural = 'Doctores'
@@ -37,14 +38,14 @@ class Especialidad(models.Model):
     updated = models.DateTimeField(auto_now=True)
    
     def __str__(self):
-        return self.especiality
+        return self.name_especiality
     
     class Meta():
         verbose_name_plural = 'Especialidades'
     
 class Calendario(models.Model):
     id_calendar = models.AutoField(primary_key=True)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    user_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     day = models.DateField()
     hour = models.TimeField()
     available = models.BooleanField(default=True)
@@ -52,25 +53,9 @@ class Calendario(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return 'Calendar of' + self.doctor
+        return 'Calendar of' + self.user_doctor
     
     class Meta():
         verbose_name_plural = 'Calendarios'
 
 
-"""  ESPECIALIDADES = [
-        (1,'Clinico'),
-        (2,'Pediatra'),
-        (3,'Ginecologo'),
-        (4,'Traumatologo'),
-        (5,'Endocrinologo'),
-        (6,'Cardiologo'),
-        (7,'Otorrinolaringologo'),
-        (8,'Reumatologo'),
-        (9,'Gerontologo'),
-        (10,'Neurologo'),
-        (11,'Psicologo'),
-        (12,'Oftalmologo'),
-        (13,'Oncologo'),
-        (14, 'Psiquiatra'),
-    ] """

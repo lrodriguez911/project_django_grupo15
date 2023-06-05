@@ -1,0 +1,22 @@
+{% extends '../base.html' %}
+
+{% block titulo %}Turnos de Pacientes{% endblock%}
+
+{% block content %}
+<h1 class="mt-4">Turnos</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
+    <li class="breadcrumb-item active">Turnos</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+      Turnos Medicos
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Paciente</h5>
+      <p class="card-text">Seleccione Especialidad - Profesional - Dia y Horario.</p>
+      <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
+    </div>
+</div>
+{% endblock content %}
