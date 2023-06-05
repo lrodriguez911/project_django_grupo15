@@ -101,9 +101,9 @@ def pacientes_nuevo(request):
     return render(request,'pacientes/pacientes_CRUD/nuevo.html',{'formulario':formulario})
 
 
-def pacientes_editar(request,dni):
+def pacientes_editar(request, user_pac=1):
     try:
-        paciente = Paciente.objects.get(pk=dni)
+        paciente = Paciente.objects.get(pk=user_pac)
     except Paciente.DoesNotExist:
         return render(request,'pacientes/404_pac.html')
 
@@ -114,12 +114,32 @@ def pacientes_editar(request,dni):
         return redirect('pacientes_index')
     return render(request,'pacientes/pacientes_CRUD/editar.html',{'formulario':formulario})
 
-def pacientes_eliminar(request,dni):
+def pacientes_eliminar(request, user_pac=1):
     try:
-        paciente = Paciente.objects.get(pk=dni)
+        paciente = Paciente.objects.get(pk=user_pac)
     except Paciente.DoesNotExist:
         return render(request,'pacientes/404_pac.html')
     paciente.soft_delete()
     messages.success(request,'Se ha dado de baja el paciente correctamente') 
     return redirect('pacientes_index')
 
+
+""" TURNOS PACIENTES"""
+def turnos(request):
+    #queryset
+    pacientes = Paciente.objects.all
+    return render(request,'pacientes/turnos.html',{'pacientes':pacientes})
+
+
+
+""" CARTILLA"""
+def cartilla(request):
+    #queryset
+    pacientes = Paciente.objects.all
+    return render(request,'pacientes/cartilla.html',{'pacientes':pacientes})
+
+"""Para borrar cuando registro este ok"""
+def datos_pacientes(request):
+    #queryset
+    pacientes = Paciente.objects.all
+    return render(request,'pacientes/datos_pacientes.html',{'pacientes':pacientes})

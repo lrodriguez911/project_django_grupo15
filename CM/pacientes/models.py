@@ -6,22 +6,24 @@ from doctores.models import Doctor, Calendario, Usuario
 
 # Create your models here.
 
-class Paciente(Usuario):
+class Paciente(models.Model):
     SEXO = [
         ("M",'Masculino'),
         ("F",'Femenino'),
         ("X",'No Binario'),
     ]
-    #dni = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True, default=1)
+    dni_pac = models.IntegerField(null=False, unique=True, default=1)
     sex = models.CharField(max_length= 1,choices=SEXO, default="M", null=True, blank=True)
     birthday = models.DateField(default='2000-01-01', null=True, blank=True)
     phone = models.CharField(max_length=22, default=None, null=True, blank=True)
     address = models.CharField(max_length=50, default=None, null=True, blank=False)
     vip = models.BooleanField(default=False)
     updated = models.DateTimeField(auto_now=True)
+    doctores=models.ManyToManyField(Doctor,through="Consulta")
     
     def __str__(self):
-        return self.first_name + ' ' +self.last_name
+        return 'Usuario Paciente: ' + self.user +' - DNI: ' +self.dni_pac
     
     def soft_delete(self):
         self.is_active=False
@@ -39,8 +41,8 @@ class Paciente(Usuario):
 
 class Consulta(models.Model):
     id_consulta = models.AutoField(primary_key=True)
-    dni_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
-    dni_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    user_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE,default=1)
+    user_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE,default=1)
     id_calendario = models.ForeignKey(Calendario, on_delete=models.CASCADE,default=1)
     # date = models.DateField()
     # time_start = models.TimeField()
@@ -50,7 +52,7 @@ class Consulta(models.Model):
     observations = models.TextField(default=None, null=True, blank=True)
 
     def __str__(self):
-        return self.dni_paciente + "consulta con " + self.dni_doctor
+        return self.user_paciente + "consulta con " + self.user_doctor
 
     class Meta:
         verbose_name_plural = "Consultas"

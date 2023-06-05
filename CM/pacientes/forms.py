@@ -14,7 +14,7 @@ def solo_caracteres(value):
 
 
 class PacienteForm(forms.ModelForm):
-    dni = forms.IntegerField(
+    dni_pac = forms.IntegerField(
         label="DNI",
         widget=forms.TextInput(attrs={"class": "form-control"}),
         required=True)
@@ -53,14 +53,14 @@ class PacienteForm(forms.ModelForm):
         widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),)
     class Meta:
         model = Paciente
-        fields = ['dni','first_name', 'last_name', 'sex', 'birthday', 'phone', 'address', 'email', 'vip', 'password']
+        fields = ['dni_pac','first_name', 'last_name', 'sex', 'birthday', 'phone', 'address', 'email', 'vip', 'password']
 
 
 class ConsultaForm(forms.Form):
     ESPECIALITY = (
         Especialidad.objects.all().values_list("id_especiality", "name_especiality"),)
     DOCTORES = (
-        Doctor.objects.all().values_list("license", "first_name"),
+        Doctor.objects.all().values_list("license", "dni_dr"),
     )
     """
     FIRST_NAME = {Paciente.objects.get(dni=Consulta.dni_paciente).first_name}
