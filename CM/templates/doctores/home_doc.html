@@ -1,55 +1,19 @@
-{% extends "doctores/base.html" %}
-
+{% extends "pacientes/base.html" %}
 {% block content %}
 <main class="container">
-    <section class="card card-body mt-2">
-        <h2 class="display-1 text-center">Bienvenido Doctor ...</h2>
-        <h3>Especialidad </h3>
-        {% comment %} Aqui va los datos traidos de la base de datos {% endcomment %}
-    </section>
-    <h3 class="text-center mt-2 fs-1">Seleccione la fecha para ver sus turnos agendados</h3>
-    <div class="container mt-5">
-      <div class="row" id="calendar">
-      </div>
-    </div>
-    <div class="row" id="result"> 
-    
-   {% comment %}  <form
-            action="{% url 'create_task' %}"
-            method="post"
-            class="card card-body bg-secondary"
-          >
-            {% csrf_token %}
-            <label for="title"> Title:</label>
-            <input
-              type="checkbox"
-              name="title"
-              id="title"
-              placeholder="Write a  title"
-              class="form-control mb-2"
-            />
-            <label for="description">Description:</label>
-            <textarea
-              name="description"
-              id="description"
-              rows="3"
-              placeholder="Write a description"
-              class="form-control mb-2"
-            ></textarea>
-            <button type="submit" class="btn btn-success">Save</button>
-          </form>
-          {% for task in tasks %}
-            <div class="card card-body m-2 text-dark mt-2 d-flex flex-row justify-content-between">
-              <div>
-                <h3>{{doctores.last_name}}</h3>
-                <p class="card-text">{{consulta.especialidad}}</p>
-              </div>
-                
-                <form action="{% url 'delete_task' task.id %}" method="POST">
-                  {% csrf_token %}
-                  <button class="btn btn-danger btn-sm">Borrar</button>
-                </form> {% endcomment %}
-</main>
-
+  <div class="card text-center" style="width: 100%;">
+       <div class="card-body">
+          <h4 class="card-header">Bienvenido al Portal de Doctores del Centro Medico</h4>
+          <br>
+          <img src="..\static\doctores\images\depositphotos_88116830-stock-photo-doctors-in-hospital.jpg" class="img-fluid rounded-start" alt="Doctores">
+          <br>
+          <br>
+          <div class="card-footer">
+            <a href="{% url 'turnos' %}" class="btn btn-dark">Turnos agendados para una fecha</a>
+            <a href="{% url 'calendarios' %}" class="btn btn-dark">Administrar su Calendario</a>
+                       
+          </div>
+        </div>
+  </div>
 
 {% endblock %}

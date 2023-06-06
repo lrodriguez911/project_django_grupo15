@@ -1,0 +1,22 @@
+{% extends 'pacientes/base.html' %}
+
+{% block titulo %}Calendarios de Doctores{% endblock%}
+
+{% block content %}
+<h1 class="mt-4">Calendarios Doctores</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'home_doc' %}">Portal de Doctores</a></li>
+    <li class="breadcrumb-item active">Calendarios Doctores</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+      Turnos Medicos
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Doctor</h5>
+      <p class="card-text">Seleccione una fecha para administrar su calendario</p>
+      <a href="{% url 'home_doc' %}" class="btn btn-primary">Volver</a>
+    </div>
+</div>
+{% endblock content %}

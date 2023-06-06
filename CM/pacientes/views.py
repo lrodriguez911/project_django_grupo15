@@ -109,7 +109,10 @@ def pacientes_nuevo(request):
 
 
 def pacientes_editar(request):
-    try:
+     # queryset
+    pacientes = Paciente.objects.all()
+    return render(request, "pacientes/datos_pacientes.html", {"pacientes": pacientes})
+    """try:
         paciente = get_object_or_404(Paciente, pk=1)
     except Paciente.DoesNotExist:
         return render(request, "pacientes/404_pac.html")
@@ -124,10 +127,14 @@ def pacientes_editar(request):
     return render(
         request, "pacientes/pacientes_CRUD/editar.html", {"formulario": formulario}
     ) 
-   
+   """
     
 
 def pacientes_eliminar(request):
+    # queryset
+    pacientes = Paciente.objects.all()
+    return render(request, "pacientes/datos_pacientes.html", {"pacientes": pacientes})
+    """
     try:
         paciente = get_object_or_404(Paciente, pk=1)
     except Paciente.DoesNotExist:
@@ -135,7 +142,7 @@ def pacientes_eliminar(request):
     paciente.soft_delete()
     messages.success(request, "Se ha dado de baja el paciente correctamente")
     return redirect("pacientes_index")
-
+    """
 
 """ TURNOS PACIENTES"""
 

@@ -1,6 +1,11 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-
+from django.shortcuts import redirect, render, get_object_or_404
+from datetime import datetime
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from doctores.forms import  DoctorForm
+from doctores.models import Doctor
 
 # Create your views here.
 def home(request):
@@ -28,3 +33,20 @@ def ver_plantilla_medica():
 def ver_perfil():
     documento = """<html><body><h1>Ver mi perfil</h1></body></html>"""
     return HttpResponse(documento)
+
+
+
+""" CONSULTORIO"""
+
+
+def turnos(request):
+    # queryset
+    doctores = Doctor.objects.all()
+    return render(request, "doctores/turnos_agendados.html", {"doctores": doctores})
+
+
+
+def calendarios(request):
+    # queryset
+    doctores = Doctor.objects.all()
+    return render(request, "doctores/calendarios.html", {"doctores": doctores})
