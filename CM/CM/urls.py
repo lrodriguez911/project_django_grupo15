@@ -20,11 +20,13 @@ from django.urls.conf import \
 from doctores import views
 from pacientes import views
 
-#from doctores.admin import CMAdminSite
+from django.conf import settings
+from doctores.admin import sitio_admin
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-   # path('admin15/', sitio_admin.urls),
+    path('admin/', admin.site.urls),  #admin por defecto
+    path('adming15/', sitio_admin.urls),  #admin personalizado 
     path('',include('pacientes.urls')),#incluimos todo lo que está en urls de pacientes
     path('doctores/',include('doctores.urls')),#incluimos todo lo que está en urls de doctores
 ]

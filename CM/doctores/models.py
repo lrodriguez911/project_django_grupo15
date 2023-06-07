@@ -23,7 +23,8 @@ class Doctor(Usuario):
     address = models.CharField(max_length=50, verbose_name="Direccion")
     city=models.CharField(max_length=50, verbose_name="Ciudad")
     postal=models.CharField(max_length=10, verbose_name="Codigo Postal")
-    updated = models.DateTimeField(auto_now=True)   
+    updated = models.DateTimeField(auto_now=True) 
+    
     
     # turnos = models.ManyToManyField(Consulta,through='turnos')
     
@@ -38,6 +39,7 @@ class Especialidad(models.Model):
     name_especiality = models.CharField(max_length=50,null=False, verbose_name="Especialidad")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    
    
     def __str__(self):
         return self.name_especiality
@@ -48,11 +50,9 @@ class Especialidad(models.Model):
 class Calendario(models.Model):
     id_calendar = models.AutoField(primary_key=True, verbose_name="ID Calendario")
     dni_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, verbose_name="DNI Dr")
-    day = models.DateField(verbose_name="Fecha")
-    hour = models.TimeField(verbose_name="Horario")
-    available = models.BooleanField(default=True, verbose_name="Disponible")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True, verbose_name="Vigente")
     
     def __str__(self):
         return 'Calendario del Dr. ' + Doctor.first_name +" "+Doctor.last_name + " - Licencia Profesional: "+ str(Doctor.license) + " - Usuario: " + Doctor.username
@@ -60,4 +60,9 @@ class Calendario(models.Model):
     class Meta():
         verbose_name_plural = 'Calendarios'
 
+class CalendarioTurno(models.Model):
+    id_calendar = models.ForeignKey(Calendario, on_delete=models.CASCADE)
+    day = models.DateField(verbose_name="Fecha")
+    hour = models.TimeField(verbose_name="Horario")
+    available = models.BooleanField(default=True, verbose_name="Disponible")
 

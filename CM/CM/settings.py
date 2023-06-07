@@ -117,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "doctores.Usuario"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -163,3 +163,13 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
  }
+
+#Modelo user
+AUTH_USER_MODEL = "doctores.Usuario"
+
+LOGIN_URL = '/accounts/login/'
+
+LOGIN_REDIRECT_URL = "inicio"
+
+
+# PASSWORD_HASHES = []  #aqui se enumeran los algoritmos de hash para encriptar las contrasenas.... sino se toma por defecto PBKDF2
