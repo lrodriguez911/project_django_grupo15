@@ -6,15 +6,14 @@ from django.contrib.auth.models import AbstractUser
 class Usuario(AbstractUser):
     pass
 
-class Doctor(Usuario):
+class Doctor(models.Model):
     SEXO = [
         ("M",'Masculino'),
         ("F",'Femenino'),
         ("X",'No Binario'),
     ]
-    #dni = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
-    # user = models.OneToOneField(Usuario, on_delete=models.CASCADE,, default=1)
-    dni_dr = models.IntegerField(null=False, unique=True,primary_key=True, default=1,verbose_name="DNI")
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
+    dni_dr = models.IntegerField(null=False, unique=True, default=1, verbose_name="DNI")
     license = models.IntegerField(null=False, unique=True, default=1, verbose_name="Licencia Profesional")
     sex = models.CharField(max_length= 1,choices=SEXO, default="M", null=True, blank=True, verbose_name="Sexo")
     birthdate = models.DateField(verbose_name="Fecha de Nacimiento")
@@ -25,8 +24,6 @@ class Doctor(Usuario):
     postal=models.CharField(max_length=10, verbose_name="Codigo Postal")
     updated = models.DateTimeField(auto_now=True) 
     
-    
-    # turnos = models.ManyToManyField(Consulta,through='turnos')
     
     def __str__(self):
         return  "Dr.: "+self.first_name +" "+self.last_name + " - Licencia Profesional: "+ str(self.license) + " - Usuario: " + self.username
@@ -52,17 +49,14 @@ class Calendario(models.Model):
     dni_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, verbose_name="DNI Dr")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    active = models.BooleanField(default=True, verbose_name="Vigente")
-    
+    day = models.DateField(verbose_name="Fecha")
+    hour = models.TimeField(verbose_name="Horario")
+    available = models.BooleanField(default=True, verbose_name="Disponible")
+
     def __str__(self):
         return 'Calendario del Dr. ' + Doctor.first_name +" "+Doctor.last_name + " - Licencia Profesional: "+ str(Doctor.license) + " - Usuario: " + Doctor.username
     
     class Meta():
         verbose_name_plural = 'Calendarios'
 
-class CalendarioTurno(models.Model):
-    id_calendar = models.ForeignKey(Calendario, on_delete=models.CASCADE)
-    day = models.DateField(verbose_name="Fecha")
-    hour = models.TimeField(verbose_name="Horario")
-    available = models.BooleanField(default=True, verbose_name="Disponible")
 

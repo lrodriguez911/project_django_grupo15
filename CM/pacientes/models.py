@@ -6,14 +6,14 @@ from doctores.models import Doctor, Calendario, Usuario
 
 # Create your models here.
 
-class Paciente(Usuario):
+class Paciente(models.Model):
     SEXO = [
         ("M",'Masculino'),
         ("F",'Femenino'),
         ("X",'No Binario'),
     ]
-    # user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True, default=1)
-    dni_pac = models.IntegerField(null=False, unique=True, primary_key=True, default=1)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True, default=1)
+    dni_pac = models.IntegerField(null=False, unique=True, default=1)
     sex = models.CharField(max_length= 1,choices=SEXO, default="M", null=True, blank=True)
     birthday = models.DateField(default='2000-01-01', null=True, blank=True)
     phone = models.CharField(max_length=22, default=None, null=True, blank=True)

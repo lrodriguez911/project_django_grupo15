@@ -8,7 +8,7 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
 # Registro por defecto de Django para admin
 
-admin.site.register(Doctor, UserAdmin)
+admin.site.register(Doctor)
 admin.site.register(Especialidad)
 admin.site.register(Usuario)
 #admin.site.register(Calendario)
@@ -23,7 +23,8 @@ class CMAdminSite(admin.AdminSite):
 
 # Personalizacion de visualizacion de modelos en el Admin de Django
 class DoctorAdmin(admin.ModelAdmin):
-    fields = [ 'username','password' , 'first_name', 'last_name', 'dni_dr', 'license' ,'especiality', 'sex',
+    pass
+    """ fields = [ 'username','password', 'first_name', 'last_name', 'dni_dr', 'license' ,'especiality', 'sex',
               'birthdate', 'phone_number', 'address' , 'city', 'postal', 'email' , 'is_active' ,  'date_joined']
     
     list_display = ['username', 'first_name', 'last_name', 'dni_dr', 'license' ,'especiality']  #campos que se muestran en change
@@ -34,7 +35,7 @@ class DoctorAdmin(admin.ModelAdmin):
             
     list_filter = [ 'especiality', 'city', 'sex', 'last_name'] #campos para filtros
     
-    ordering = ["username"]
+    ordering = ["username"] """
     
     
 class EspecialidadAdmin(admin.ModelAdmin):

@@ -43,8 +43,8 @@
     </div>
     <br><br>
     <div class="d-flex flex-lg-column">
-      <button class="btn btn-lg btn-dark mb-2" type="button">Pacientes</button>
-      <button class="btn btn-lg btn-dark" type="button">Doctores</button>
+      <a href="{% url 'home_pac' %}" class="btn btn-lg btn-dark mb-2">Pacientes</a>
+      <a href="{% url 'home_doc' %}" class="btn btn-lg btn-dark mb-2">Doctores</a>
     </div>
   </main>
 {% endblock %}
