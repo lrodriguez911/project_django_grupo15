@@ -1,0 +1,236 @@
+[33mcommit 9446435404360d82d7bfb3d8df63f07099702923[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m, [m[1;31morigin/dev[m[33m)[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Wed Jun 7 20:08:21 2023 -0300
+
+    Personalizando Admin para aplicacion Doctores
+
+[33mcommit 5fd1bb5137ca726ff2cc9c53fee6317edf2608c7[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Tue Jun 6 20:30:08 2023 -0300
+
+    Modificado modelo Doctor
+
+[33mcommit 465e7aeecca0d8153a33f372ac77d2ff32a211fe[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Tue Jun 6 11:38:48 2023 -0300
+
+    Agregado Portal Doctores
+
+[33mcommit 4f8cbb4d8b74a1b50984df9a9b9076eba119d810[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Mon Jun 5 15:58:23 2023 -0300
+
+    agregado cambios en modelos para que herede correctamente, eliminados archivos redundantes y cambios en archivos estaticos
+
+[33mcommit 8fe3a9e0589bc284aaae6395a295ddc5e77ec292[m
+Merge: 1d9e457 6e9a853
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Mon Jun 5 14:09:59 2023 -0300
+
+    add files
+
+[33mcommit 1d9e457c7f2e72df8572334160ae8644d9937819[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Sun Jun 4 23:59:05 2023 -0300
+
+    changes
+
+[33mcommit 6e9a8531b78c3e3363d3d0b53683dd5286215863[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Sun Jun 4 21:37:47 2023 -0300
+
+    AbstractUser y manyto many en COnsulta
+
+[33mcommit b3e5d6f7e4689996195cede3a44461f497e46ae7[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Sat Jun 3 18:13:53 2023 -0300
+
+    pep
+
+[33mcommit 6882c6189d44c2cc033c66a40669bfcb1adbaf9a[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Sat Jun 3 18:07:09 2023 -0300
+
+    filtro is_active en pacientes view
+
+[33mcommit 93ee0215a699cb2d2b0e1ad20c84e27071c61472[m
+Merge: 42fab46 4be58c1
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Thu Jun 1 19:15:53 2023 -0300
+
+    Herencia de AbstractUser en Doctor y Paciente
+
+[33mcommit 42fab46902e3e38701c5e597b373f4b6c1196fdf[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Thu Jun 1 16:22:04 2023 -0300
+
+    registro de pacientes
+
+[33mcommit 4be58c13db064a86345c54bd94a87c140a7418af[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Thu Jun 1 16:08:17 2023 -0300
+
+    add AbstractUser
+
+[33mcommit 980bdba911f7016965b279c42935beaaaf5967a0[m
+Merge: 312e136 a2976c2
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Wed May 31 15:58:08 2023 -0300
+
+    Merge branch 'dev' of https://github.com/lrodriguez911/project_django_grupo15 into dev
+
+[33mcommit 312e13671b995406922ebeca74a43571d118d3f1[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Wed May 31 15:57:30 2023 -0300
+
+    Agregados campos a FormPacientes
+
+[33mcommit a2976c2dd2e815a044a98a90cbc583c65dce035a[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Tue May 30 17:36:11 2023 -0300
+
+    retoques calendar
+
+[33mcommit d72aa7aa5204c91b099d445236c8e767c89c7e43[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Tue May 30 12:27:09 2023 -0300
+
+    un poco de debugueo
+
+[33mcommit e8154f3f0cf9df8d5185543ed6a11c2a0cc78a4e[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Tue May 30 09:19:07 2023 -0300
+
+    urls y detalles en crud pacientes
+
+[33mcommit d408e66cf7e9040976f30333958575575a924594[m
+Merge: 14f8081 1b6fa46
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Mon May 29 15:56:44 2023 -0300
+
+    Agregado CRUD de Pacientes II
+
+[33mcommit 14f80810b8e28afe21fd80a2080ea369e84bad7d[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Mon May 29 15:47:36 2023 -0300
+
+    Agregado CRUD Pacientes
+
+[33mcommit 1b6fa461d875bd417205b864448c5f899434cb2b[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Mon May 29 13:03:37 2023 -0300
+
+    Actualizacion tests
+    
+    pulido de datos a dar de alta
+
+[33mcommit baffbd148088694a829ad2738c80a59a986945f2[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Mon May 29 12:11:30 2023 -0300
+
+    Actualizacion test.py
+    
+    se pone boceto de rutina que genera turnos
+
+[33mcommit afaa521e80091ec6097af27f9750e73a004a748b[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Mon May 29 00:26:02 2023 -0300
+
+    calendar detalle
+    
+    muestra la fecha clickeada para ser filtrada luego
+
+[33mcommit 9a98e616097b8e90141c6d8850913e400c17c8e7[m
+Author: fzatt <fzattera@gmail.com>
+Date:   Sun May 28 10:09:52 2023 -0300
+
+    calendar
+    
+    toqué el calendario para que muestre los proximos tres meses para elegir turno
+
+[33mcommit 7e1df4e451f2cc6e15de5f57dfe7b4f7d7632e54[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Tue May 23 17:55:24 2023 -0300
+
+    agregado formulario arreglado de paciente
+
+[33mcommit acdc7c4d492a03966a3bac45275aa8fba09c2e05[m
+Merge: a7da528 2eeaaac
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Tue May 23 10:06:31 2023 -0300
+
+    Merge branch 'dev' of https://github.com/lrodriguez911/project_django_grupo15 into dev
+
+[33mcommit a7da528a5445e5514c626a0f76d8e3b0a82fc0bd[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Tue May 23 10:04:20 2023 -0300
+
+    agrergados modelos
+
+[33mcommit 2eeaaac52faa8a7ba83a16d8b325b15ef2ad2581[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Mon May 22 21:39:12 2023 -0300
+
+    Modificado Form Contacto
+
+[33mcommit 7017b49e7bbed2514e0ae0c4a9a4a02ce3d77edf[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Mon May 22 19:16:48 2023 -0300
+
+    Unificado formato doctores y pacientes segun Medicare
+
+[33mcommit affd13758bcc732efe2ca617da25902e48f0a92e[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Mon May 22 18:06:28 2023 -0300
+
+    agregados cambios en calendario doctores y en url de pacientes y doctores
+
+[33mcommit f2943ce91005287fbc4265785dabd746311ced92[m
+Merge: e98bfd3 060ffa2
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Sun May 21 00:00:32 2023 -0300
+
+    Merge branch 'dev' of https://github.com/lrodriguez911/project_django_grupo15 into dev
+    merge branch
+
+[33mcommit e98bfd3a4dca90c1dde2054007f6941d7bad511e[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Sun May 21 00:00:24 2023 -0300
+
+    agregando cambios menores
+
+[33mcommit 060ffa2934b211d44c2714317ce4a1eba2417703[m
+Author: Alejandra Benaim <alejandra.benaim@gmail.com>
+Date:   Sat May 20 19:37:57 2023 -0300
+
+    Actualizada Home
+
+[33mcommit d682e32af6e762f398776410d82790fe9917f26a[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Fri May 19 16:52:21 2023 -0300
+
+    agregados nuevos detalles de carousel
+
+[33mcommit 9f438c095781a0533f5b98fa0b286524483fc4fc[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Fri May 19 16:41:40 2023 -0300
+
+    agregados nuevos modelos
+
+[33mcommit 1e2e808362cc68af6927fee95ae770c5cb185ca2[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Fri May 19 15:09:41 2023 -0300
+
+    agregados modelos pacientes y consultas
+
+[33mcommit a637b1354c56203b41ae84b8bfcdd5dd9ee7129e[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Thu May 4 10:04:28 2023 -0300
+
+    agregado modelo en doctores y en pacientes
+
+[33mcommit 2d0b6f07aa79af942c2f94b651e2c0ce85a3e91e[m
+Author: Lucas Rodriguez <lrodriguez.arevalosc@gmail.com>
+Date:   Thu Apr 27 10:36:59 2023 -0300
+
+    agregado form paciente consulta

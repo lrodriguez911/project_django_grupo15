@@ -1,0 +1,30 @@
+{% extends "pacientes/base.html" %} {% block content %} {% load static %}
+<main class="container">
+  <div class="col-md-6 mb-md-0 mb-6 border border-dark rounded">
+    <form action="action_page.php" method="post">
+      <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required />
+
+        <label for="psw"><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          required
+        />
+
+        <button type="submit">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember" /> Recuerdame
+        </label>
+      </div>
+
+      <div class="container" style="background-color: #f1f1f1">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

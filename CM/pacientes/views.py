@@ -23,10 +23,8 @@ def home_pac(request):
     return render(request, "./pacientes/home_pac.html", context)
 
 
-def login_paciente():
-    documento = """<html><body><h1>Login Paciente</h1></body></html>"""
-    return HttpResponse(documento)
-
+def login_paciente(request):
+    return render(request, "./pacientes/login.html",)
 
 def calendario_turnos_agendados():
     documento = """<html><body><h1>Ver Turnos Agendados</h1></body></html>"""

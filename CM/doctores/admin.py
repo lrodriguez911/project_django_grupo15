@@ -7,7 +7,8 @@ from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
 
 # Registro por defecto de Django para admin
-admin.site.register(Doctor)
+
+admin.site.register(Doctor, UserAdmin)
 admin.site.register(Especialidad)
 admin.site.register(Usuario)
 #admin.site.register(Calendario)
@@ -69,9 +70,9 @@ class ComisionAdmin(admin.ModelAdmin):
 """
 #registros de modelos en Admin personalizado
 sitio_admin = CMAdminSite(name='g15admin')
-sitio_admin.register(Doctor,DoctorAdmin)
-sitio_admin.register(Especialidad,EspecialidadAdmin)
-sitio_admin.register(Usuario,UserAdmin)
+sitio_admin.register(Doctor, DoctorAdmin)
+sitio_admin.register(Especialidad, EspecialidadAdmin)
+sitio_admin.register(Usuario, UserAdmin)
 sitio_admin.register(Group, GroupAdmin)
 #sitio_admin.register(Calendario)
 

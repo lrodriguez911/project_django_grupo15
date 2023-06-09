@@ -1,48 +1,61 @@
-{% extends "pacientes/base.html" %}
+{% extends "pacientes/base.html" %} {% block content %} {% load static %}
+<main>
+  <section class="mb-4 container">
+    <!--Section heading-->
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Contactenos</h2>
+    <!--Section description-->
+    <p class="text-center w-responsive mx-auto mb-5">
+      ¿Tiene alguna consulta? Por favor, no dude en contactarnos directamente.
+      Nuestro equipo le responderá a la brevedad.
+    </p>
 
-{% block content %}
-{% load static %}
-  <main>
-    <section class="mb-4 container">
-        <!--Section heading-->
-        <h2 class="h1-responsive font-weight-bold text-center my-4">Contactenos</h2>
-        <!--Section description-->
-        <p class="text-center w-responsive mx-auto mb-5">¿Tiene alguna consulta? Por favor, no dude en contactarnos
-              directamente. Nuestro equipo le responderá a la brevedad.</p>
-
-        <div class="row">
-            <div class="col-md-6 mb-md-0 mb-6">
-    
-                <form id="contact-form" name="contact-form" action="{% url 'contacto' %}" method="POST">
-                    {% csrf_token %} 
-                     <!--con widgets-->
-                     <div class="row">
-                        {% for campo in contacto_form %}
-                            <!--Grid column-->
-                            <div class="col-md-12">
-                                <div class="md-form mb-0">
-                                    <label for="name" class="form-label" id={{campo.label}}>{{ campo.label }}</label>
-                                    {{campo}}
-                                  
-                                </div>
-                                <div >{{campo.errors}}</div>
-                            </div>
-                            <!--Grid column-->
-                        {% endfor %}
-                    </div>
-                      
-                    
-
-                    <!--boton enviar-->
-                    <br>
-                    <button class="btn btn-dark" type="submit">Enviar</button>
-                    <br>
-              
-                </form>  
+    <div class="row">
+      <div class="col-md-6 mb-md-0 mb-6 border border-dark rounded">
+        <form
+          id="contact-form"
+          name="contact-form"
+          action="{% url 'contacto' %}"
+          method="POST"
+        >
+          {% csrf_token %}
+          <!--con widgets-->
+          <div class="row">
+            {% for campo in contacto_form %}
+            <!--Grid column-->
+            <div class="col-md-12 ">
+              <div class="md-form mb-0 ">
+                <label for="name" class="form-label mt-2" id="{{campo.label}}"
+                  >{{ campo.label }}</label
+                >
+                {{campo}}
+              </div>
+              <div>{{campo.errors}}</div>
             </div>
-        </div>
-    </section>
- 
-  </main>
-  
+            <!--Grid column-->
+            {% endfor %}
+          </div>
+
+          <!--boton enviar-->
+          <br />
+          <button class="btn btn-dark mb-2" type="submit">Enviar</button>
+          <br />
+        </form>
+      </div>
+      <div class="col-md-6 mb-md-0 mb-6">
+        <h3>Visite Nuestra Sucursal</h3>
+        <iframe
+          class="border border-dark rounded"  
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3560.214471111944!2d-65.20641672498499!3d-26.833129989882575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94225c0febbe97db%3A0x65937e9ca09416ef!2sCasa%20Hist%C3%B3rica%20-%20Museo%20Nacional%20de%20la%20Independencia!5e0!3m2!1ses-419!2sar!4v1686227320756!5m2!1ses-419!2sar"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
 {% endblock %}
