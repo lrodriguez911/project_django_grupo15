@@ -6,13 +6,13 @@ from datetime import datetime
 class Usuario(AbstractUser):
     pass
 
-class Persona(Usuario):
+class Persona(models.Model):
     SEXO = [
         ("M",'Masculino'),
         ("F",'Femenino'),
         ("X",'No Binario'),
     ]
-    #user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     dni = models.IntegerField(null=False, unique=True, default=1, verbose_name="DNI")
     sex = models.CharField(max_length= 1,choices=SEXO, default="M", null=True, blank=True, verbose_name="Sexo")
     birthdate = models.DateField(verbose_name="Fecha de Nacimiento")
@@ -21,15 +21,19 @@ class Persona(Usuario):
     city=models.CharField(max_length=50, verbose_name="Ciudad")
     postal=models.CharField(max_length=10, verbose_name="Codigo Postal")
     updated = models.DateTimeField(auto_now=True) 
+    
+    class Meta:
+        abstract = True
+            
 
     
     def soft_delete(self):
-        self.is_active=False
-        self.updated=datetime.today
+        self.user.is_active=False
+        self.user.updated=datetime.today
         super().save()
     
     def restore(self):
-        self.is_active=True
+        self.user.is_active=True
         super().save()
     
 class Doctor(Persona):  
@@ -37,7 +41,7 @@ class Doctor(Persona):
     especiality = models.ForeignKey('Especialidad', on_delete=models.CASCADE, verbose_name="Especialidad")
        
     def __str__(self):
-        return  "Dr.: "+self.first_name +" "+self.last_name + " - Licencia Profesional: "+ str(self.license) + " - Usuario: " + self.username
+        return  "Dr.: "+self.user.first_name +" "+self.user.last_name + " - Licencia Profesional: "+ str(self.license) + " - Usuario: " + self.user.username
     
     class Meta():
         verbose_name_plural = 'Doctores'

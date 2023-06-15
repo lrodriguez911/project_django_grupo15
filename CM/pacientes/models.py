@@ -11,7 +11,7 @@ class Paciente(Persona):
     doctores=models.ManyToManyField(Doctor,through="Consulta")
     
     def __str__(self):
-        return 'Usuario Paciente: ' + self.first_name +' - DNI: ' +self.dni
+        return 'Usuario Paciente: ' + self.user.first_name +' - DNI: ' +self.dni
     
     class Meta:
         verbose_name_plural = "Pacientes"
