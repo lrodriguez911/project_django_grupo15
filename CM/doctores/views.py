@@ -39,7 +39,7 @@ def ver_perfil():
 """ CONSULTORIO"""
 
 
-def turnos(request):
+def turnos_doctores(request):
     # queryset
     doctores = Doctor.objects.all()
     return render(request, "doctores/turnos_agendados.html", {"doctores": doctores})

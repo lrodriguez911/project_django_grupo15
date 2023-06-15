@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls.conf import \
-    include  # importamos el include para poder incluir las views de las apps
+from django.urls.conf import include  # importamos el include para poder incluir las views de las apps
 from doctores import views
 from pacientes import views
 

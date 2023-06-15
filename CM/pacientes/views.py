@@ -3,11 +3,16 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import HttpResponse , JsonResponse
+from django.template import loader
 from django.shortcuts import redirect, render, get_object_or_404
+
 from pacientes.forms import ContactoForm, RegistrarUsuarioForm #, PacienteForm
 from pacientes.models import Paciente
 
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 def home(request):
@@ -28,9 +33,10 @@ def home_pac(request):
         form = RegistrarUsuarioForm()
     return render(request, './pacientes/home_pac.html', {'form': form, 'title': 'registrese aquí'})
 
-
+"""
+#autenticacion manual
 def login(request):
-    """ if request.method == 'POST':
+ if request.method == 'POST':
         # AuthenticationForm_can_also_be_used__
         username = request.POST['username']
         password = request.POST['password']
@@ -45,16 +51,32 @@ def login(request):
         else:
             messages.error(request, f'Cuenta o password incorrecto, realice el login correctamente')
     form = AuthenticationForm()
-    return render(request, 'publica/login.html', {'form': form, 'title': 'Log in'}) """
+    return render(request, 'publica/login.html', {'form': form, 'title': 'Log in'}) 
     return render(request, "./pacientes/login.html",)
+"""    
 
-""" class LogoutView(LogoutView):
+
+def CM_registrarse(request):
+    if request.method == 'POST':
+        form = RegistrarUsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # username = form.cleaned_data.get('username')
+            # email = form.cleaned_data.get('email')
+            messages.success(
+                request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
+            return redirect('login')
+    else:
+        form = RegistrarUsuarioForm()
+    return render(request, 'pacientes/registrarse.html', {'form': form, 'title': 'registrese aquí'})
+
+class CMLogoutView(LogoutView):
     # next_page = 'inicio'
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         messages.add_message(request, messages.INFO, 'Se ha cerrado la session correctamente.')
-        return response """
+        return response
 
 def calendario_turnos_agendados():
     documento = """<html><body><h1>Ver Turnos Agendados</h1></body></html>"""

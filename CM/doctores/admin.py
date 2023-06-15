@@ -6,6 +6,12 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
 
+"""
+from django.contrib.auth import get_user_model
+
+Usuario = get_user_model()
+"""
+
 # Registro por defecto de Django para admin
 
 admin.site.register(Doctor)
@@ -22,20 +28,28 @@ class CMAdminSite(admin.AdminSite):
     empty_value_display = 'No hay datos para visualizar'
 
 # Personalizacion de visualizacion de modelos en el Admin de Django
-class DoctorAdmin(admin.ModelAdmin):
-    pass
-    """ fields = [ 'username','password', 'first_name', 'last_name', 'dni_dr', 'license' ,'especiality', 'sex',
+class DoctorAdmin(admin.ModelAdmin): #Relacion onetoone con User
+    model = Doctor
+    verbose_name = 'Doctor'
+    verbose_name_plural  = 'Doctores'
+    
+    """
+    fields = [ 'username','password', 'first_name', 'last_name', 'dni', 'license' ,'especiality', 'sex',
               'birthdate', 'phone_number', 'address' , 'city', 'postal', 'email' , 'is_active' ,  'date_joined']
     
-    list_display = ['username', 'first_name', 'last_name', 'dni_dr', 'license' ,'especiality']  #campos que se muestran en change
-    list_display_links = ['dni_dr'] 
+    list_display = ['username', 'first_name', 'last_name', 'dni', 'license' ,'especiality']  #campos que se muestran en change
+    list_display_links = ['dni'] 
     list_editable = ['username', 'first_name', 'last_name',  'license' ,'especiality']  #campos que se pueden editar en change
+    
     
     search_fields = ['first_name' , 'last_name' , 'username']  #campos de busqueda
             
     list_filter = [ 'especiality', 'city', 'sex', 'last_name'] #campos para filtros
     
-    ordering = ["username"] """
+    ordering = ["username"] 
+    """
+#class UserDocAdmin(UserAdmin):
+#   inlines = [DoctorAdmin]   
     
     
 class EspecialidadAdmin(admin.ModelAdmin):

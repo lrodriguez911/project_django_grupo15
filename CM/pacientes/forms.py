@@ -1,6 +1,9 @@
 from django import forms
 from django.forms import ValidationError
+import re
+
 from django.contrib.auth.forms import UserCreationForm
+
 from pacientes.models import Paciente, Consulta
 from doctores.models import Especialidad, Doctor, Usuario
 from django.core.exceptions import ValidationError  
@@ -13,13 +16,19 @@ def solo_caracteres(value):
             params={"valor": value},
         )
 
+def validate_email(value):
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_regex, value):
+        raise ValidationError('Correo electrónico inválido')
+    return value
 
 
 class RegistrarUsuarioForm(UserCreationForm):
     class Meta:
         model = Usuario
         fields = ['username','email','password1', 'password2']
-    
+ 
+""" comentado el 14/6    
     def username_clean(self):  
         username = self.cleaned_data['username'].lower()  
         new = Usuario.objects.filter(username = username)  
@@ -49,6 +58,7 @@ class RegistrarUsuarioForm(UserCreationForm):
             self.cleaned_data['password1']  
         )  
         return user  
+"""
 
 """ class PacienteForm(forms.ModelForm):
     dni_pac = forms.IntegerField(
@@ -97,7 +107,7 @@ class ConsultaForm(forms.Form):
     ESPECIALITY = (
         Especialidad.objects.all().values_list("id_especiality", "name_especiality"),)
     DOCTORES = (
-        Doctor.objects.all().values_list("license", "dni_dr"),
+        Doctor.objects.all().values_list("license", "dni"),
     )
     """
     FIRST_NAME = {Paciente.objects.get(dni=Consulta.dni_paciente).first_name}
@@ -156,13 +166,14 @@ class ContactoForm(forms.Form):
     email = forms.EmailField(
         label="Email",
         max_length=100,
+        validators=(validate_email,),
         error_messages={"required": "Campo requerido"},
         widget=forms.TextInput(attrs={"class": "form-control", "type": "email"}),
     )
     tipo_consulta = forms.ChoiceField(
         label="Tipo de consulta",
         choices=TIPO_CONSULTA,
-        initial="2",
+        initial="0",
         error_messages={"required": "Campo requerido"},
         widget=forms.Select(attrs={"class": "form-control"}),
     )

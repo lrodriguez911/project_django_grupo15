@@ -9,6 +9,8 @@
           <img src="..\static\pacientes\images\team-spirit-2447163_640.jpg" class="img-fluid rounded-start" alt="Pacientes">
           <br>
           <br>
+          {% comment %}
+          <!-- Login an pie de la home de pacientes -- comentada por Ale el 14/6 ya que habra form de login standard de Python
           <div class="container">
             <form method="POST" class="mx-1 mx-md-4">
               {% csrf_token %}
@@ -58,7 +60,9 @@
 
             </form>
           </div>
-          <div class="card-footer">
+        -->
+          {% endcomment %}  
+        <div class="card-footer">
             <a href="{% url 'cartilla' %}" class="btn btn-dark">Ver Cartilla</a>
             <a href="{% url 'turnos' %}" class="btn btn-dark">Administrar Turnos</a>
             <a href="{% url 'pacientes_editar' %}" class="btn btn-dark">Editar</a>
