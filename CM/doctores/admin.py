@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from doctores.models import Doctor, Especialidad, Usuario, Calendario
-
+from doctores.models import Doctor, Especialidad, Usuario, Calendario, Persona
+from pacientes.models import Paciente, Consulta
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
@@ -95,7 +95,9 @@ sitio_admin.register(Doctor, DoctorAdmin)
 sitio_admin.register(Especialidad, EspecialidadAdmin)
 sitio_admin.register(Usuario, UserAdmin)
 sitio_admin.register(Group, GroupAdmin)
-sitio_admin.register(Calendario)
+sitio_admin.register(Paciente)
+sitio_admin.register(Consulta)
+
 
 
 

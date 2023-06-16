@@ -13,6 +13,9 @@ class Persona(models.Model):
         ("X",'No Binario'),
     ]
     user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    nombre = models.CharField(max_length=50, null=False, blank=False, verbose_name="Nombre")
+    apellido = models.CharField(max_length=50, null=False, blank=False, verbose_name="Apellido")
+    email = models.EmailField(max_length=50, null=False, blank=False, verbose_name="Email")
     dni = models.IntegerField(null=False, unique=True, default=1, verbose_name="DNI")
     sex = models.CharField(max_length= 1,choices=SEXO, default="M", null=True, blank=True, verbose_name="Sexo")
     birthdate = models.DateField(verbose_name="Fecha de Nacimiento")
