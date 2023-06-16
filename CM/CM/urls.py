@@ -23,6 +23,7 @@ from django.conf import settings
 from doctores.admin import sitio_admin
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),  #admin por defecto
     path('adming15/', sitio_admin.urls),  #admin personalizado 

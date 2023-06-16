@@ -2,6 +2,8 @@ from datetime import datetime
 from django.db import models
 from doctores.models import Doctor, Calendario, Usuario, Persona
 
+from django.conf import settings
+
 
 
 # Create your models here.
@@ -11,7 +13,7 @@ class Paciente(Persona):
     doctores=models.ManyToManyField(Doctor,through="Consulta")
     
     def __str__(self):
-        return 'Usuario Paciente: ' + self.user.first_name +' - DNI: ' +self.dni
+        return 'Usuario Paciente: ' + self.user.first_name +' - DNI: ' + str(self.dni)
     
     class Meta:
         verbose_name_plural = "Pacientes"
@@ -31,7 +33,7 @@ class Consulta(models.Model):
     observations = models.TextField(default=None, null=True, blank=True)
 
     def __str__(self):
-        return self.id_paciente + "consulta con " + self.id_doctor
+        return self.id_paciente + "consulta con " + str(self.id_doctor)
 
     class Meta:
         verbose_name_plural = "Consultas"

@@ -29,7 +29,7 @@ class Persona(models.Model):
     
     def soft_delete(self):
         self.user.is_active=False
-        self.user.updated=datetime.today
+        self.updated=datetime.today
         super().save()
     
     def restore(self):
@@ -48,7 +48,7 @@ class Doctor(Persona):
 
 class Especialidad(models.Model):
     id_especiality = models.AutoField(primary_key=True, verbose_name="ID Especialidad")
-    name_especiality = models.CharField(max_length=50,null=False, verbose_name="Especialidad")
+    name_especiality = models.CharField(max_length=50,null=False, unique=True, verbose_name="Especialidad")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     

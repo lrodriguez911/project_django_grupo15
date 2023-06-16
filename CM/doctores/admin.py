@@ -17,9 +17,10 @@ Usuario = get_user_model()
 admin.site.register(Doctor)
 admin.site.register(Especialidad)
 admin.site.register(Usuario)
-#admin.site.register(Calendario)
+admin.site.register(Calendario)
 
 #Admin Personalizado heredando de AdminSite adming15
+
 
 class CMAdminSite(admin.AdminSite):
     site_header = 'Administracion Centro Medico'
@@ -33,23 +34,28 @@ class DoctorAdmin(admin.ModelAdmin): #Relacion onetoone con User
     verbose_name = 'Doctor'
     verbose_name_plural  = 'Doctores'
     
+    list_display = [ 'dni', 'license' ,'especiality', ]  #campos que se muestran en change
+    
     """
     fields = [ 'username','password', 'first_name', 'last_name', 'dni', 'license' ,'especiality', 'sex',
               'birthdate', 'phone_number', 'address' , 'city', 'postal', 'email' , 'is_active' ,  'date_joined']
     
+
     list_display = ['username', 'first_name', 'last_name', 'dni', 'license' ,'especiality']  #campos que se muestran en change
     list_display_links = ['dni'] 
+    
     list_editable = ['username', 'first_name', 'last_name',  'license' ,'especiality']  #campos que se pueden editar en change
     
     
     search_fields = ['first_name' , 'last_name' , 'username']  #campos de busqueda
-            
-    list_filter = [ 'especiality', 'city', 'sex', 'last_name'] #campos para filtros
-    
-    ordering = ["username"] 
     """
+            
+    #list_filter = [ 'especiality', 'city', 'sex', 'last_name' ] #campos para filtros
+    
+   # ordering = ['last_name' ]     
+
 #class UserDocAdmin(UserAdmin):
-#   inlines = [DoctorAdmin]   
+#  inlines = [DoctorAdmin]   
     
     
 class EspecialidadAdmin(admin.ModelAdmin):
@@ -89,7 +95,7 @@ sitio_admin.register(Doctor, DoctorAdmin)
 sitio_admin.register(Especialidad, EspecialidadAdmin)
 sitio_admin.register(Usuario, UserAdmin)
 sitio_admin.register(Group, GroupAdmin)
-#sitio_admin.register(Calendario)
+sitio_admin.register(Calendario)
 
 
 

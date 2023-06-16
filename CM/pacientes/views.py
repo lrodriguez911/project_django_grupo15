@@ -9,6 +9,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 
 from pacientes.forms import ContactoForm, RegistrarUsuarioForm #, PacienteForm
 from pacientes.models import Paciente
+from doctores.models import Doctor, Especialidad
 
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
@@ -208,8 +209,11 @@ def turnos(request):
 
 def cartilla(request):
     # queryset
-    pacientes = Paciente.objects.all()
-    return render(request, "pacientes/cartilla.html", {"pacientes": pacientes})
+    especialidades = Especialidad.objects.all()
+    doctores = Doctor.objects.all
+    
+    contexto = {"especialidades": especialidades}
+    return render(request, "pacientes/cartilla.html", contexto )
 
 
 """Para borrar cuando registro este ok"""
