@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path,include
+from django.views.generic import TemplateView
+
 
 from . import views  # para importar las funciones que definimos
 
@@ -33,4 +35,6 @@ urlpatterns = [
          views.CMLogoutView.as_view(), name='logout'),
     path('accounts/password_change/', auth_views.PasswordChangeView.as_view(success_url="/",), name='password_change'), 
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', TemplateView.as_view(template_name='lista_especialidades.html'), name='lista_especialidades'),
 ]
+
