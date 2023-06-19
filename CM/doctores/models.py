@@ -44,7 +44,7 @@ class Doctor(Persona):
     especiality = models.ForeignKey('Especialidad', on_delete=models.CASCADE, verbose_name="Especialidad")
        
     def __str__(self):
-        return  "Dr.: "+self.user.first_name +" "+self.user.last_name + " - Licencia Profesional: "+ str(self.license) + " - Usuario: " + self.user.username
+        return  "Dr.: "+self.nombre +" "+self.apellido + " - Licencia Profesional: "+ str(self.license) + " - Usuario: " + self.user.username
     
     class Meta():
         verbose_name_plural = 'Doctores'

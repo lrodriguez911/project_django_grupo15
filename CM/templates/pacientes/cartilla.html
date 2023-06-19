@@ -16,6 +16,31 @@
     <div class="card-body">
       <h5 class="card-title"></h5>
       <p class="card-text">Seleccione la Especialidad para visualizar nuestros Profesionales</p>
+       
+      <table class="table">
+        <thead>
+            <tr>
+                <th>Especialidad</th>
+                <th>Ver Profesionales</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for espec in especialidades %}
+                <tr>
+                    <td>{{espec.name_especiality}}</td>
+                    <td>
+                        <a href="" title="Ver" class="btn btn-primary"><i class="fa-regular fa-user-doctor"></i></a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+
+
+
       <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
     </div>
 </div>
