@@ -10,13 +10,77 @@
 </ol>
 
 <div class="card">
+ 
+    <script>
+      function mostrarSeleccionado(radioButton) {
+        var seleccionado = radioButton.value;
+        if (seleccionado == "Por calendario") {
+          document.getElementById('calendario').style.display = 'block';
+          document.getElementById('disponibilidad').style.display = 'none';
+        }else {
+          document.getElementById('calendario').style.display = 'none';
+          document.getElementById('disponibilidad').style.display = 'block';
+        }
+
+
+        {% comment %} document.getElementById('resultado').textContent = 'Seleccionaste: ' + seleccionado; {% endcomment %}
+      }
+    </script>
+ 
+ 
     <div class="card-header">
       Turnos Medicos
     </div>
-    <div class="card-body">
+    {% comment %} <div class="card-body">
       <h5 class="card-title">Paciente</h5>
       <p class="card-text">Seleccione Especialidad - Profesional - Dia y Horario.</p>
       <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
     </div>
+  {% endcomment %}
+    <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Paciente  {{user.get_username}} </h5>
+        <div class="container">
+          <h5>Selecciona como querés ver tu turno</h5>
+          <div class="form-group">
+            <label>Selecciona una opción:</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="opcion" id="opcion1" value="Por calendario" onchange="mostrarSeleccionado(this)">
+              <label class="form-check-label" for="opcion1">Por Calendario</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="opcion" id="opcion2" value="Por disponibilidad" onchange="mostrarSeleccionado(this)">
+              <label class="form-check-label" for="opcion2">Por disponibilidad</label>
+            </div>
+            <div class="form-group">
+              <label>Botón seleccionado:</label>
+              <p id="resultado"></p>
+            </div>
+        </div>
+      </div>
+      <div class="container mt-5" id="calendario" style="display: none;">
+        <div class="row" id="calendar">
+        </div>
+      </div>
+    
+    
+    
+    
+      <div class="container mt-5" id="disponibilidad" style="display: none;">
+          <div class="row"> 
+            {% include './lista_especialidades.html' %}
+        </div>
+      </div>
+      <div class="card-body">
+          
+          <p class="card-text">Seleccione Especialidad - Profesional - Dia y Horario.</p>
+          <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+
+
+
+
+
 </div>
 {% endblock content %}

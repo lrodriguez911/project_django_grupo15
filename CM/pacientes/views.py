@@ -14,7 +14,7 @@ from doctores.models import Doctor, Especialidad,Usuario
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-
+from doctores.models import Especialidad
 # Create your views here.
 def home(request):
     return render(request, "./pacientes/home.html")
@@ -219,3 +219,11 @@ def datos_pacientes(request):
     # queryset
     pacientes = Paciente.objects.all()
     return render(request, "pacientes/datos_pacientes.html", {"pacientes": pacientes})
+
+
+
+def lista_especialidades(request):
+    especialidades = Especialidad.objects.all()
+    return render(request, '/CM/templates/pacientes/lista_especialidades.html', {'especialidades': especialidades})
+
+
