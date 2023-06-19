@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponse , JsonResponse
 from django.template import loader
 from django.shortcuts import redirect, render, get_object_or_404
+from django.views.generic import ListView, DetailView 
 
 from pacientes.forms import ContactoForm, RegistrarUsuarioForm #, PacienteForm
 from pacientes.models import Paciente
@@ -15,10 +16,16 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from doctores.models import Especialidad
+
 # Create your views here.
+
+class ListaEspecalidades(ListView):
+    model = Especialidad
+    template_name ='pacientes/turnos.html'
+    context_object_name = 'especialidades'
+
 def home(request):
     return render(request, "./pacientes/home.html")
-
 
 def home_pac(request):
     if request.method == 'POST':
@@ -227,7 +234,14 @@ def datos_pacientes(request):
 
 
 def lista_especialidades(request):
-    especialidades = Especialidad.objects.all()
-    return render(request, '/CM/templates/pacientes/lista_especialidades.html', {'especialidades': especialidades})
-
+    Especialidades = Especialidad.objects.all()
+    return render(request, 'pacientes/lista_especialidades.html', {'Especialidades': Especialidades})
+    
+def especialidades_api(request):
+    especialidades = Especialidad.objects.all().values('id_especiality', 'name_especiality')
+    return JsonResponse({'especialidades': list(especialidades)})
+# def especialidades(request):
+    
+#     categories = Category.objects.all()
+#     return render(request, 'publica/categories.html', {'categories': categories})
 

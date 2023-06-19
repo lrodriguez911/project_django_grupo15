@@ -12,6 +12,7 @@
 <div class="card">
  
     <script>
+
       function mostrarSeleccionado(radioButton) {
         var seleccionado = radioButton.value;
         if (seleccionado == "Por calendario") {
@@ -25,6 +26,87 @@
 
         {% comment %} document.getElementById('resultado').textContent = 'Seleccionaste: ' + seleccionado; {% endcomment %}
       }
+
+
+//      {% comment %} <script> {% endcomment %}
+        // Obtener las especialidades mediante una llamada a la API
+        fetch('/especialidades/')
+          .then(response => response.json())
+          .then(data => {
+            const dropdown = document.getElementById('disponibilidad');
+      
+            // Agregar las opciones al dropdown
+            data.especialidades.forEach(especialidad => {
+              const option = document.createElement('option');
+              option.value = especialidad.id_especiality;
+              option.text = especialidad.name_especiality;
+              dropdown.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Error al obtener las especialidades:', error);
+          });
+      
+
+          
+          <select id="especialidad-dropdown" name="especialidad">
+            <!-- Las opciones se agregarán dinámicamente mediante JavaScript -->
+          </select>
+          
+          <script>
+            // Obtener el elemento select del dropdown
+            const dropdown = document.getElementById('especialidad-dropdown');
+          
+            // Función para agregar una opción al dropdown
+            function agregarOpcion(value, text) {
+              const option = document.createElement('option');
+              option.value = value;
+              option.text = text;
+              dropdown.appendChild(option);
+            }
+          
+            // Realizar una llamada a la API para obtener las especialidades
+            fetch('/especialidades/')
+              .then(response => response.json())
+              .then(data => {
+                // Recorrer las especialidades y agregar las opciones al dropdown
+                data.especialidades.forEach(especialidad => {
+                  agregarOpcion(especialidad.id_especiality, especialidad.name_especiality);
+                });
+              })
+              .catch(error => {
+                console.error('Error al obtener las especialidades:', error);
+              });
+          </script>
+          
+
+
+
+
+
+          <select class="form-control" id="lista_especialidades">
+            {% for Especialidad in Especialidades %}
+                <option value="{{ Especialidad.id_especiality }}">{{ Especialidad.name_especiality }}</option>
+            {% endfor %}
+        </select>
+        
+    
+          <select id="disponibilidad" name="especialidad">
+        <!-- Las opciones se agregarán dinámicamente mediante JavaScript -->
+      </select>
+      En este ejemplo, el código JavaScript realiza una llamada a la URL /especialidades/ para obtener las especialidades en formato JSON. Luego, agrega las opciones al dropdown utilizando los datos obtenidos.
+      
+      Recuerda ajustar los nombres de las variables y las ubicaciones de acuerdo a tu proyecto y estructura de archivos.
+      
+      Con estos ajustes, deberías poder incluir las especialidades en la página de turnos de tu aplicación Django.
+      
+      
+      
+      
+      
+      
+
+
     </script>
  
  
@@ -63,12 +145,22 @@
         </div>
       </div>
     
+    {% comment %} {{ include './lista_especialidades.html'}} {% endcomment %}
     
     
-    
-      <div class="container mt-5" id="disponibilidad" style="display: none;">
-          <div class="row"> 
-            {% include './lista_especialidades.html' %}
+      {% comment %} {% comment %} <div class="container mt-5" id="disponibilidad" style="display: none;"> {% endcomment %}
+          {% comment %} <div class="row">  {% endcomment %}
+            {% comment %} <select class="form-control" id='lista_especialidades'> {% endcomment %}
+              {% comment %} <h5>ppp</h5> {% endcomment %}
+              {% comment %} {% for Especialidad in Especialidades %} {% endcomment %}
+                  {% comment %} <option value="{{ Especialidad.id_especiality }}">{{ Especialidad.name_especiality }}</option> {% endcomment %}
+              {% comment %} {% endfor %} {% endcomment %}
+          {% comment %} </select> {% endcomment %}
+            {% comment %} {% include './lista_especialidades.html' %} {% endcomment %}
+            {% comment %} {{ lista_especialidades }} {% endcomment %}
+            {% comment %} {% load lista_especialidades %} {% endcomment %}
+            {% comment %} {% block titulo %}Turnos de Pacientes{% endblock%} {% endcomment %}
+            {% comment %} {% block lista_especialidades %} especialidad{%endblock%} {% endcomment %}
         </div>
       </div>
       <div class="card-body">

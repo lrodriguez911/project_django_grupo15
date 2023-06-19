@@ -58,6 +58,7 @@ class Especialidad(models.Model):
    
     def __str__(self):
         return self.name_especiality
+        
     
     class Meta():
         verbose_name_plural = 'Especialidades'
