@@ -1,5 +1,5 @@
-<select class="form-control">
-    {% for especialidad in especialidades %}
-        <option value="{{ especialidad.id_especiality }}">{{ especialidad.name_especiality }}</option>
+<select class="form-control" id="lista_especialidades">
+    {% for Especialidad in Especialidades %}
+        <option value="{{ Especialidad.id_especiality }}">{{ Especialidad.name_especiality }}</option>
     {% endfor %}
 </select>
