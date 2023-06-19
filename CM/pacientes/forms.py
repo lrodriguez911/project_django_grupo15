@@ -27,6 +27,7 @@ class RegistrarUsuarioForm(UserCreationForm):
     class Meta:
         model = Usuario
         fields = ['username','email','password1', 'password2']
+        
  
 """ comentado el 14/6    
     def username_clean(self):  
@@ -60,47 +61,29 @@ class RegistrarUsuarioForm(UserCreationForm):
         return user  
 """
 
-""" class PacienteForm(forms.ModelForm):
-    dni_pac = forms.IntegerField(
-        label="DNI",
-        widget=forms.TextInput(attrs={"class": "form-control"}),
-        required=True)
-    first_name = forms.CharField(
-        label="Nombre",
-        widget=forms.TextInput(attrs={"class": "form-control"}),)
-    last_name = forms.CharField(
-        label="Apellido",
-        widget=forms.TextInput(attrs={"class": "form-control"}),)
-    sex = forms.ChoiceField(
-        label="Sexo",
-        widget=forms.Select (attrs={"class": "form-control"}),)
-    birthday = forms.DateField(
-        label= "Fecha de Nacimiento",
-        widget=forms.TextInput(attrs={"class": "form-control" ,}),
-        required=True,)
-    phone = forms.CharField(
-        label="Teléfono",
-        widget=forms.TextInput(attrs={"class": "form-control"}),)
-    address = forms.CharField(
-        label="Dirección",
-        widget=forms.TextInput(attrs={"class": "form-control"}),)
-    email = forms.EmailField(
-        label="Correo Electronico",
-        widget=forms.TextInput(attrs={"class": "form-control", "type": "email"}),)
-    vip = forms.BooleanField(
-        label="Paciente afiliado",
-        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
-        required=False,)
-    password = forms.CharField(
-        label="Contraseña",
-        widget=forms.PasswordInput(attrs={"class": "form-control"}),)
-    is_active = forms.BooleanField(
-        label="Activo",
-        initial = True,
-        widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),)
+class PacienteForm(forms.ModelForm):
+      
     class Meta:
         model = Paciente
-        fields = ['dni_pac','first_name', 'last_name', 'sex', 'birthday', 'phone', 'address', 'email', 'vip', 'password'] """
+        
+        fields = ['nombre','apellido', 'dni', 'sex', 'birthdate', 'phone_number', 'address', 'city' , 'postal','email', 'vip', ] 
+        
+        labels = ['Nombre: ','Apellido: ', 'DNI: ', 'Sexo: ', 'Fecha de Nacimiento: ', 'Telefono: ', 'Direccion: ', 'Ciudad: ' , 
+                  'Codigo Postal: ','Email: ', 'Paciente Afiliado: ' ]
+        
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class':'form-control'}),
+            'apellido': forms.TextInput(attrs={'class':'form-control'}),
+            'dni': forms.NumberInput(attrs={'class':'form-control'}),
+            'sex': forms.Select(attrs={'class': 'form-control' } , choices= Doctor.SEXO),
+            'birthdate' : forms.DateInput(attrs={"class": "form-control"}),
+            'phone_number' :forms.TextInput(attrs={"class": "form-control"}),
+            'address' :forms.TextInput(attrs={"class": "form-control"}),
+            'city' :forms.TextInput(attrs={"class": "form-control"}),
+            'postal' :forms.TextInput(attrs={"class": "form-control"}),
+            'email': forms.EmailInput(attrs={'class':'form-control'}),
+            'vip' : forms.CheckboxInput(attrs={"class": "form-check-input"}),
+        }
 
 
 class ConsultaForm(forms.Form):
