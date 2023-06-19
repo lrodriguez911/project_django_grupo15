@@ -16,27 +16,21 @@
     <div class="card-body">
       <h5 class="card-title"></h5>
       <p class="card-text">Seleccione la Especialidad para visualizar nuestros Profesionales</p>
-       
-      <table class="table">
-        <thead>
-            <tr>
-                <th>Especialidad</th>
-                <th>Ver Profesionales</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for espec in especialidades %}
-                <tr>
-                    <td>{{espec.name_especiality}}</td>
-                    <td>
-                        <a href="" title="Ver" class="btn btn-primary"><i class="fa-regular fa-user-doctor"></i></a>
 
-                    </td>
-                </tr>
-            {% endfor %}
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Especialidades
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            {% for espec in especialidades %} 
+                <li><a class="dropdown-item" href="#">{{espec.name_especiality}}</a></li>
+            {% endfor %}    
 
-        </tbody>
-    </table>
+        </ul>
+      </div>
+
+      <br>
+      <br>
 
 
 
