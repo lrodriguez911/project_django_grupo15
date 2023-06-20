@@ -8,7 +8,7 @@ from django.template import loader
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView 
 
-from pacientes.forms import ContactoForm, RegistrarUsuarioForm , PacienteForm
+from pacientes.forms import ContactoForm, RegistrarUsuarioForm , PacienteForm , CartillaEspecialidadForm
 from pacientes.models import Paciente
 from doctores.models import Doctor, Especialidad,Usuario
 
@@ -165,7 +165,6 @@ def pacientes_nuevo(request):
         request, "pacientes/pacientes_CRUD/nuevo.html", {"formulario": formulario}
     )
 
-
 def pacientes_editar(request, usuario_id=5):
     
     try:
@@ -182,6 +181,7 @@ def pacientes_editar(request, usuario_id=5):
     else:
         formulario = PacienteForm(instance=paciente)
     return render(request,'pacientes/pacientes_CRUD/editar.html',{'form':formulario})
+
 
   
 
@@ -214,8 +214,9 @@ def turnos(request):
 def cartilla(request):
     # queryset
     especialidades = Especialidad.objects.all()
+    form = CartillaEspecialidadForm(request.POST)
         
-    contexto = {"especialidades": especialidades }
+    contexto = {"especialidades": especialidades , "form" : form}
     return render(request, "pacientes/cartilla.html", contexto )
 
 

@@ -191,3 +191,10 @@ class ContactoForm(forms.Form):
         suscripcion = cleaned_data.get("suscripcion")
 
 
+class CartillaEspecialidadForm(forms.Form):
+    especialidad_sele = forms.ModelChoiceField(
+        label="Seleccione la Especialidad a consultar  ",
+        required = False,
+        queryset=Especialidad.objects.all(), )
+    
+    
