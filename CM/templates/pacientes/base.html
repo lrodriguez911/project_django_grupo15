@@ -69,7 +69,6 @@
                     </li> 
                 </ul>
                 <div class="col-md-3 text-end">
-                    {{user.username}}
                     {% if user.is_authenticated %}
                         <p type="text" style="display: inline" class="">Bienvenido\a, {{ user.username }}.</p>
                         <a type="button" href="{% url 'password_change' %}" class="btn btn-outline-primary me-2">Cambiar password</a>

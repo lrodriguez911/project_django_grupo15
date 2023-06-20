@@ -34,25 +34,28 @@ class DoctorAdmin(admin.ModelAdmin): #Relacion onetoone con User
     verbose_name = 'Doctor'
     verbose_name_plural  = 'Doctores'
     
-    list_display = [ 'dni', 'license' ,'especiality', ]  #campos que se muestran en change
+    list_display = [ 'apellido', 'nombre', 'dni', 'license' ,'especiality', ]  #campos que se muestran en change
+    
+    list_display_links = ['apellido']
+    
+    list_editable = [ 'nombre', 'dni', 'license' ,'especiality',]  #campos que se pueden editar en change
+    
+    
+    search_fields = ['nombre' , 'apellido' , 'especiality']  #campos de busqueda
+    
+    list_filter = [ 'especiality', 'city', 'sex', 'apellido' ] #campos para filtros
+    
+    ordering = ['apellido' ]   
+    
     
     """
     fields = [ 'username','password', 'first_name', 'last_name', 'dni', 'license' ,'especiality', 'sex',
               'birthdate', 'phone_number', 'address' , 'city', 'postal', 'email' , 'is_active' ,  'date_joined']
     
 
-    list_display = ['username', 'first_name', 'last_name', 'dni', 'license' ,'especiality']  #campos que se muestran en change
-    list_display_links = ['dni'] 
     
-    list_editable = ['username', 'first_name', 'last_name',  'license' ,'especiality']  #campos que se pueden editar en change
-    
-    
-    search_fields = ['first_name' , 'last_name' , 'username']  #campos de busqueda
     """
-            
-    #list_filter = [ 'especiality', 'city', 'sex', 'last_name' ] #campos para filtros
-    
-   # ordering = ['last_name' ]     
+
 
 #class UserDocAdmin(UserAdmin):
 #  inlines = [DoctorAdmin]   
