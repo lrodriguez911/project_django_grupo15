@@ -24,3 +24,11 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+function formProfesionales() {
+    let x = document.createElement("INPUT");
+    x.setAttribute("type", "text");
+    x.setAttribute("value", "0");
+    x.setAttribute("name", "eee");
+    document.body.appendChild(x);
+}

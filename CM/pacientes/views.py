@@ -165,8 +165,7 @@ def pacientes_nuevo(request):
         request, "pacientes/pacientes_CRUD/nuevo.html", {"formulario": formulario}
     )
 
-def pacientes_editar(request, usuario_id=5):
-    
+def pacientes_editar(request, usuario_id):
     try:
         paciente = Paciente.objects.get(user__id=usuario_id)
     except Paciente.DoesNotExist:
@@ -212,6 +211,8 @@ def turnos(request):
 
 
 def cartilla(request):
+    
+    print(request.POST.items())
     # queryset
     especialidades = Especialidad.objects.all()
     form = CartillaEspecialidadForm(request.POST)
