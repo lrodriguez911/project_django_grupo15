@@ -6,19 +6,26 @@ from django.core.mail import send_mail
 from django.http import HttpResponse , JsonResponse
 from django.template import loader
 from django.shortcuts import redirect, render, get_object_or_404
+from django.views.generic import ListView, DetailView 
 
-from pacientes.forms import ContactoForm, RegistrarUsuarioForm #, PacienteForm
+from pacientes.forms import ContactoForm, RegistrarUsuarioForm , PacienteForm , CartillaEspecialidadForm
 from pacientes.models import Paciente
-from doctores.models import Doctor, Especialidad
+from doctores.models import Doctor, Especialidad,Usuario
 
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from doctores.models import Especialidad
 
 # Create your views here.
+
+class ListaEspecalidades(ListView):
+    model = Especialidad
+    template_name ='pacientes/turnos.html'
+    context_object_name = 'especialidades'
+
 def home(request):
     return render(request, "./pacientes/home.html")
-
 
 def home_pac(request):
     if request.method == 'POST':
@@ -158,28 +165,25 @@ def pacientes_nuevo(request):
         request, "pacientes/pacientes_CRUD/nuevo.html", {"formulario": formulario}
     )
 
-
-def pacientes_editar(request):
-     # queryset
-    pacientes = Paciente.objects.all()
-    return render(request, "pacientes/datos_pacientes.html", {"pacientes": pacientes})
-    """try:
-        paciente = get_object_or_404(Paciente, pk=1)
-    except Paciente.DoesNotExist:
-        return render(request, "pacientes/404_pac.html")
-
-    formulario = PacienteForm(
-        request.POST or None, request.FILES or None, instance=paciente
-    )
-    if formulario.is_valid():
-        formulario.save()
-        messages.success(request, "Se han editado los datos del paciente correctamente")
-        return redirect("pacientes_index")
-    return render(
-        request, "pacientes/pacientes_CRUD/editar.html", {"formulario": formulario}
-    ) 
-   """
+def pacientes_editar(request, usuario_id=5):
     
+    try:
+        paciente = Paciente.objects.get(user__id=usuario_id)
+    except Paciente.DoesNotExist:
+        return render(request,'pacientes/404_pac.html')
+
+    if(request.method=='POST'):
+        formulario = PacienteForm(request.POST,instance=paciente)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Se han editado los datos del paciente correctamente")
+            return redirect('home_pac')
+    else:
+        formulario = PacienteForm(instance=paciente)
+    return render(request,'pacientes/pacientes_CRUD/editar.html',{'form':formulario})
+
+
+  
 
 def pacientes_eliminar(request):
     # queryset
@@ -210,9 +214,9 @@ def turnos(request):
 def cartilla(request):
     # queryset
     especialidades = Especialidad.objects.all()
-    doctores = Doctor.objects.all
-    
-    contexto = {"especialidades": especialidades}
+    form = CartillaEspecialidadForm(request.POST)
+        
+    contexto = {"especialidades": especialidades , "form" : form}
     return render(request, "pacientes/cartilla.html", contexto )
 
 
@@ -223,3 +227,18 @@ def datos_pacientes(request):
     # queryset
     pacientes = Paciente.objects.all()
     return render(request, "pacientes/datos_pacientes.html", {"pacientes": pacientes})
+
+
+
+def lista_especialidades(request):
+    Especialidades = Especialidad.objects.all()
+    return render(request, 'pacientes/lista_especialidades.html', {'Especialidades': Especialidades})
+    
+def especialidades_api(request):
+    especialidades = Especialidad.objects.all().values('id_especiality', 'name_especiality')
+    return JsonResponse({'especialidades': list(especialidades)})
+# def especialidades(request):
+    
+#     categories = Category.objects.all()
+#     return render(request, 'publica/categories.html', {'categories': categories})
+

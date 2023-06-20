@@ -3,20 +3,35 @@
 {% block titulo %}Cartilla de Especialidades y Profesionales{% endblock%}
 
 {% block content %}
-<h1 class="mt-4">Cartilla de Especialidades y Profesionales</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
-    <li class="breadcrumb-item active">Cartilla de Especialidades y Profesionales</li>
-</ol>
+<div class="container">
+    <h1 class="mt-4">Cartilla de Especialidades y Profesionales</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
+        <li class="breadcrumb-item active">Cartilla de Especialidades y Profesionales</li>
+    </ol>
 
-<div class="card">
-    <div class="card-header">
-        Cartilla de Especialidades y Profesionales
-    </div>
-    <div class="card-body">
-      <h5 class="card-title"></h5>
-      <p class="card-text">Seleccione la Especialidad para visualizar nuestros Profesionales</p>
-      <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
-    </div>
+        <div class="col-md-6 mb-md-0 mb-6 border border-dark rounded">
+            <br>
+            <form action="{% url 'cartilla' %}">
+                {% csrf_token %}
+                {{ form }}
+            </form>
+            <br>
+            <button type="button" class="btn btn-danger">Buscar Profesionales</button>
+        </div>
+        <div class="col-md-6 mb-md-0 mb-6 border border-dark rounded">
+            <h3>Doctores</h3>
+            <p>Especialidad Seleccionada </p>
+
+        </div>
+
+    <br>
+    <br>
+
+
+
+
+  <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
+
 </div>
 {% endblock content %}

@@ -5,20 +5,22 @@
 {% block titulo %}Editar Datos de Paciente{% endblock%}
 
 {% block content %}
-<h1 class="mt-4">Pacientes</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
-    <li class="breadcrumb-item active">Editar Datos de Paciente</li>
-</ol>
+<div class="container">
+    <h1 class="mt-4">Pacientes</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
+        <li class="breadcrumb-item active">Editar Datos del Paciente </li>
+        
+    </ol>
 
-<div class="card">
-    <div class="card-header">Edicion de Datos de Paciente</div>
-    <div class="card-body">
-        <form action="" method="post">
-            {% csrf_token %}
-            {% include 'pacientes/pacientes_CRUD/form.html' %}
-        </form>
+    <div class="card">
+        <div class="card-header">Edicion de Datos del Paciente {{user.id}} </div>
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% include 'pacientes/pacientes_CRUD/form.html' %}
+            </form>
+        </div>
     </div>
 </div>
-
 {% endblock %}
