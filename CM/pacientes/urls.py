@@ -23,18 +23,19 @@ urlpatterns = [
     path('pacientes_CRUD/index/', views.pacientes_index,name='pacientes_index'),
     path('pacientes_CRUD/nuevo/', views.pacientes_nuevo,name='pacientes_nuevo'),
     path('pacientes_CRUD/editar/<int:usuario_id>', views.pacientes_editar,name='pacientes_editar'),
-    path('pacientes_CRUD/eliminar/', views.pacientes_eliminar,name='pacientes_eliminar'),
+    path('pacientes_CRUD/eliminar/<int:usuario_id>', views.pacientes_eliminar,name='pacientes_eliminar'),
     
      path('cuentas/registrarse', views.CM_registrarse, name='registrarse'),
     
     #por defecto de django  - vistas basadas en clases  
     path('accounts/login/', auth_views.LoginView.as_view(
             template_name='pacientes/login.html',
-            extra_context={'variable':''},
+            extra_context={'variable':'Centro Medico'},
         )),
     path('accounts/logout/',
          views.CMLogoutView.as_view(), name='logout'),
-    path('accounts/password_change/', auth_views.PasswordChangeView.as_view(success_url="/",), name='password_change'), 
+    path('accounts/password_change/', auth_views.PasswordChangeView.as_view(success_url="/",), name='password_change'),
+    path('accounts/password_reset/', auth_views.PasswordResetView.as_view(success_url="/",), name='password_reset'), 
     path('accounts/', include('django.contrib.auth.urls')),
     path('pacientes/lista_especialidades.html', views.lista_especialidades, name="lista_especialidades"),
     path('especialidades/', especialidades_api, name='especialidades_api'),

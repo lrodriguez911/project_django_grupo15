@@ -17,6 +17,7 @@ class Paciente(Persona):
     
     class Meta:
         verbose_name_plural = "Pacientes"
+        permissions = [("ver_modulo_paciente", "Puede acceder a la Aplicacion Pacientes")]
 
 
 
