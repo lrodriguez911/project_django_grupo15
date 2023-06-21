@@ -13,8 +13,7 @@ class Paciente(Persona):
     doctores=models.ManyToManyField(Doctor,through="Consulta")
     
     def __str__(self):
-        return 'Paciente: ' + self.nombre + ' ' + self.apellido +' - DNI: ' + str(self.dni) +' - Usuario: ' + self.user.username
-    
+        return 'Paciente: ' + self.nombre + ' ' + self.apellido +' - DNI: ' + str(self.dni) 
     class Meta:
         verbose_name_plural = "Pacientes"
         permissions = [("ver_modulo_paciente", "Puede acceder a la Aplicacion Pacientes")]
@@ -34,7 +33,6 @@ class Consulta(models.Model):
     observations = models.TextField(default=None, null=True, blank=True)
 
     def __str__(self):
-        return self.id_paciente + "consulta con " + str(self.id_doctor)
-
+        return self.id_paciente.nombre +" " +self.id_paciente.apellido + " consulta con Dr: " + self.id_doctor.nombre+ " " +self.id_doctor.apellido
     class Meta:
         verbose_name_plural = "Consultas"

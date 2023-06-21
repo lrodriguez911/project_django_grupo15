@@ -44,7 +44,7 @@ class Doctor(Persona):
     especiality = models.ForeignKey('Especialidad', on_delete=models.CASCADE, verbose_name="Especialidad")
        
     def __str__(self):
-        return  "Dr.: "+self.nombre +" "+self.apellido + " - Licencia Profesional: "+ str(self.license) + " - Usuario: " + self.user.username
+        return  "Dr.: "+self.nombre +" "+self.apellido +" Especialidad: "+str(self.especiality)
     
     class Meta():
         verbose_name_plural = 'Doctores'
@@ -73,9 +73,10 @@ class Calendario(models.Model):
     available = models.BooleanField(default=True, verbose_name="Disponible")
 
     def __str__(self):
-        #return 'Calendario del Dr. ' + Doctor.first_name +" "+Doctor.last_name + " - Licencia Profesional: "+ str(Doctor.license) + " - Usuario: " + Doctor.username
-        return 'Calendario del Dr. ' + " - Licencia Profesional: "+ str(Doctor.license) 
+        return 'Calendario del Dr. ' + self.id_doc.nombre+ " "+ self.id_doc.apellido+ " - Dia y Hora: " +str(self.day)+" " +str(self.hour)
     class Meta():
         verbose_name_plural = 'Calendarios'
+        
 
 
+ 
