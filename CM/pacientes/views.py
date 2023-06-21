@@ -7,7 +7,7 @@ from django.http import HttpResponse , JsonResponse
 from django.template import loader
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView 
-
+from django.core import serializers
 from pacientes.forms import ContactoForm, RegistrarUsuarioForm , PacienteForm , CartillaEspecialidadForm
 from pacientes.models import Paciente
 from doctores.models import Doctor, Especialidad,Usuario
@@ -16,6 +16,9 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from doctores.models import Especialidad
+from django import template
+
+register = template.Library()
 
 # Create your views here.
 
@@ -212,13 +215,17 @@ def turnos(request):
 
 def cartilla(request):
     
-    print(request.POST.items())
+    """ @register.filter
+    def en_especialidad(things, especialidad):
+        return things.filter(especialidad=especialidad) """
     # queryset
     especialidades = Especialidad.objects.all()
+    doctores = serializers.serialize("json", Doctor.objects.all())
+    # doctores = Doctor.objects.all()
     form = CartillaEspecialidadForm(request.POST)
-        
-    contexto = {"especialidades": especialidades , "form" : form}
-    return render(request, "pacientes/cartilla.html", contexto )
+    contexto = {"especialidades": especialidades , "form" : form, "doctores": doctores}
+    
+    return render(request, "pacientes/cartilla.html", contexto)
 
 
 """Para borrar cuando registro este ok"""

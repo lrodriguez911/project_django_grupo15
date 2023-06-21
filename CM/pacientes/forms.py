@@ -194,7 +194,9 @@ class ContactoForm(forms.Form):
 class CartillaEspecialidadForm(forms.Form):
     especialidad_sele = forms.ModelChoiceField(
         label="Seleccione la Especialidad a consultar  ",
+        empty_label='Todas',
         required = False,
-        queryset=Especialidad.objects.all(), )
+        queryset=Especialidad.objects.all(),
+        widget = forms.Select(attrs = {"onchange" : "formProfesionales(this.value);","onload" : "formProfesionales(this.value)","class":"form-select"}))
     
     

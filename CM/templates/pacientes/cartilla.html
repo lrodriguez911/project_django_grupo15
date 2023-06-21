@@ -1,37 +1,55 @@
-{% extends './base.html' %}
-
-{% block titulo %}Cartilla de Especialidades y Profesionales{% endblock%}
-
-{% block content %}
+{% extends './base.html' %} {% block titulo %}Cartilla de Especialidades y
+Profesionales{% endblock%} {% block content %}
 <div class="container">
-    <h1 class="mt-4">Cartilla de Especialidades y Profesionales</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
-        <li class="breadcrumb-item active">Cartilla de Especialidades y Profesionales</li>
-    </ol>
+  <h1 class="mt-4">Cartilla de Especialidades y Profesionales</h1>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item">
+      <a href="{% url 'home_pac' %}">Portal de Pacientes</a>
+    </li>
+    <li class="breadcrumb-item active">
+      Cartilla de Especialidades y Profesionales
+    </li>
+  </ol>
+  <div class="row">
+    <div class="border border-dark rounded">
+      <br />
+      <form action="{% url 'cartilla' %}" id="especialidades">
+        {% csrf_token %} {{ form }}
+      </form>
+      <br />
+      {{form.value}}
+    </div>
+  </div>
 
-        <div class="col-md-6 mb-md-0 mb-6 border border-dark rounded">
-            <br>
-            <form action="{% url 'cartilla' %}">
-                {% csrf_token %}
-                {{ form }}
-            <button type="button" class="btn btn-danger" onclick="formProfesionales()">Buscar Profesionales</button>
-            </form>
-            <br>
+  <div class="row row-cols-1 g-4">
+    <div class="border border-dark rounded">
+
+      <h3>Doctores</h3>
+      <div id="listado-doctores">
+
+      </div>
+        {% comment %} {% for doctor in doctores %}
+        
+        {{doctor.especiality}}
+        <div class="col m-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                Dr./ Dra. {{doctor.nombre}} {{doctor.apellido}}
+              </h5>
+              <p class="card-text">{{doctor.especiality}}</p>
+              <a href="#" class="btn btn-primary">Turno</a>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6 mb-md-0 mb-6 border border-dark rounded">
-            <h3>Doctores</h3>
-            <p>Especialidad Seleccionada</p>
-            
-        </div>
-
-    <br>
-    <br>
-
-
-
+        {% endfor %} {% endcomment %}
+      
+    </div>
+  </div>
+  
+  <br />
+  <br />
 
   <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
-
 </div>
 {% endblock content %}
