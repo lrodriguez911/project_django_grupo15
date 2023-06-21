@@ -11,7 +11,7 @@
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registrarse</p>
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Nuevo Paciente</p>
 
                 
                 <form method="POST" class="mx-1 mx-md-4">
@@ -27,15 +27,7 @@
                   </div>
                   <div class="error">{{form.username.errors}}</div>
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input type="email" id="{{form.username.auto_id }}" name="{{form.email.name}}"  value="{{ form.email.value | default:'' }}" class="form-control" />
-                      <label class="form-label">{{form.email.label}}</label>
-                    </div>
-                  </div>
-                  <div class="error">{{form.email.errors}}</div>
-
+                  
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
@@ -58,7 +50,7 @@
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
                   </div>
-                  <a href="{% url 'login' %}"> si ya tenes una cuenta, logueate.</a>
+                  <a href="{% url 'login' %}"> si ya tiene una cuenta, inicie Sesion.</a>
 
                 </form>
 

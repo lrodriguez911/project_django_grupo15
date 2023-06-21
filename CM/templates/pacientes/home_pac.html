@@ -4,7 +4,7 @@
 <main class="container">
   <div class="card text-center" style="width: 100%;">
        <div class="card-body">
-          <h4 class="card-header">Bienvenido al Portal de Pacientes del Centro Medico</h4>
+          <h4 class="card-header">Bienvenido Usuario: {{user.username}} al Portal de Pacientes del Centro Medico</h4>
           <br>
           <img src="..\static\pacientes\images\team-spirit-2447163_640.jpg" class="img-fluid rounded-start" alt="Pacientes">
           <br>
@@ -66,7 +66,7 @@
             <a href="{% url 'cartilla' %}" class="btn btn-dark">Ver Cartilla</a>
             <a href="{% url 'turnos' %}" class="btn btn-dark">Administrar Turnos</a>
             <a href="{% url 'pacientes_editar' user.id %}" class="btn btn-dark">Actualizar sus Datos</a>
-            <a href="{% url 'pacientes_eliminar' %}" class="btn btn-dark">Baja del Centro Medico</a>
+            <a href="{% url 'pacientes_eliminar' user.id %}" class="btn btn-dark">Baja del Centro Medico</a>
             
           </div>
         </div>

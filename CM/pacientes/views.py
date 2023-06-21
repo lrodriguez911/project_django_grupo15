@@ -20,6 +20,9 @@ from django import template
 
 register = template.Library()
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
+
 # Create your views here.
 
 class ListaEspecalidades(ListView):
@@ -30,6 +33,8 @@ class ListaEspecalidades(ListView):
 def home(request):
     return render(request, "./pacientes/home.html")
 
+
+#@permission_required('pacientes.ver_modulo_paciente')
 def home_pac(request):
     if request.method == 'POST':
         form = RegistrarUsuarioForm(request.POST)
@@ -44,28 +49,6 @@ def home_pac(request):
         form = RegistrarUsuarioForm()
     return render(request, './pacientes/home_pac.html', {'form': form, 'title': 'registrese aquí'})
 
-"""
-#autenticacion manual
-def login(request):
- if request.method == 'POST':
-        # AuthenticationForm_can_also_be_used__
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            nxt = request.GET.get("next", None)
-            if nxt is None:
-                return redirect('inicio')
-            else:
-                return redirect(nxt)
-        else:
-            messages.error(request, f'Cuenta o password incorrecto, realice el login correctamente')
-    form = AuthenticationForm()
-    return render(request, 'publica/login.html', {'form': form, 'title': 'Log in'}) 
-    return render(request, "./pacientes/login.html",)
-"""    
-
 
 def CM_registrarse(request):
     if request.method == 'POST':
@@ -75,7 +58,7 @@ def CM_registrarse(request):
             # username = form.cleaned_data.get('username')
             # email = form.cleaned_data.get('email')
             messages.success(
-                request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
+                request, f'Su cuenta fue creada con éxito! Ya puede iniciar Sesion en el sistema.')
             return redirect('login')
     else:
         form = RegistrarUsuarioForm()
@@ -187,19 +170,25 @@ def pacientes_editar(request, usuario_id):
 
   
 
-def pacientes_eliminar(request):
-    # queryset
-    pacientes = Paciente.objects.all()
-    return render(request, "pacientes/datos_pacientes.html", {"pacientes": pacientes})
-    """
+def pacientes_eliminar(request, usuario_id):
     try:
-        paciente = get_object_or_404(Paciente, pk=1)
+        paciente = Paciente.objects.get(user__id=usuario_id)
     except Paciente.DoesNotExist:
-        return render(request, "pacientes/404_pac.html")
-    paciente.soft_delete()
-    messages.success(request, "Se ha dado de baja el paciente correctamente")
-    return redirect("pacientes_index")
-    """
+        return render(request,'pacientes/404_pac.html')    
+    
+    if(request.method=='POST'):
+        formulario = PacienteForm(request.POST,instance=paciente)  
+    else:
+        formulario = PacienteForm(instance=paciente)
+        if formulario.is_valid():
+            paciente.soft_delete()
+            messages.success(request, "Se ha dado de baja el paciente correctamente")
+            return redirect('home_pac')
+        
+    return render(request,'pacientes/pacientes_CRUD/eliminar.html',{'form':formulario , 'paciente':paciente})
+    
+
+
 
 """ TURNOS PACIENTES"""
 

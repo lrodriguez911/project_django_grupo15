@@ -3,14 +3,14 @@
 <main class="container">
   <div class="card text-center" style="width: 100%;">
        <div class="card-body">
-          <h4 class="card-header">Bienvenido al Portal de Doctores del Centro Medico</h4>
+          <h4 class="card-header">Bienvenido Usuario: {{user.username}} al Portal de Doctores del Centro Medico</h4>
           <br>
           <img src="..\static\doctores\images\depositphotos_88116830-stock-photo-doctors-in-hospital.jpg" class="img-fluid rounded-start" alt="Doctores">
           <br>
           <br>
           <div class="card-footer">
-            <a href="{% url 'turnos_doctores' %}" class="btn btn-dark">Turnos agendados para una fecha</a>
-            <a href="{% url 'calendarios' %}" class="btn btn-dark">Administrar su Calendario</a>
+            <a href="{% url 'turnos_doctores' user.id %}" class="btn btn-dark">Turnos agendados para una fecha</a>
+            <a href="{% url 'calendarios' user.id %}" class="btn btn-dark">Administrar su Calendario</a>
                        
           </div>
         </div>

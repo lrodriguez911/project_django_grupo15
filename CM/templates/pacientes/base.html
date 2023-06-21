@@ -56,26 +56,25 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'home' %}">Home</a>
                     </li> 
-           
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home_pac' %}">Pacientes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home_doc' %}">Doctores</a>
-                    </li>
-
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home_pac' %}">Pacientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home_doc' %}">Doctores</a>
+                        </li>
+                    {% endif %}    
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contacto' %}">Contactenos</a>
                     </li> 
                 </ul>
                 <div class="col-md-3 text-end">
                     {% if user.is_authenticated %}
-                        <p type="text" style="display: inline" class="">Bienvenido\a, {{ user.username }}.</p>
-                        <a type="button" href="{% url 'password_change' %}" class="btn btn-outline-primary me-2">Cambiar password</a>
-                        <a type="button" href="{% url 'logout' %}" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
+                        <a type="button" href="{% url 'password_change' %}" class="btn btn-outline-light me-2">Cambiar Pass</a>
+                        <a type="button" href="{% url 'logout' %}" class="btn btn-outline-light me-2">Cerrar Sesión</a>
                     {% else %}
-                        <a type="button" href="{% url 'login' %}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
-                        <a type="button" href="{% url 'registrarse' %}" class="btn btn-dark">Registrarse</a>
+                        <a type="button" href="{% url 'login' %}" class="btn btn-outline-light me-2">Iniciar Sesión</a>
+                        <a type="button" href="{% url 'registrarse' %}" class="btn btn-outline-light me-2">Registrarse</a>
                     {% endif %}
                 </div>             
             </div>

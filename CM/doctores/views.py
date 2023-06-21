@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from doctores.forms import  DoctorForm
-from doctores.models import Doctor
+from doctores.models import Doctor,Especialidad
 
 # Create your views here.
 def home(request):
@@ -39,14 +39,22 @@ def ver_perfil():
 """ CONSULTORIO"""
 
 
-def turnos_doctores(request):
+def turnos_doctores(request,usuario_id):
     # queryset
-    doctores = Doctor.objects.all()
-    return render(request, "doctores/turnos_agendados.html", {"doctores": doctores})
+    try:
+        doctor = Doctor.objects.get(user__id=usuario_id)
+    except Doctor.DoesNotExist:
+        return render(request,'pacientes/404_pac.html')
+
+    return render(request, "doctores/turnos_agendados.html", {"doctor": doctor})
 
 
 
-def calendarios(request):
+def calendarios(request, usuario_id):
     # queryset
-    doctores = Doctor.objects.all()
-    return render(request, "doctores/calendarios.html", {"doctores": doctores})
+    try:
+        doctor = Doctor.objects.get(user__id=usuario_id)
+    except Doctor.DoesNotExist:
+        return render(request,'pacientes/404_pac.html')
+    
+    return render(request, "doctores/calendarios.html", {"doctor": doctor})

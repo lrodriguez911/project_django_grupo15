@@ -55,11 +55,7 @@ class DoctorAdmin(admin.ModelAdmin): #Relacion onetoone con User
 
     
     """
-
-
-#class UserDocAdmin(UserAdmin):
-#  inlines = [DoctorAdmin]   
-    
+  
     
 class EspecialidadAdmin(admin.ModelAdmin):
     list_display = [ 'name_especiality',]
@@ -72,7 +68,14 @@ class EspecialidadAdmin(admin.ModelAdmin):
         query = super(EspecialidadAdmin, self).get_queryset(request)
        # filtered_query = query.filter(baja=False)
        # return filtered_query
-        return query
+       #return query
+
+class CalendarioAdmin(admin.ModelAdmin):
+   list_filter = ['id_doc']
+   ordering = ['id_doc','day','hour']
+
+   
+    
 """
 class CursoAdmin(admin.ModelAdmin):
     
@@ -81,25 +84,28 @@ class CursoAdmin(admin.ModelAdmin):
         if db_field.name == "categoria":
             kwargs["queryset"] = Categoria.objects.filter(baja=False)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
+"""
 
 #permite mostrar y editar modelos relacionados en línea dentro de la interfaz de administración de otro modelo     
-class InscripcionInline(admin.TabularInline):
-    model = Inscripcion
+class ConsultaInline(admin.TabularInline):
+    model = Consulta
 
 #agregar la funcionalidad de creación de instancias de Inscripcion
-class ComisionAdmin(admin.ModelAdmin):
+class PacienteAdmin(admin.ModelAdmin):
     inlines = [
-        InscripcionInline,
+        ConsultaInline,
     ]
-"""
+
 #registros de modelos en Admin personalizado
 sitio_admin = CMAdminSite(name='g15admin')
 sitio_admin.register(Doctor, DoctorAdmin)
 sitio_admin.register(Especialidad, EspecialidadAdmin)
 sitio_admin.register(Usuario, UserAdmin)
 sitio_admin.register(Group, GroupAdmin)
-sitio_admin.register(Paciente)
+sitio_admin.register(Paciente,PacienteAdmin)
 sitio_admin.register(Consulta)
+sitio_admin.register(Calendario,CalendarioAdmin)
+
 
 
 
