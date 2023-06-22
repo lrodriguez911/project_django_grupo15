@@ -138,19 +138,6 @@ def pacientes_index(request):
     )
 
 
-def pacientes_nuevo(request):
-    # forma de resumida de instanciar un formulario basado en model con los
-    # datos recibidos por POST si la petición es por POST o bien vacio(None)
-    # Si la petición es por GET
-    formulario = RegistrarUsuarioForm(request.POST or None, request.FILES or None)
-    if formulario.is_valid():
-        formulario.save()
-        messages.success(request, "Se ha registrado el paciente correctamente")
-        return redirect("pacientes_index")
-    return render(
-        request, "pacientes/pacientes_CRUD/nuevo.html", {"formulario": formulario}
-    )
-
 def pacientes_editar(request, usuario_id):
     try:
         paciente = Paciente.objects.get(user__id=usuario_id)
@@ -168,7 +155,6 @@ def pacientes_editar(request, usuario_id):
     return render(request,'pacientes/pacientes_CRUD/editar.html',{'form':formulario})
 
 
-  
 
 def pacientes_eliminar(request, usuario_id):
     try:
@@ -177,15 +163,34 @@ def pacientes_eliminar(request, usuario_id):
         return render(request,'pacientes/404_pac.html')    
     
     if(request.method=='POST'):
-        formulario = PacienteForm(request.POST,instance=paciente)  
+        paciente.soft_delete()
+        return redirect('home_pac')
     else:
         formulario = PacienteForm(instance=paciente)
         if formulario.is_valid():
             paciente.soft_delete()
             messages.success(request, "Se ha dado de baja el paciente correctamente")
             return redirect('home_pac')
-        
     return render(request,'pacientes/pacientes_CRUD/eliminar.html',{'form':formulario , 'paciente':paciente})
+
+def paciente_alta(request, usuario_id):
+    try:
+        paciente = Paciente.objects.get(user__id=usuario_id)
+        paciente.is_active=True
+        paciente.save()
+        return redirect(request,'pacientes/home.html')
+    except Paciente.DoesNotExist:
+        return render(request,'pacientes/404_pac.html')  
+
+def pacientes_eliminar_confirmar(request, usuario_id):
+    try:
+        paciente = Paciente.objects.get(user__id=usuario_id)
+        paciente.is_active=False
+        paciente.save()
+        return redirect(request,'pacientes/home.html')
+    except Paciente.DoesNotExist:
+        return render(request,'pacientes/404_pac.html')    
+    
     
 
 

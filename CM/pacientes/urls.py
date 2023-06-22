@@ -19,13 +19,11 @@ urlpatterns = [
 
     path('pacientes/cartilla/', views.cartilla, name='cartilla'),
     path('pacientes/datos_pacientes/', views.datos_pacientes, name='datos_pacientes'),
-    
-    path('pacientes_CRUD/index/', views.pacientes_index,name='pacientes_index'),
-    path('pacientes_CRUD/nuevo/', views.pacientes_nuevo,name='pacientes_nuevo'),
     path('pacientes_CRUD/editar/<int:usuario_id>', views.pacientes_editar,name='pacientes_editar'),
+    path('pacientes_CRUD/alta/<int:usuario_id>', views.paciente_alta, name='paciente_alta'),
     path('pacientes_CRUD/eliminar/<int:usuario_id>', views.pacientes_eliminar,name='pacientes_eliminar'),
-    
-     path('cuentas/registrarse', views.CM_registrarse, name='registrarse'),
+    path('pacientes_CRUD/eliminar/confirmar/<int:usuario_id>', views.pacientes_eliminar_confirmar,name='pacientes_eliminar_confirmar'),
+    path('cuentas/registrarse', views.CM_registrarse, name='registrarse'),
     
     #por defecto de django  - vistas basadas en clases  
     path('accounts/login/', auth_views.LoginView.as_view(

@@ -1,14 +1,14 @@
 const data = document.currentScript.dataset;
-let doctores = JSON.parse(data.doctores);
+let doctores = JSON.parse(data?.doctores || null);
 /* let especialidades = JSON.parse(data.especialidades); */
-console.log(doctores);
+
 const listadoDoctores = document.getElementById('listado-doctores');
 
 function formProfesionales(value) {
     while(listadoDoctores.firstChild){
         listadoDoctores.removeChild(listadoDoctores.firstChild);
     }
-    value ? docfilter =doctores.filter(doc => doc.fields.especiality == value) :
+    value ? docfilter = doctores.filter(doc => doc.fields.especiality == value) :
     docfilter = doctores;
     docfilter.map(doctor => {
         listadoDoctores.innerHTML += `<div class="col m-4">
@@ -17,7 +17,8 @@ function formProfesionales(value) {
         <h5 class="card-title">
           Dr./ Dra. ${doctor.fields.nombre} ${doctor.fields.apellido}
         </h5>
-        <p class="card-text">${doctor.fields.especiality}</p>
+        <p class="card-text">${doctor.fields.address}</p>
+        <p class="card-text">${doctor.fields.phone_number}</p>
         <a href="#" class="btn btn-primary">Turno</a>
       </div>
     </div>

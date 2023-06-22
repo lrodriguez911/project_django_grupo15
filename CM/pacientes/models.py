@@ -9,6 +9,7 @@ from django.conf import settings
 # Create your models here.
 
 class Paciente(Persona):
+    is_active = models.BooleanField(default=True)
     vip = models.BooleanField(default=False)
     doctores=models.ManyToManyField(Doctor,through="Consulta")
     

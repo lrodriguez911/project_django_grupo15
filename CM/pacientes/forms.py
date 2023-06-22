@@ -53,7 +53,7 @@ class PacienteForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class':'form-control'}),
             'vip' : forms.CheckboxInput(attrs={"class": "form-check-input"}),
         }
-
+        
 
 class ConsultaForm(forms.Form):
     ESPECIALITY = (
@@ -166,6 +166,6 @@ class CartillaEspecialidadForm(forms.Form):
         empty_label='Todas',
         required = False,
         queryset=Especialidad.objects.all(),
-        widget = forms.Select(attrs = {"onchange" : "formProfesionales(this.value);","onload" : "formProfesionales(this.value)","class":"form-select"}))
+        widget = forms.Select(attrs = {"onchange" : "formProfesionales(this.value);","onload" : "formProfesionales(0)","class":"form-select"}))
     
     

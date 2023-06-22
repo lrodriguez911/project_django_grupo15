@@ -21,35 +21,15 @@ Profesionales{% endblock%} {% block content %}
     </div>
   </div>
 
-  <div class="row row-cols-1 g-4">
+  <div class="row row-cols-1 g-4 mt-4">
     <div class="border border-dark rounded">
-
       <h3>Doctores</h3>
       <div id="listado-doctores">
-
       </div>
-        {% comment %} {% for doctor in doctores %}
-        
-        {{doctor.especiality}}
-        <div class="col m-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">
-                Dr./ Dra. {{doctor.nombre}} {{doctor.apellido}}
-              </h5>
-              <p class="card-text">{{doctor.especiality}}</p>
-              <a href="#" class="btn btn-primary">Turno</a>
-            </div>
-          </div>
-        </div>
-        {% endfor %} {% endcomment %}
-      
     </div>
   </div>
-  
   <br />
   <br />
-
   <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
 </div>
 {% endblock content %}

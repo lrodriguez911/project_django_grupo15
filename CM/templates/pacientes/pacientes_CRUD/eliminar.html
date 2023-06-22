@@ -12,7 +12,7 @@
 
 
     <div class="card">
-        <div class="card-header">Eliminacion del Paciente - Usuario: {{user.username}} </div>
+        <div class="card-header">Eliminacion del Paciente</div>
         <div class="card-body">
             <form method="post">
                 {% csrf_token %}
@@ -20,14 +20,6 @@
                 
             </form>
         </div>
-        {% comment %}
-        <div class="card-footer">   
-            Esta seguro que quiere eliminar los datos del Paciente: {{paciente.nombre}} {{paciente.apellido}}?
-
-                <input type="submit" value="Confirmar" class="btn btn-danger">
-                <a href="{% url 'home_pac' %}" class="btn btn-secondary">Cancelar</a>  
-        </div>
-        {% endcomment %}
     </div>
 </div>
 {% endblock %}

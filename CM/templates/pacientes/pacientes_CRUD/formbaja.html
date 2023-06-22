@@ -1,13 +1,11 @@
-{% for campo in form %}  
-    <div class="form-group">
-        <label for="">{{campo.label}}</label>
-        {{campo}}
+<div class="card-footer">
+    <div class="text-center">
+        Esta seguro que quiere eliminar los datos del Paciente: {{paciente.nombre}} {{paciente.apellido}}?
     </div>
-    <div>{{campo.errors}}</div>
-{% endfor %}
-<div class="card-footer">   
-    Esta seguro que quiere eliminar los datos del Paciente: {{paciente.nombre}} {{paciente.apellido}}?
+    <div class="text-center">
+        <a href="{% url 'pacientes_eliminar_confirmar' user.id %}" class="btn btn-danger" >Confirmar</a>
+        <a href="{% url 'home_pac' %}" class="btn btn-secondary" >Cancelar</a>
+    </div>
     
-        <input type="submit" value="Confirmar" class="btn btn-danger">
-        <a href="{% url 'home_pac' %}" class="btn btn-secondary">Cancelar</a>  
+        
 </div>
