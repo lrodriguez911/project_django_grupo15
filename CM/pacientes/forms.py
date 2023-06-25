@@ -2,11 +2,13 @@ from django import forms
 from django.forms import ValidationError
 import re
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm ,  AuthenticationForm 
+from django.core.exceptions import ValidationError 
 
 from pacientes.models import Paciente, Consulta
 from doctores.models import Especialidad, Doctor, Usuario
-from django.core.exceptions import ValidationError  
+ 
 
 def solo_caracteres(value):
     if any(char.isdigit() for char in value):
@@ -22,38 +24,92 @@ def validate_email(value):
         raise ValidationError('Correo electrónico inválido')
     return value
 
+class RegisterForm(UserCreationForm):
+   
+    username = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control',
+                                                             }))
+    email = forms.EmailField(required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control',
+                                                           }))
+    password1 = forms.CharField(max_length=50,
+                                required=True,
+                                widget=forms.PasswordInput(attrs={'class': 'form-control',
+                                                                  'data-toggle': 'password',
+                                                                  'id': 'password',
+                                                                  }))
+    password2 = forms.CharField(max_length=50,
+                                required=True,
+                                widget=forms.PasswordInput(attrs={'class': 'form-control',
+                                                                  'data-toggle': 'password',
+                                                                  'id': 'password',
+                                                                  }))
 
-class RegistrarUsuarioForm(UserCreationForm):
     class Meta:
         model = Usuario
-        fields = ['username','password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
         
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control',
+                                                             }))
+    password = forms.CharField(max_length=50,
+                               required=True,
+                               widget=forms.PasswordInput(attrs={'class': 'form-control',
+                                                                 'data-toggle': 'password',
+                                                                 'id': 'password',
+                                                                 'name': 'password',
+                                                                 }))
+    remember_me = forms.BooleanField(required=False)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'remember_me'] 
+           
+        
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(max_length=100,
+                               required=True,
+                               widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True,
+                             widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+#class UpdateProfileForm(forms.ModelForm):
+   # pass
+    #avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    #bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+
+    #class Meta:
+    #    model = Profile
+    #    fields = ['avatar', 'bio']                    
 
 
 class PacienteForm(forms.ModelForm):
-      
+    nombre = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control' }),max_length=25)
+    apellido = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'  }),max_length=25)
+    dni = forms.IntegerField(widget= forms.NumberInput(attrs={'class': 'form-control'  }))
+    sex = forms.ChoiceField(widget=forms.Select(attrs={"class": "form-control"}) , choices= Doctor.SEXO)
+    birthdate = forms.DateField(widget= forms.DateInput(attrs={'class': 'form-control' }))   
+    phonenumber = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control' }),max_length=15)
+    address = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=40)
+    city = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=15)
+    postal = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=10) 
+    vip = forms.BooleanField(widget=forms.CheckboxInput(attrs={"class": "form-check-input", "value": 1}),)
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+   
     class Meta:
         model = Paciente
         
-        fields = ['nombre','apellido', 'dni', 'sex', 'birthdate', 'phone_number', 'address', 'city' , 'postal','email', 'vip', ] 
+        fields = ['nombre','apellido', 'avatar' , 'dni', 'sex', 'birthdate', 'phone_number', 'address', 'city' , 'postal', 'vip', ] 
         
-        labels = ['Nombre: ','Apellido: ', 'DNI: ', 'Sexo: ', 'Fecha de Nacimiento: ', 'Telefono: ', 'Direccion: ', 'Ciudad: ' , 
-                  'Codigo Postal: ','Email: ', 'Paciente Afiliado: ' ]
-        
-        widgets = {
-            'nombre': forms.TextInput(attrs={'class':'form-control'}),
-            'apellido': forms.TextInput(attrs={'class':'form-control'}),
-            'dni': forms.NumberInput(attrs={'class':'form-control'}),
-            'sex': forms.Select(attrs={'class': 'form-control' } , choices= Doctor.SEXO),
-            'birthdate' : forms.DateInput(attrs={"class": "form-control"}),
-            'phone_number' :forms.TextInput(attrs={"class": "form-control"}),
-            'address' :forms.TextInput(attrs={"class": "form-control"}),
-            'city' :forms.TextInput(attrs={"class": "form-control"}),
-            'postal' :forms.TextInput(attrs={"class": "form-control"}),
-            'email': forms.EmailInput(attrs={'class':'form-control'}),
-            'vip' : forms.CheckboxInput(attrs={"class": "form-check-input"}),
-        }
-        
+      
 
 class ConsultaForm(forms.Form):
     ESPECIALITY = (

@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
-import environ
+import environ , os
 
 from django.contrib.messages import constants as messages
 
@@ -123,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es-AR"
 
 TIME_ZONE = "UTC"
 
@@ -174,3 +174,9 @@ LOGIN_REDIRECT_URL = "home"
 
 
 # PASSWORD_HASHES = []  #aqui se enumeran los algoritmos de hash para encriptar las contrasenas.... sino se toma por defecto PBKDF2
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30

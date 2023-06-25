@@ -3,6 +3,7 @@ from django.db import models
 from doctores.models import Doctor, Calendario, Usuario, Persona
 
 from django.conf import settings
+from PIL import Image
 
 
 
@@ -11,13 +12,26 @@ from django.conf import settings
 class Paciente(Persona):
     is_active = models.BooleanField(default=True)
     vip = models.BooleanField(default=False)
+    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
     doctores=models.ManyToManyField(Doctor,through="Consulta")
     
     def __str__(self):
         return 'Paciente: ' + self.nombre + ' ' + self.apellido +' - DNI: ' + str(self.dni) 
+    
+    # resizing images
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.avatar.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.avatar.path)
+
     class Meta:
         verbose_name_plural = "Pacientes"
-        permissions = [("ver_modulo_paciente", "Puede acceder a la Aplicacion Pacientes")]
+
 
 
 

@@ -1,0 +1,15 @@
+{% extends "pacientes/base.html" %}
+{% block title %}Cierre de Sesión{% endblock title %}
+{% block content %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">Se ha cerrado correctamente su Sesión</h5>
+        <p class="card-text">
+            Gracias por su visita a nuestro sitio. Quedamos a su disposición para cualquier consulta
+        </p>
+        <br><hr><a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión Nuevamente</a>
+        </div>
+    </div>
+
+
+{% endblock content %}

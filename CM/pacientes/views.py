@@ -6,22 +6,27 @@ from django.core.mail import send_mail
 from django.http import HttpResponse , JsonResponse
 from django.template import loader
 from django.shortcuts import redirect, render, get_object_or_404
-from django.views.generic import ListView, DetailView 
+from django.views.generic import ListView
+from django.views import View
 from django.core import serializers
-from pacientes.forms import ContactoForm, RegistrarUsuarioForm , PacienteForm , CartillaEspecialidadForm
+
+from pacientes.forms import ContactoForm, RegisterForm , PacienteForm , CartillaEspecialidadForm , LoginForm
+from .forms import PacienteForm, UpdateUserForm
 from pacientes.models import Paciente
 from doctores.models import Doctor, Especialidad,Usuario
 
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView, LogoutView
+from django.contrib.messages.views import SuccessMessageMixin
+
+
 from doctores.models import Especialidad
 from django import template
 
 register = template.Library()
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import permission_required
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 
@@ -37,7 +42,7 @@ def home(request):
 #@permission_required('pacientes.ver_modulo_paciente')
 def home_pac(request):
     if request.method == 'POST':
-        form = RegistrarUsuarioForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
             # username = form.cleaned_data.get('username')
@@ -46,13 +51,13 @@ def home_pac(request):
                 request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
             return redirect('login')
     else:
-        form = RegistrarUsuarioForm()
+        form = RegisterForm()
     return render(request, './pacientes/home_pac.html', {'form': form, 'title': 'registrese aquí'})
 
 
 def CM_registrarse(request):
     if request.method == 'POST':
-        form = RegistrarUsuarioForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
             # username = form.cleaned_data.get('username')
@@ -61,7 +66,7 @@ def CM_registrarse(request):
                 request, f'Su cuenta fue creada con éxito! Ya puede iniciar Sesion en el sistema.')
             return redirect('login')
     else:
-        form = RegistrarUsuarioForm()
+        form = RegisterForm()
     return render(request, 'pacientes/registrarse.html', {'form': form, 'title': 'registrese aquí'})
 
 class CMLogoutView(LogoutView):
@@ -239,8 +244,91 @@ def lista_especialidades(request):
 def especialidades_api(request):
     especialidades = Especialidad.objects.all().values('id_especiality', 'name_especiality')
     return JsonResponse({'especialidades': list(especialidades)})
-# def especialidades(request):
+
+#######################################################
+#Autenticacion
+#######################################################
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = PacienteForm(request.POST, request.FILES, instance=request.user.paciente)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Su usuario a sido creado correctamente')
+            return redirect(to='users-profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = PacienteForm(instance=request.user.paciente)
+
+    return render(request, 'pacientes/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
+class RegisterView(View):
+    form_class = RegisterForm
+    initial = {'key': 'value'}
+    template_name = 'pacientes/register.html'
     
-#     categories = Category.objects.all()
-#     return render(request, 'publica/categories.html', {'categories': categories})
+    def dispatch(self, request, *args, **kwargs):
+        # will redirect to the home page if a user tries to access the register page while logged in
+        if request.user.is_authenticated:
+            return redirect(to='login')
+
+        # else process dispatch as it otherwise normally would
+        return super(RegisterView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Usuario creado para {username}')
+
+            return redirect(to='/')
+
+        return render(request, self.template_name, {'form': form})
+    
+    
+# Class based view that extends from the built in login view to add a remember me functionality
+class CustomLoginView(LoginView):
+    form_class = LoginForm
+
+    def form_valid(self, form):
+        remember_me = form.cleaned_data.get('remember_me')
+
+        if not remember_me:
+            # set session expiry to 0 seconds. So it will automatically close the session after the browser is closed.
+            self.request.session.set_expiry(0)
+
+            # Set session as modified to force data updates/cookie to be saved.
+            self.request.session.modified = True
+
+        # else browser session will be as long as the session cookie time "SESSION_COOKIE_AGE" defined in settings.py
+        return super(CustomLoginView, self).form_valid(form)    
+    
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'pacientes/password_reset.html'
+    email_template_name = 'pacientes/password_reset_email.html'
+    subject_template_name = 'pacientes/password_reset_subject.html'
+    success_message = "Le hemos enviado instrucciones por correo electrónico para establecer su contraseña. " \
+                      "Si la cuenta de correo ingresada existe, deberia recibirlas a la brevedad" \
+                      " Si no recibe un correo, " \
+                      "por favor asegúrese de haber ingresado la dirección con la que se registró y verifique su carpeta de correo no deseado."
+    success_url = reverse_lazy('users-home')    
+
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'pacientes/change_password.html'
+    success_message = "Contraseña cambiada con exito"
+    success_url = reverse_lazy('home')
+
 
