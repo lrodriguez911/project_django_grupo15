@@ -65,11 +65,10 @@
         <div class="card-footer">
             <a href="{% url 'cartilla' %}" class="btn btn-dark">Ver Cartilla</a>
             <a href="{% url 'turnos' %}" class="btn btn-dark">Administrar Turnos</a>
-            <a href="{% url 'pacientes_editar' user.id %}" class="btn btn-dark">Actualizar sus Datos</a>
             {% if user.paciente.is_active %}
             <a href="{% url 'pacientes_eliminar' user.id %}" class="btn btn-danger">Baja del Centro Medico</a>
             {% else %}
-            <a href="{% url 'paciente_alta' user.id %}" class="btn btn-success">Dar de alta nuevamente</a>
+            <a href="{% url 'pacientes_reactivar' user.id %}" class="btn btn-success">Dar de alta nuevamente</a>
             {% endif %}
           </div>
         </div>

@@ -168,36 +168,25 @@ def pacientes_eliminar(request, usuario_id):
         return render(request,'pacientes/404_pac.html')    
     
     if(request.method=='POST'):
-        paciente.soft_delete()
-        return redirect('home_pac')
-    else:
-        formulario = PacienteForm(instance=paciente)
-        if formulario.is_valid():
-            paciente.soft_delete()
-            messages.success(request, "Se ha dado de baja el paciente correctamente")
-            return redirect('home_pac')
-    return render(request,'pacientes/pacientes_CRUD/eliminar.html',{'form':formulario , 'paciente':paciente})
-
-def paciente_alta(request, usuario_id):
-    try:
-        paciente = Paciente.objects.get(user__id=usuario_id)
-        paciente.is_active=True
-        paciente.save()
-        return redirect(request,'pacientes/home.html')
-    except Paciente.DoesNotExist:
-        return render(request,'pacientes/404_pac.html')  
-
-def pacientes_eliminar_confirmar(request, usuario_id):
-    try:
-        paciente = Paciente.objects.get(user__id=usuario_id)
         paciente.is_active=False
         paciente.save()
-        return redirect(request,'pacientes/home.html')
+        messages.success(request, "Se ha dado de baja el paciente correctamente")
+        return redirect('home_pac')
+    return render(request,'pacientes/pacientes_CRUD/eliminar.html',{'paciente':paciente})
+    
+    
+def pacientes_reactivar(request, usuario_id):
+    try:
+        paciente = Paciente.objects.get(user__id=usuario_id)
     except Paciente.DoesNotExist:
         return render(request,'pacientes/404_pac.html')    
     
-    
-
+    if(request.method=='POST'):
+        paciente.is_active=True
+        paciente.save()
+        messages.success(request, "Se ha reactivado el paciente correctamente")
+        return redirect('home_pac')
+    return render(request,'pacientes/pacientes_CRUD/reactivar.html',{'paciente':paciente})
 
 
 """ TURNOS PACIENTES"""
@@ -251,21 +240,22 @@ def especialidades_api(request):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        # user_form = UpdateUserForm(request.POST, instance=request.user)
+        user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = PacienteForm(request.POST, request.FILES, instance=request.user.paciente)
+
 
         # and profile_form.is_valid()
         if profile_form.is_valid() :
-            # user_form.save()
+            user_form.save()
             profile_form.save()
             messages.success(request, 'Su usuario a sido creado correctamente')
             return redirect(to='users-profile')
     else:
-        # user_form = UpdateUserForm(instance=request.user)
+        user_form = UpdateUserForm(instance=request.user)
         profile_form = PacienteForm(instance=request.user.paciente)
 
     # , 'profile_form': profile_form 'user_form': user_form, 
-    return render(request, 'pacientes/profile.html', {'profile_form': profile_form})
+    return render(request, 'pacientes/profile.html', {'profile_form': profile_form, 'user_form': user_form})
 
 
 class RegisterView(View):
@@ -297,8 +287,9 @@ class RegisterView(View):
                 print(paciente + "pac")
                 print(usuario.id)
             except:
-                pacienteCreado = Paciente.objects.create(user_id=usuario.id)
-                print(pacienteCreado + "creado")
+                pacienteCreado = Paciente(user_id=usuario.id)
+                pacienteCreado.save()
+                print(pacienteCreado)
                 messages.success(request, f'Usuario creado para {usernameForm}')
 
             return redirect(to='/')
@@ -309,7 +300,6 @@ class RegisterView(View):
 # Class based view that extends from the built in login view to add a remember me functionality
 class CustomLoginView(LoginView):
     form_class = LoginForm
-
     def form_valid(self, form):
         remember_me = form.cleaned_data.get('remember_me')
 
@@ -327,11 +317,11 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'pacientes/password_reset.html'
     email_template_name = 'pacientes/password_reset_email.html'
     subject_template_name = 'pacientes/password_reset_subject.html'
-    success_message = "Le hemos enviado instrucciones por correo electrónico para establecer su contraseña. " \
+    success_message = "Le hemos enviado instrucciones por correo electrónico para restablecer su contraseña. " \
                       "Si la cuenta de correo ingresada existe, deberia recibirlas a la brevedad" \
                       " Si no recibe un correo, " \
                       "por favor asegúrese de haber ingresado la dirección con la que se registró y verifique su carpeta de correo no deseado."
-    success_url = reverse_lazy('users-home')    
+    success_url = reverse_lazy('home')    
 
 
 

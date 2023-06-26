@@ -1,9 +1,7 @@
 {% extends "pacientes/base.html" %}
 {% block title %}Datos del Paciente{% endblock title %}
 {% block content %}
-    <div class="row my-3 p-3">
-        <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
-    </div>
+    
     {% if user_form.errors %}
         <div class="alert alert-danger alert-dismissible" role="alert">
             <div id="form_errors">
@@ -21,6 +19,9 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row">
+                <div class="col-md-5 my-3 p-3">
+                    <img class="rounded-circle account-img img-thumbnail" src="{{ user.paciente.avatar.url }}" />
+                </div>
                 <div class="col-md-5">
                     <div class="form-group">
                         <label class="small mb-1">Nombre de Usuario:</label>

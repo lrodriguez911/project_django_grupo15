@@ -176,6 +176,8 @@ LOGIN_REDIRECT_URL = "home"
 # PASSWORD_HASHES = []  #aqui se enumeran los algoritmos de hash para encriptar las contrasenas.... sino se toma por defecto PBKDF2
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 MEDIA_URL = '/media/'
 
 

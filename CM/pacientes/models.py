@@ -24,11 +24,15 @@ class Paciente(Persona):
 
         img = Image.open(self.avatar.path)
 
-        """ if img.height > 100 or img.width > 100:
+        if img.height > 100 or img.width > 100:
             new_img = (100, 100)
             img.thumbnail(new_img)
-            img.save(self.avatar.path) """
-        img.save(self.avatar.path)
+            img.save(self.avatar.path)
+        # img.save(self.avatar.path)
+
+    def restore(self):
+        self.user.is_active=True
+        super().save()
 
     class Meta:
         verbose_name_plural = "Pacientes"

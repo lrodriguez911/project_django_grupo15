@@ -21,7 +21,7 @@ from pacientes import views
 
 from django.conf import settings
 from doctores.admin import sitio_admin
-
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -31,4 +31,4 @@ urlpatterns = [
     path('doctores/',include('doctores.urls')),#incluimos todo lo que está en urls de doctores
 ]
 
-
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

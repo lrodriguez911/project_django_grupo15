@@ -33,9 +33,6 @@ class Persona(models.Model):
         self.updated=datetime.today
         super().save()
     
-    def restore(self):
-        self.user.is_active=True
-        super().save()
     
 class Doctor(Persona):  
     license = models.IntegerField(null=False, unique=True, default=1, verbose_name="Licencia Profesional") 

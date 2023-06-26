@@ -1,24 +1,24 @@
 {% extends '../base.html' %}
 
-{% block titulo %}Eliminar Paciente{% endblock%}
+{% block titulo %}Reactivar Paciente{% endblock%}
 
 {% block content %}
 <div class="container">
     <h1 class="mt-4">Pacientes</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{% url 'home_pac' %}">Portal de Pacientes</a></li>
-        <li class="breadcrumb-item active">Eliminar Paciente</li>
+        <li class="breadcrumb-item active">Reactivar Paciente</li>
     </ol>
 
 
     <div class="card">
-        <div class="card-header">Eliminar el Paciente</div>
+        <div class="card-header">Reactivar el Paciente</div>
         <div class="card-body">
             <form method="post">
                 {% csrf_token %}
                 <div class="card-footer">
                     <div class="text-center">
-                        <input type="submit" value="Confirmar" class="btn btn-danger">
+                        <input type="submit" value="Confirmar" class="btn btn-success"> 
                         <a href="{% url 'home_pac' %}" class="btn btn-secondary" >Cancelar</a>
                     </div>    
                 </div>
@@ -27,4 +27,6 @@
     </div>
 </div>
 {% endblock %}
+
+
 
