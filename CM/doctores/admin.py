@@ -34,7 +34,7 @@ class DoctorAdmin(admin.ModelAdmin): #Relacion onetoone con User
     verbose_name = 'Doctor'
     verbose_name_plural  = 'Doctores'
     
-    list_display = [ 'apellido', 'nombre', 'dni', 'license' ,'especiality', ]  #campos que se muestran en change
+    list_display = [ 'apellido', 'nombre', 'dni', 'license' ,'especiality', 'get_username']  #campos que se muestran en change
     
     list_display_links = ['apellido']
     
@@ -46,6 +46,10 @@ class DoctorAdmin(admin.ModelAdmin): #Relacion onetoone con User
     list_filter = [ 'especiality', 'city', 'sex', 'apellido' ] #campos para filtros
     
     ordering = ['apellido' ]   
+    
+    @admin.display(description = 'Usuario')
+    def get_username(sel, obj):
+        return obj.user.username
     
     
     """
@@ -71,20 +75,47 @@ class EspecialidadAdmin(admin.ModelAdmin):
        #return query
 
 class CalendarioAdmin(admin.ModelAdmin):
-   list_filter = ['id_doc']
-   ordering = ['id_doc','day','hour']
-
+   list_display = ['get_doctor', 'day' , 'hour', 'available']
+   list_filter = ['id_doc__apellido']
+   list_editable = ['day' , 'hour', 'available']
+   ordering = ['id_doc__apellido','day','hour']
    
-    
-"""
-class CursoAdmin(admin.ModelAdmin):
-    
-    #modificar listados de foreingkey
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "categoria":
-            kwargs["queryset"] = Categoria.objects.filter(baja=False)
+   @admin.display(description = 'Doctor' , ordering = 'id_doc__apellido')
+   def get_doctor (self,obj):
+       return obj.id_doc.apellido + ', ' + obj.id_doc.nombre
+
+class ConsultaAdmin(admin.ModelAdmin):
+   list_display = ['get_doctor', 'get_fecha', 'get_hora','get_paciente', 'attended', 'observations'] 
+   list_filter = ['id_doctor__apellido' , 'id_paciente__apellido']
+
+   ordering = ['id_doctor__apellido', 'id_calendario__day','id_calendario__hour']
+   
+   @admin.display(description = 'Doctor' )
+   def get_doctor (self,obj):
+       return obj.id_doctor.apellido + ', ' + obj.id_doctor.nombre   
+   
+   @admin.display(description = 'Paciente' )
+   def get_paciente (self,obj):
+       return obj.id_paciente.apellido + ', ' + obj.id_paciente.nombre   
+   
+   @admin.display(description = 'Fecha' )
+   def get_fecha (self,obj):
+       return obj.id_calendario.day   
+   
+   @admin.display(description = 'Horario' )
+   def get_hora (self,obj):
+       return obj.id_calendario.hour 
+   
+   #mostrar solo horarios de calendarios disponibles
+   def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "id_calendario":
+            kwargs["queryset"] = Calendario.objects.filter(available=True)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
-"""
+   
+
+
+    
+
 
 #permite mostrar y editar modelos relacionados en línea dentro de la interfaz de administración de otro modelo     
 class ConsultaInline(admin.TabularInline):
@@ -92,9 +123,32 @@ class ConsultaInline(admin.TabularInline):
 
 #agregar la funcionalidad de creación de instancias de Inscripcion
 class PacienteAdmin(admin.ModelAdmin):
+    verbose_name = 'Paciente'
+    verbose_name_plural  = 'Pacientes'
+    
+    list_display = [ 'apellido', 'nombre', 'dni', 'birthdate' ,'vip', 'get_username']  #campos que se muestran en change
+    
+    list_display_links = ['apellido']
+    
+    list_editable = [ 'nombre', 'dni', 'birthdate' ,'vip',]  #campos que se pueden editar en change
+    
+    
+    search_fields = ['nombre' , 'apellido', 'dni' ]  #campos de busqueda
+    
+    list_filter = [ 'apellido' , 'dni'] #campos para filtros
+    
+    ordering = ['apellido' ]   
+    
     inlines = [
         ConsultaInline,
     ]
+    
+    @admin.display(description = 'Usuario')
+    def get_username(sel, obj):
+        return obj.user.username
+    
+    
+   
 
 #registros de modelos en Admin personalizado
 sitio_admin = CMAdminSite(name='g15admin')
@@ -103,7 +157,7 @@ sitio_admin.register(Especialidad, EspecialidadAdmin)
 sitio_admin.register(Usuario, UserAdmin)
 sitio_admin.register(Group, GroupAdmin)
 sitio_admin.register(Paciente,PacienteAdmin)
-sitio_admin.register(Consulta)
+sitio_admin.register(Consulta,ConsultaAdmin)
 sitio_admin.register(Calendario,CalendarioAdmin)
 
 
