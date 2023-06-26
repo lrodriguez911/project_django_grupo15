@@ -1,6 +1,7 @@
 {% extends "pacientes/base.html" %}
 {% block title %}Cierre de Sesión{% endblock title %}
 {% block content %}
+<div class="d-flex text-center justify-content-center mt-4">
     <div class="card" style="width: 18rem;">
         <div class="card-body">
         <h5 class="card-title">Se ha cerrado correctamente su Sesión</h5>
@@ -10,6 +11,7 @@
         <br><hr><a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión Nuevamente</a>
         </div>
     </div>
+</div>
 
 
 {% endblock content %}

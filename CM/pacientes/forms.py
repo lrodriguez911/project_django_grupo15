@@ -97,17 +97,17 @@ class PacienteForm(forms.ModelForm):
     dni = forms.IntegerField(widget= forms.NumberInput(attrs={'class': 'form-control'  }))
     sex = forms.ChoiceField(widget=forms.Select(attrs={"class": "form-control"}) , choices= Doctor.SEXO)
     birthdate = forms.DateField(widget= forms.DateInput(attrs={'class': 'form-control' }))   
-    phonenumber = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control' }),max_length=15)
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control' }),max_length=15)
     address = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=40)
     city = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=15)
     postal = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=10) 
-    vip = forms.BooleanField(widget=forms.CheckboxInput(attrs={"class": "form-check-input", "value": 1}),)
+    vip = forms.BooleanField(widget=forms.CheckboxInput(attrs={"class": "form-check-input", "value": 1}))
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
    
     class Meta:
         model = Paciente
         
-        fields = ['nombre','apellido', 'avatar' , 'dni', 'sex', 'birthdate', 'phone_number', 'address', 'city' , 'postal', 'vip', ] 
+        fields = ['nombre','apellido', 'avatar' , 'dni', 'sex', 'birthdate', 'phone_number', 'address', 'city' , 'postal', 'vip'] 
         
       
 

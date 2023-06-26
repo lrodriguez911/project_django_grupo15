@@ -2,7 +2,7 @@
 {% block title %}Datos del Paciente{% endblock title %}
 {% block content %}
     <div class="row my-3 p-3">
-        <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
+        <img class="rounded-circle account-img img-thumbnail" src="{{ user.profile.avatar.url }} " style="cursor: pointer;"/>
     </div>
     {% if user_form.errors %}
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -34,11 +34,18 @@
                         <label class="small mb-1">DNI:</label> {{ profile_form.dni }}
                         <label class="small mb-1">Sexo:</label> {{ profile_form.sex }}
                         <label class="small mb-1">Fecha de Nacimiento:</label> {{ profile_form.birthdate }}
-                        <label class="small mb-1">Telefono:</label> {{ profile_form.phonenumber }}
+                        <label class="small mb-1">Telefono:</label> {{ profile_form.phone_number }}
                         <label class="small mb-1">Direccion:</label> {{ profile_form.address }}
                         <label class="small mb-1">Ciudad:</label> {{ profile_form.city }}
                         <label class="small mb-1">Codigo Postal:</label> {{ profile_form.postal }}
-                        <label class="small mb-1">Es Afiliado?:</label> {{ profile_form.vip }} 
+                        <div class="form-check">
+                            {{ profile_form.vip }} 
+                            <label class="small mb-1 form-check-label">Afiliado</label> 
+                            
+                          </div>
+                            
+                            
+
                     </div>
                     <div class="form-group">
                         <a href="{% url 'password_change' %}">Cambio de Contraseña</a>
