@@ -251,19 +251,21 @@ def especialidades_api(request):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        user_form = UpdateUserForm(request.POST, instance=request.user)
+        # user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = PacienteForm(request.POST, request.FILES, instance=request.user.paciente)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
+        # and profile_form.is_valid()
+        if profile_form.is_valid() :
+            # user_form.save()
             profile_form.save()
             messages.success(request, 'Su usuario a sido creado correctamente')
             return redirect(to='users-profile')
     else:
-        user_form = UpdateUserForm(instance=request.user)
+        # user_form = UpdateUserForm(instance=request.user)
         profile_form = PacienteForm(instance=request.user.paciente)
 
-    return render(request, 'pacientes/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+    # , 'profile_form': profile_form 'user_form': user_form, 
+    return render(request, 'pacientes/profile.html', {'profile_form': profile_form})
 
 
 class RegisterView(View):
@@ -288,9 +290,16 @@ class RegisterView(View):
 
         if form.is_valid():
             form.save()
-
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Usuario creado para {username}')
+            usernameForm = form.cleaned_data.get("username")
+            usuario = Usuario.objects.get(username=usernameForm)
+            try:
+                paciente = Paciente.objects.get(user_id=usuario.id)
+                print(paciente + "pac")
+                print(usuario.id)
+            except:
+                pacienteCreado = Paciente.objects.create(user_id=usuario.id)
+                print(pacienteCreado + "creado")
+                messages.success(request, f'Usuario creado para {usernameForm}')
 
             return redirect(to='/')
 

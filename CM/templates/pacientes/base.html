@@ -105,28 +105,30 @@
               <li class="nav-item align-self-center">
                 <a class="nav-link" href="{% url 'home' %}">Home</a>
               </li>
-              {% if user.is_authenticated %}
-              <li class="nav-item align-self-center">
-                <a class="nav-link" href="{% url 'home_pac' %}">Pacientes</a>
-              </li>
-              <li class="nav-item align-self-center">
-                <a class="nav-link" href="{% url 'home_doc' %}">Doctores</a>
-              </li>
-              {% endif %}
               <li class="nav-item align-self-center">
                 <a class="nav-link" href="{% url 'contacto' %}">Contactenos</a>
               </li>
               {% if user.is_authenticated %}
-                <li class="nav-item align-self-center">
-                  <a class="nav-link" href="{% url 'users-profile' %}">Datos de Usuario</a>           
-                </li> 
-                <li class="nav-item align-self-center">
-                  <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesion</a>           
-                </li>                        
-              {% else %}
-                <li class="nav-item align-self-center">
-                  <a class="nav-link"  href="{% url 'login' %}">Iniciar Sesión</a>
-                </li>           
+
+                  {% if user.doctor.license %}
+                  <li class="nav-item align-self-center">
+                    <a class="nav-link" href="{% url 'home_doc' %}">Doctores</a>
+                  </li>
+                  {% else %}
+                    <li class="nav-item align-self-center">
+                      <a class="nav-link" href="{% url 'home_pac' %}">Pacientes</a>
+                    </li>
+                    <li class="nav-item align-self-center">
+                      <a class="nav-link" href="{% url 'users-profile' %}">Datos de Usuario</a>           
+                    </li> 
+                  {% endif %}
+                  <li class="nav-item align-self-center">
+                    <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesion</a>           
+                  </li>
+                  {% else %}
+                  <li class="nav-item align-self-center">
+                    <a class="nav-link" href="{% url 'login' %}">Iniciar Sesion</a>           
+                  </li>
               {% endif %}
             </ul>
           </div>

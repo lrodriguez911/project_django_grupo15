@@ -23,7 +23,6 @@ class Persona(models.Model):
     city=models.CharField(max_length=50, verbose_name="Ciudad")
     postal=models.CharField(max_length=10, verbose_name="Codigo Postal")
     updated = models.DateTimeField(auto_now=True) 
-
     
     class Meta:
         abstract = True

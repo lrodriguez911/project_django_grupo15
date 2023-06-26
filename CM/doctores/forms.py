@@ -30,7 +30,7 @@ class DoctorForm(forms.ModelForm):
         label="Licencia",
         widget=forms.TextInput(attrs={"class": "form-control"}),
         required=True)
-      
+
     especialidad = forms.ChoiceField(
         label="Especialidad", 
         choices=ESPECIALITY, 

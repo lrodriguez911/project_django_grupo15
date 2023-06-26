@@ -5,5 +5,5 @@ class UserConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'pacientes'
 
-    def ready(self):
-        import pacientes.signals  # noqa
+    """ def ready(self):
+        import pacientes.signals  # noqa """
