@@ -13,12 +13,7 @@
     <div class="card-header">
       Turnos Medicos
     </div>
-    {% comment %} <div class="card-body">
-      <h5 class="card-title">Paciente</h5>
-      <p class="card-text">Seleccione Especialidad - Profesional - Dia y Horario.</p>
-      <a href="{% url 'home_pac' %}" class="btn btn-primary">Volver</a>
-    </div>
-  {% endcomment %}
+    
     <div class="card">
         <div class="card-header">
           <h5 class="card-title">Paciente  {{user.get_username}} </h5>
@@ -27,7 +22,7 @@
               <div class="border border-dark rounded">
                 <br />
                 {% comment %} <form action="{% url 'turnos' %}" id="turnos"> {% endcomment %}
-                <form method="POST" action="{% url 'turnos' %}">
+                <form method="POST" action="{% url 'turnos' %}" id="turnos">
                   {% csrf_token %}
                   {{ form }}
                   {% comment %} {{ form.doctores }  } {% endcomment %}
@@ -39,22 +34,7 @@
             </div>
       </div>
     
-    {% comment %} {{ include './lista_especialidades.html'}} {% endcomment %}
-    
-    
-      {% comment %} {% comment %} <div class="container mt-5" id="disponibilidad" style="display: none;"> {% endcomment %}
-          {% comment %} <div class="row">  {% endcomment %}
-            {% comment %} <select class="form-control" id='lista_especialidades'> {% endcomment %}
-              {% comment %} <h5>ppp</h5> {% endcomment %}
-              {% comment %} {% for Especialidad in Especialidades %} {% endcomment %}
-                  {% comment %} <option value="{{ Especialidad.id_especiality }}">{{ Especialidad.name_especiality }}</option> {% endcomment %}
-              {% comment %} {% endfor %} {% endcomment %}
-          {% comment %} </select> {% endcomment %}
-            {% comment %} {% include './lista_especialidades.html' %} {% endcomment %}
-            {% comment %} {{ lista_especialidades }} {% endcomment %}
-            {% comment %} {% load lista_especialidades %} {% endcomment %}
-            {% comment %} {% block titulo %}Turnos de Pacientes{% endblock%} {% endcomment %}
-            {% comment %} {% block lista_especialidades %} especialidad{%endblock%} {% endcomment %}
+
         </div>
       </div>
       <div class="card-body">
@@ -71,25 +51,7 @@
 </div>
 </div>
 
-{% comment %} <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const especialitySelect = document.getElementById("id_especialidad");
-    const doctorSelect = document.getElementById("id_doctor");
-    especialitySelect.addEventListener("change", function() {
-      const selectedEspeciality = especialitySelect.value;
-      fetch(`pacientes/doctors/?especialidad_id=${selectedEspeciality}`)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(doctor => {
-            const option = document.createElement("option");
-            option.value = doctor.id;
-            option.textContent = doctor.name;
-            doctorSelect.appendChild(option);
-          });
-        });
-    });
-  });
-</script> {% endcomment %}
+
 
 
 {% endblock content %}

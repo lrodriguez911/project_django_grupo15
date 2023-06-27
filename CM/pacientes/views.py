@@ -203,10 +203,10 @@ def turnos(request):
     especialidades = Especialidad.objects.all()
     pacientes = Paciente.objects.all()
     doctores = serializers.serialize("json", Doctor.objects.all())
-     # doctores = Doctor.objects.all()
+    # doctores = Doctor.objects.all()
     form = TurnosForm(request.POST)
 
-    contexto = {"especialidades": especialidades , "form" : form, "doctores": doctores,"pacientes": pacientes}
+    contexto = {"especialidades": especialidades , "form" : form,"pacientes": pacientes}
     return render(request, "pacientes/turnos.html", contexto)
 
 
@@ -246,7 +246,7 @@ def cartilla(request):
     def en_especialidad(things, especialidad):
         return things.filter(especialidad=especialidad) """
     # queryset
-    especialidades = Especialidad.objects.all()
+    especialidades = serializers.serialize("json", Especialidad.objects.all())
     doctores = serializers.serialize("json", Doctor.objects.all())
     # doctores = Doctor.objects.all()
     form = CartillaEspecialidadForm(request.POST)

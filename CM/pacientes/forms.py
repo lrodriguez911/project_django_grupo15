@@ -229,9 +229,9 @@ class TurnosForm(forms.Form):
     especialidad = forms.ModelChoiceField(
         queryset=Especialidad.objects.all()
       , empty_label='Todas'
-      , widget = forms.Select(attrs = {"onchange" : "formProfesionalesmedicos(this.value,JSON.stringify($docs) );","onload" : "formProfesionalesmedicos(0,0)","class":"form-select"})
+      , widget = forms.Select(attrs = {"onchange" : "formProfesionalesMedicos(this.value);","onload" : "formProfesionalesMedicos(0)","class":"form-select", "id":"select_especialidad"})
       )
-    doctor = forms.ModelChoiceField(queryset=Doctor.objects.all(), empty_label='Seleccione Doctor')
+    doctor = forms.ModelChoiceField(queryset=Doctor.objects.all(), empty_label='Seleccione Doctor',widget = forms.Select(attrs = {"id":"select_doctor"}))
     # def __init__(self, *args, **kwargs):
     #     super(TurnosForm, self).__init__(*args, **kwargs)
     #     # self.fields['doctor'].queryset = Doctor.objects.none()

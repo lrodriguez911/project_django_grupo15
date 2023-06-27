@@ -3,6 +3,8 @@ let doctores = JSON.parse(data?.doctores || null);
 /* let especialidades = JSON.parse(data.especialidades); */
 
 const listadoDoctores = document.getElementById('listado-doctores');
+/* const selectEspecialidades = document.getElementById('select_especialidad');
+const selectDoctores = document.getElementById('select_doctor'); */
 
 function formProfesionales(value) {
     while(listadoDoctores.firstChild){
@@ -25,12 +27,13 @@ function formProfesionales(value) {
   </div>`})
 };
 
-
-function formProfesionalesmedicos(value,docs) {
-  console.log(value);
-  console.log(docs);
-  while(listadoDoctores){
-    console.log(listadoDoctores.nombre )
-    console.log(listadoDoctores.especiality)
-  }
+function formProfesionalesMedicos(value) {
+  /* while(listadoDoctores.firstChild){
+    listadoDoctores.removeChild(listadoDoctores.firstChild);
+} */
+/* selectDoctores.innerHTML += `<option value="${doctor.fields.license}">hola</option>`
+value ? docfilter = doctores.filter(doc => doc.fields.especiality == value) :
+docfilter = doctores;
+docfilter.map(doctor => {
+  selectDoctores.innerHTML += `<option value="${doctor.fields.license}">${doctor.fields.nombre}</option>`}) */
 };
