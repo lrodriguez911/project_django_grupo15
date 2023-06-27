@@ -14,53 +14,63 @@
             </button>
         </div>
     {% endif %}
-    <div class="container">
-    <div class="form-content">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-row">
-                <div class="col-md-5 my-3 p-3">
-                    <img class="rounded-circle account-img img-thumbnail" src="{{ user.paciente.avatar.url }}" />
-                </div>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label class="small mb-1">Nombre de Usuario:</label>
-                            {{ user_form.username }}
-                        <label class="small mb-1">Correo Electronico:</label>
-                            {{ user_form.email }}
-                    </div>
-                    <div class="form-group"></div>
-                        <label class="small mb-1">Nombre:</label> {{ profile_form.nombre }}
-                        <label class="small mb-1">Apellido:</label> {{ profile_form.apellido }}
-                        <label class="small mb-1">DNI:</label> {{ profile_form.dni }}
-                        <label class="small mb-1">Sexo:</label> {{ profile_form.sex }}
-                        <label class="small mb-1">Fecha de Nacimiento:</label> {{ profile_form.birthdate }}
-                        <label class="small mb-1">Telefono:</label> {{ profile_form.phone_number }}
-                        <label class="small mb-1">Direccion:</label> {{ profile_form.address }}
-                        <label class="small mb-1">Ciudad:</label> {{ profile_form.city }}
-                        <label class="small mb-1">Codigo Postal:</label> {{ profile_form.postal }}
-                        <div class="form-check">
-                            {{ profile_form.vip }} 
-                            <label class="small mb-1 form-check-label">Afiliado</label> 
-                            
-                          </div>
-                            
-                            
+<div class="container">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 mt-2">
+                                <label class="small mb-1">Cambiar Avatar:</label>
+                                <img class="rounded-circle account-img img-thumbnail mb-2 ml-3" src="{{ user.paciente.avatar.url }}" />
+                                    {{ profile_form.avatar }}
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label class="small mb-1">Nombre de Usuario:</label>
+                                    {{ user_form.username }}
+                                <label class="small mb-1">Correo Electronico:</label>
+                                    {{ user_form.email }}
+                                <br>
+                                <a href="{% url 'password_change' %}" class="btn btn-primary btn-md mt-2">Cambio de Contraseña</a>
+                            </div>
 
-                    </div>
-                    <div class="form-group">
-                        <a href="{% url 'password_change' %}">Cambio de Contraseña</a>
+                        </div>
+                        
                         <hr>
-                        <label class="small mb-1">Cambiar Avatar:</label>
-                        {{ profile_form.avatar }}
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                    <label class="small mb-1">Nombre:</label> {{ profile_form.nombre }}
+                                    <label class="small mb-1">Apellido:</label> {{ profile_form.apellido }}
+                                    <label class="small mb-1">DNI:</label> {{ profile_form.dni }}
+                                    <label class="small mb-1">Sexo:</label> {{ profile_form.sex }}
+                                    <label class="small mb-1">Fecha de Nacimiento:</label> {{ profile_form.birthdate }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1">Telefono:</label> {{ profile_form.phone_number }}
+                                <label class="small mb-1">Direccion:</label> {{ profile_form.address }}
+                                <label class="small mb-1">Ciudad:</label> {{ profile_form.city }}
+                                <label class="small mb-1">Codigo Postal:</label> {{ profile_form.postal }}
+                                <div class="form-check form-switch mt-4">
+                                    {{ profile_form.vip }}
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">Afiliado</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <br><br>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+
+                            <button type="submit" class="btn btn-success btn-lg">Guardar Cambios</button>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <button type="reset" class="btn btn-dark btn-lg px-5">Reset</button>
+                        </div>
+                        
                     </div>
                     
-                </div>
-            </div>
-            <br><br>
-            <button type="submit" class="btn btn-dark btn-lg">Guardar Cambios</button>
-            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
-        </form>
-    </div>
+                </form>
 </div>
 {% endblock content %}

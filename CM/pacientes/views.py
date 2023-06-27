@@ -254,7 +254,6 @@ def profile(request):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = PacienteForm(instance=request.user.paciente)
 
-    # , 'profile_form': profile_form 'user_form': user_form, 
     return render(request, 'pacientes/profile.html', {'profile_form': profile_form, 'user_form': user_form})
 
 

@@ -101,7 +101,7 @@ class PacienteForm(forms.ModelForm):
     address = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=40)
     city = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=15)
     postal = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}),max_length=10) 
-    vip = forms.BooleanField(widget=forms.CheckboxInput(attrs={"class": "form-check-input", "value": 1}))
+    vip = forms.BooleanField(widget=forms.CheckboxInput(attrs={"class":"form-check-input", "type":"checkbox" ,"id":"flexSwitchCheckDefault", "value": 1}))
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
    
     class Meta:

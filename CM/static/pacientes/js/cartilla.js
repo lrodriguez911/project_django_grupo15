@@ -23,5 +23,4 @@ function formProfesionales(value) {
       </div>
     </div>
   </div>`})
-
 }

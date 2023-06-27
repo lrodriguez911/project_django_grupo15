@@ -39,7 +39,6 @@ body {
     background: var(--white-color);
     font-family: var(--body-font-family);    
     position: relative;
-    /* padding-top: 94px;  */
 }
 
 /*---------------------------------------
@@ -94,12 +93,12 @@ h6 {
   font-size: var(--h6-font-size);
 }
 
-p {
-  color: var(--p-color);
+/* p {
+  color: #4e4e4e;
   font-size: var(--p-font-size);
   font-weight: var(--font-weight-light);
   letter-spacing: 0.5px;
-}
+} */
 
 a, 
 button {
