@@ -42,15 +42,15 @@ class Paciente(Persona):
 
 class Consulta(models.Model):
     id_consulta = models.AutoField(primary_key=True)
-    id_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE,default=1)
-    id_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE,default=1)
-    id_calendario = models.ForeignKey(Calendario, on_delete=models.CASCADE,default=1)
+    id_paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE,default=1,verbose_name="Paciente")
+    id_doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE,default=1, verbose_name="Doctor")
+    id_calendario = models.ForeignKey(Calendario, on_delete=models.CASCADE,default=1, verbose_name="Calendario")
     # date = models.DateField()
     # time_start = models.TimeField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    attended = models.BooleanField(default=False)
-    observations = models.TextField(default=None, null=True, blank=True)
+    attended = models.BooleanField(default=False, verbose_name="Asistio?")
+    observations = models.TextField(default=None, null=True, blank=True, verbose_name="Observaciones")
 
     def __str__(self):
         return self.id_paciente.nombre +" " +self.id_paciente.apellido + " consulta con Dr: " + self.id_doctor.nombre+ " " +self.id_doctor.apellido

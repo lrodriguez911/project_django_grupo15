@@ -68,8 +68,8 @@ class EspecialidadAdmin(admin.ModelAdmin):
     #exclude = ('baja',)
 
     # listado que se quiere mostrar
-    def get_queryset(self, request):
-        query = super(EspecialidadAdmin, self).get_queryset(request)
+    #def get_queryset(self, request):
+    #    query = super(EspecialidadAdmin, self).get_queryset(request)
        # filtered_query = query.filter(baja=False)
        # return filtered_query
        #return query
@@ -106,10 +106,13 @@ class ConsultaAdmin(admin.ModelAdmin):
    def get_hora (self,obj):
        return obj.id_calendario.hour 
    
+   def get_doctorid(self,obj):
+       return obj.id_doctor.user_id
+   
    #mostrar solo horarios de calendarios disponibles
    def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "id_calendario":
-            kwargs["queryset"] = Calendario.objects.filter(available=True)
+            kwargs["queryset"] = Calendario.objects.filter(available=True )
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
    
 
@@ -118,8 +121,12 @@ class ConsultaAdmin(admin.ModelAdmin):
 
 
 #permite mostrar y editar modelos relacionados en línea dentro de la interfaz de administración de otro modelo     
-class ConsultaInline(admin.TabularInline):
+class ConsultaInline(admin.StackedInline):
     model = Consulta
+    extra = 0
+
+
+    
 
 #agregar la funcionalidad de creación de instancias de Inscripcion
 class PacienteAdmin(admin.ModelAdmin):
@@ -138,6 +145,8 @@ class PacienteAdmin(admin.ModelAdmin):
     list_filter = [ 'apellido' , 'dni'] #campos para filtros
     
     ordering = ['apellido' ]   
+    
+    readonly_fields = ['user']
     
     inlines = [
         ConsultaInline,
