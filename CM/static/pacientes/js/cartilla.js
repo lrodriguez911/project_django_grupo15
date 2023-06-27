@@ -23,5 +23,14 @@ function formProfesionales(value) {
       </div>
     </div>
   </div>`})
+};
 
-}
+
+function formProfesionalesmedicos(value,docs) {
+  console.log(value);
+  console.log(docs);
+  while(listadoDoctores){
+    console.log(listadoDoctores.nombre )
+    console.log(listadoDoctores.especiality)
+  }
+};

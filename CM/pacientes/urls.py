@@ -9,6 +9,8 @@ from .views import (
     ResetPasswordView,
     ChangePasswordView,
     profile,
+    DoctorAjaxView,
+    AppointmentView,
 )
 from pacientes.forms import LoginForm
 
@@ -23,7 +25,8 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("contacto/", views.contacto, name="contacto"),
     path("pacientes/", views.home_pac, name="home_pac"),
-    path("pacientes/turnos/", views.turnos, name="turnos"),
+    path("pacientes/turnos/", AppointmentView.as_view(), name="turnos"),
+    path('pacientes/turnos/pacientes/doctors/', DoctorAjaxView.as_view(), name='doctors'),
     path("pacientes/cartilla/", views.cartilla, name="cartilla"),
     path("pacientes/datos_pacientes/", views.datos_pacientes, name="datos_pacientes"),
     path(
@@ -91,6 +94,6 @@ urlpatterns = [
         views.lista_especialidades,
         name="lista_especialidades",
     ),
-    path("especialidades/", especialidades_api, name="especialidades_api"),
+#     path("especialidades/", especialidades_api, name="especialidades_api"),
     # path('pacientes/', ListaEspecalidades.as_view(template_name = "pacientes/lista_detalles.html"), name='Listaespecialidades'),
 ]
