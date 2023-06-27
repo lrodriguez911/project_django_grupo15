@@ -10,10 +10,11 @@ from django.views.generic import ListView
 from django.views import View
 from django.core import serializers
 
-from pacientes.forms import ContactoForm, RegisterForm , PacienteForm , CartillaEspecialidadForm , LoginForm
+from pacientes.forms import ContactoForm, RegisterForm , PacienteForm 
+from pacientes.forms import TurnosForm, LoginForm, CartillaEspecialidadForm
 from .forms import PacienteForm, UpdateUserForm
 from pacientes.models import Paciente
-from doctores.models import Doctor, Especialidad,Usuario
+from doctores.models import Doctor, Especialidad,Usuario,Calendario
 
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -193,9 +194,47 @@ def pacientes_reactivar(request, usuario_id):
 
 
 def turnos(request):
-    # queryset
+    pass
+#     # queryset
+#     """ @register.filter
+#     def en_especialidad(things, especialidad):
+#         return things.filter(especialidad=especialidad) """
+#     # queryset
+    especialidades = Especialidad.objects.all()
     pacientes = Paciente.objects.all()
-    return render(request, "pacientes/turnos.html", {"pacientes": pacientes})
+    doctores = serializers.serialize("json", Doctor.objects.all())
+    # doctores = Doctor.objects.all()
+    form = TurnosForm(request.POST)
+
+    contexto = {"especialidades": especialidades , "form" : form,"pacientes": pacientes}
+    return render(request, "pacientes/turnos.html", contexto)
+
+
+
+class AppointmentView(View):
+    def get(self, request):
+        form = TurnosForm()
+        return render(request, 'pacientes/turnos.html', {'form': form})
+
+    def post(self, request):
+        form = TurnosForm(request.POST)
+        if form.is_valid():
+            especiality = form.cleaned_data['especialidad']
+            doctor = form.cleaned_data['doctor']
+            appointments = Calendario.objects.filter(id_doc=doctor)
+            return render(request, 'pacientes/turnos.html', {'appointments': appointments})
+
+        return render(request, 'pacientes/turnos.html', {'form': form})
+class DoctorAjaxView(View):
+    def get(self, request):
+        especiality_id = request.GET.get('especiality_id')
+        print("--")
+        if especiality_id:
+            doctors = Doctor.objects.filter(especiality_id=especiality_id)
+            data = [{'id': doctor.pk, 'name': str(doctor)} for doctor in doctors]
+            return JsonResponse(data, safe=False)
+
+        return JsonResponse([], safe=False)
 
 
 """ CARTILLA"""
@@ -207,7 +246,7 @@ def cartilla(request):
     def en_especialidad(things, especialidad):
         return things.filter(especialidad=especialidad) """
     # queryset
-    especialidades = Especialidad.objects.all()
+    especialidades = serializers.serialize("json", Especialidad.objects.all())
     doctores = serializers.serialize("json", Doctor.objects.all())
     # doctores = Doctor.objects.all()
     form = CartillaEspecialidadForm(request.POST)
@@ -254,7 +293,6 @@ def profile(request):
         user_form = UpdateUserForm(instance=request.user)
         profile_form = PacienteForm(instance=request.user.paciente)
 
-    # , 'profile_form': profile_form 'user_form': user_form, 
     return render(request, 'pacientes/profile.html', {'profile_form': profile_form, 'user_form': user_form})
 
 
