@@ -1,14 +1,13 @@
-from django import forms
-from django.forms import ValidationError
 import re
 
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm ,  AuthenticationForm 
-from django.core.exceptions import ValidationError 
+from django.core.exceptions import ValidationError
+from django.forms import ValidationError
+from doctores.models import Doctor, Especialidad, Usuario
+from pacientes.models import Consulta, Paciente
 
-from pacientes.models import Paciente, Consulta
-from doctores.models import Especialidad, Doctor, Usuario
- 
 
 def solo_caracteres(value):
     if any(char.isdigit() for char in value):
@@ -223,5 +222,17 @@ class CartillaEspecialidadForm(forms.Form):
         required = False,
         queryset=Especialidad.objects.all(),
         widget = forms.Select(attrs = {"onchange" : "formProfesionales(this.value);","onload" : "formProfesionales(0)","class":"form-select"}))
-    
-    
+    pass
+
+class TurnosForm(forms.Form):
+    docs = Doctor.objects.all()
+    especialidad = forms.ModelChoiceField(
+        queryset=Especialidad.objects.all()
+      , empty_label='Todas'
+      , widget = forms.Select(attrs = {"onchange" : "formProfesionalesmedicos(this.value,JSON.stringify($docs) );","onload" : "formProfesionalesmedicos(0,0)","class":"form-select"})
+      )
+    doctor = forms.ModelChoiceField(queryset=Doctor.objects.all(), empty_label='Seleccione Doctor')
+    # def __init__(self, *args, **kwargs):
+    #     super(TurnosForm, self).__init__(*args, **kwargs)
+    #     # self.fields['doctor'].queryset = Doctor.objects.none()
+    #     self.fields['especialidad'].widget.attrs.update({'onchange':  "formProfesionalesmedicos(this.value);","onload" : "formProfesionalesmedicos(0)"})
